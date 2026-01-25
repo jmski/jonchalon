@@ -73,7 +73,7 @@ export default function Projects() {
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="mb-16">
-          <h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r text-transparent bg-clip-text mb-4" style={{fontFamily: 'var(--font-press-start)', backgroundImage: 'linear-gradient(to right, #5FDBFD, #80EED3)'}}>
+          <h1 className="text-5xl sm:text-6xl font-black bg-linear-to-r text-transparent bg-clip-text mb-4" style={{fontFamily: 'var(--font-press-start)', backgroundImage: 'linear-gradient(to right, #5FDBFD, #80EED3)'}}>
             Projects
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 font-semibold max-w-2xl" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
@@ -99,7 +99,7 @@ export default function Projects() {
                   }}
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   <button className="pokemon-button w-full">
                     VIEW PROJECT
                   </button>

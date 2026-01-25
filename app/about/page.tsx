@@ -1,117 +1,160 @@
 import Navbar from "@/components/Navbar";
+import ScrollFade from "@/components/ScrollFade";
+
+export const metadata = {
+  title: "About | Jon",
+  description: "Dancer, content creator, and otaku. Connecting movement, creativity, and community."
+};
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       <Navbar />
       
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r text-transparent bg-clip-text mb-4" style={{fontFamily: 'var(--font-press-start)', backgroundImage: 'linear-gradient(to right, #5FDBFD, #80EED3)'}}>
-            About Me
-          </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-300 font-semibold max-w-2xl" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-            Crafting elegant solutions through code and design.
-          </p>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero */}
+        <div className="py-20 sm:py-28">
+          <ScrollFade>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6" style={{fontFamily: 'Georgia, serif'}}>
+              About Me
+            </h1>
+            <p className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
+              Dancer, content creator, and lifelong otaku. I create at the intersection of movement, creativity, and community.
+            </p>
+          </ScrollFade>
         </div>
 
-        {/* Bio Card */}
-        <div className="pokemon-card p-8 sm:p-10 mb-8">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4" style={{fontFamily: 'var(--font-press-start)', fontSize: '1.125rem'}}>
-            Hello! I'm Jon
-          </h2>
-          <div className="space-y-4 text-slate-700 dark:text-slate-300" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-            <p className="leading-relaxed">
-              I'm a full-stack developer with a passion for building beautiful, functional web applications. With expertise spanning frontend and backend technologies, I create end-to-end solutions that delight users and solve real problems.
-            </p>
-            <p className="leading-relaxed">
-              My journey in tech has been driven by curiosity and a commitment to continuous learning. I stay current with industry trends and best practices, always exploring new technologies and methodologies to improve my craft.
-            </p>
-            <p className="leading-relaxed">
-              When I'm not coding, you'll find me exploring design trends, contributing to open-source projects, or staying updated on the latest web technologies.
-            </p>
-          </div>
-        </div>
+        {/* Story Section */}
+        <section className="mb-20">
+          <ScrollFade>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8" style={{fontFamily: 'Georgia, serif'}}>
+              The Journey
+            </h2>
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-6">
+                I grew up with two passions: dance and otaku culture. What started as hip-hop lessons in high school evolved into a lifestyle—I'm obsessed with movement as a form of expression and storytelling. Whether it's choreographing to the latest K-pop release or freestyling to underground beats, dance is where I feel most alive.
+              </p>
+              <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-6">
+                Outside of dance, I'm that person who builds Gundam models with meticulous care and collects Pokémon cards like they're going out of style. My hobby photography and model documentation have built a small but passionate community of fellow creators and collectors.
+              </p>
+              <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-6">
+                The natural evolution was content creation. YouTube, TikTok, and Instagram became platforms to share my passions—both dance and hobbies—with people around the world. Over the years, this opened doors to brand collaborations, event performances, and creative partnerships I never expected.
+              </p>
+              <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed">
+                Today, I'm focused on building authentic partnerships where brands and creators can collaborate meaningfully. I believe in quality over quantity, and every collaboration should be something I genuinely believe in and am excited to share with my community.
+              </p>
+            </div>
+          </ScrollFade>
+        </section>
 
-        {/* Skills and Interests Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="pokemon-card p-8">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6" style={{fontFamily: 'var(--font-press-start)', fontSize: '1.125rem'}}>Skills</h3>
-            <ul className="space-y-3" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#5FDBFD'}}>✓</span>
-                <span className="text-slate-700 dark:text-slate-300">React & TypeScript</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#5FDBFD'}}>✓</span>
-                <span className="text-slate-700 dark:text-slate-300">Next.js 16</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#5FDBFD'}}>✓</span>
-                <span className="text-slate-700 dark:text-slate-300">Tailwind CSS</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#5FDBFD'}}>✓</span>
-                <span className="text-slate-700 dark:text-slate-300">Full-Stack Development</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#5FDBFD'}}>✓</span>
-                <span className="text-slate-700 dark:text-slate-300">Database Design</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#5FDBFD'}}>✓</span>
-                <span className="text-slate-700 dark:text-slate-300">UI/UX Design</span>
-              </li>
-            </ul>
+        {/* Skills & Expertise */}
+        <section className="mb-20">
+          <ScrollFade>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8" style={{fontFamily: 'Georgia, serif'}}>
+              What I Do
+            </h2>
+          </ScrollFade>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Dance & Movement",
+                items: [
+                  "✓ Choreography & Choreographing",
+                  "✓ Freestyle & Improvisation",
+                  "✓ Performance & Events",
+                  "✓ Dance Tutorials & Breakdowns",
+                  "✓ Music Video Work"
+                ]
+              },
+              {
+                title: "Content Creation",
+                items: [
+                  "✓ Video Production & Editing",
+                  "✓ Photography & Photo Documentation",
+                  "✓ Multi-platform Content Strategy",
+                  "✓ Brand Partnerships & Sponsorships",
+                  "✓ Community Engagement"
+                ]
+              },
+              {
+                title: "Hobby Expertise",
+                items: [
+                  "✓ Gunpla Building & Photography",
+                  "✓ Model Restoration & Custom Work",
+                  "✓ Pokémon Card Collecting",
+                  "✓ Collection Documentation",
+                  "✓ Hobby Content Creation"
+                ]
+              },
+              {
+                title: "Business",
+                items: [
+                  "✓ Collaboration Planning",
+                  "✓ Event Coordination",
+                  "✓ Project Management",
+                  "✓ Analytics & Growth",
+                  "✓ Brand Strategy"
+                ]
+              }
+            ].map((section, idx) => (
+              <ScrollFade key={idx} delay={idx * 100}>
+                <div className="p-8 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-3 text-slate-700 dark:text-slate-300">
+                    {section.items.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollFade>
+            ))}
           </div>
+        </section>
 
-          <div className="pokemon-card p-8">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6" style={{fontFamily: 'var(--font-press-start)', fontSize: '1.125rem'}}>Interests</h3>
-            <ul className="space-y-3" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#F9C62C'}}>★</span>
-                <span className="text-slate-700 dark:text-slate-300">Web Design & UX</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#F9C62C'}}>★</span>
-                <span className="text-slate-700 dark:text-slate-300">Open Source</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#F9C62C'}}>★</span>
-                <span className="text-slate-700 dark:text-slate-300">Cloud Technologies</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#F9C62C'}}>★</span>
-                <span className="text-slate-700 dark:text-slate-300">AI & Machine Learning</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#F9C62C'}}>★</span>
-                <span className="text-slate-700 dark:text-slate-300">Performance Optimization</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span style={{color: '#F9C62C'}}>★</span>
-                <span className="text-slate-700 dark:text-slate-300">Tech Communities</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        {/* Philosophy */}
+        <section className="mb-20 bg-amber-50 dark:bg-amber-900/20 p-12 rounded-lg border border-amber-200 dark:border-amber-700">
+          <ScrollFade>
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6" style={{fontFamily: 'Georgia, serif'}}>
+              My Philosophy
+            </h2>
+            <div className="space-y-4 text-slate-700 dark:text-slate-300 text-lg">
+              <p>
+                <strong>Authenticity First:</strong> I only create content and partnerships that align with my values and interests. My audience can tell when something's genuine.
+              </p>
+              <p>
+                <strong>Quality Over Quantity:</strong> Whether it's a 10-second dance clip or a 20-minute build timelapse, every piece of content gets full attention and care.
+              </p>
+              <p>
+                <strong>Community Matters:</strong> My followers aren't just numbers—they're creative people who love dance, gaming, and otaku culture. I build with them, not at them.
+              </p>
+              <p>
+                <strong>Keep Growing:</strong> Every day is a chance to get better at my craft, learn new skills, and push creative boundaries.
+              </p>
+            </div>
+          </ScrollFade>
+        </section>
 
-        {/* Journey Section */}
-        <div className="pokemon-card p-8 sm:p-10">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6" style={{fontFamily: 'var(--font-press-start)', fontSize: '1.125rem'}}>My Journey</h2>
-          <div className="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-            <p>
-              My path in technology started with a passion for problem-solving and creating elegant solutions. Since then, I've worked on diverse projects ranging from personal initiatives to collaborative applications with impact.
-            </p>
-            <p>
-              I'm constantly evolving my skillset, staying updated with industry best practices, and contributing to the developer community. Every project is an opportunity to learn something new and deliver exceptional value.
-            </p>
-            <p>
-              My goal is to use technology as a tool to create meaningful experiences and solve real-world problems. Let's build something amazing together.
-            </p>
-          </div>
-        </div>
+        {/* CTA Section */}
+        <section className="py-20 border-t border-slate-200 dark:border-slate-700">
+          <ScrollFade>
+            <div className="text-center">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4" style={{fontFamily: 'Georgia, serif'}}>
+                Let's Create Something Together
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
+                Whether it's a dance collaboration, hobby content, or brand partnership, I'd love to hear your ideas.
+              </p>
+              <a
+                href="/collaborations"
+                className="inline-block bg-amber-900 dark:bg-amber-800 hover:bg-amber-950 dark:hover:bg-amber-900 text-white px-8 py-4 rounded-lg font-bold transition-colors"
+              >
+                Explore Collaborations
+              </a>
+            </div>
+          </ScrollFade>
+        </section>
       </main>
     </div>
   );

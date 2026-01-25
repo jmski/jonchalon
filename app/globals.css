@@ -1,68 +1,58 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Sour+Gummy:wght@400;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  /* New Color Palette */
-  --cyan: #5fdbfd;
-  --pale-yellow: #f4eba7;
-  --golden-yellow: #f9c62c;
-  --mint: #80eed3;
-  --turquoise: #00e3b5;
-  --black: #131313;
+  /* Brown & Dark Orange Palette */
+  --accent-primary: #92400e; /* Dark brown - trust, warmth */
+  --accent-secondary: #ea580c; /* Rich orange - energy, creativity */
+
+  /* Neutrals */
+  --slate-900: #0f172a; /* Deep charcoal */
+  --slate-700: #334155; /* Muted text */
+  --slate-500: #64748b; /* Light secondary text */
   --white: #ffffff;
 
-  /* Background colors */
-  --bg-primary: #f8f9ff;
-  --bg-secondary: #ffffff;
-  --foreground: #131313;
-  --text-muted: #6b7492;
+  /* Backgrounds */
+  --bg-light: #ffffff;
+  --bg-muted: #f8fafc;
 
-  /* Glass effect */
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  /* Borders & Shadows */
+  --border: #e2e8f0;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
 
-  /* Font families */
-  --font-press-start: "Press Start 2P", cursive;
-  --font-airbnb-cereal: "Sour Gummy", "Airbnb Cereal", sans-serif;
+  /* Fonts */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Georgia", "Garamond", serif;
 }
 
 @theme inline {
-  --color-background: var(--bg-primary);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-airbnb-cereal);
-  --font-mono: var(--font-press-start);
+  --color-background: var(--bg-light);
+  --color-foreground: var(--slate-900);
+  --font-sans: var(--font-sans);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2a2a2a;
-    --foreground: #ffffff;
-    --text-muted: #a0b0d0;
-    --glass-bg: rgba(26, 26, 26, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --slate-900: #ffffff;
+    --slate-700: #e2e8f0;
+    --bg-light: #1e293b;
+    --bg-muted: #0f172a;
+    --border: #334155;
+    --accent-primary: #b45309; /* Lighter brown for dark mode */
+    --accent-secondary: #f97316; /* Brighter orange for dark mode */
   }
 }
 
-/* Modern Pokedex UI styles */
+/* Professional minimal styles */
 body {
-  background-color: var(--bg-primary);
-  color: var(--foreground);
+  background-color: var(--bg-light);
+  color: var(--slate-900);
+  font-family: var(--font-sans);
   transition: background-color 0.3s ease;
 }
 
-/* Page transition animations */
-@keyframes pageIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Subtle animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -72,157 +62,148 @@ body {
   }
 }
 
-/* Apply page transition to main content */
-main {
-  animation: pageIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-header {
-  animation: pageIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-nav {
-  animation: fadeIn 0.4s ease-out;
-}
-
-/* Animation utility class */
 .animate-fadeIn {
-  animation: fadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: fadeIn 0.6s ease-out;
 }
 
-/* Glassmorphism card effect */
-.pokemon-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+.animate-slideInUp {
+  animation: slideInUp 0.8s ease-out;
 }
 
-.pokemon-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-  background: var(--glass-bg);
+.animate-slideInDown {
+  animation: slideInDown 0.6s ease-out;
 }
 
-.pokemon-card:active {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+/* Clean card style */
+.card {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
 }
 
-/* Modern button style */
-.pokemon-button {
-  background: linear-gradient(135deg, var(--golden-yellow), var(--pale-yellow));
-  color: #131313;
-  border: none;
-  border-radius: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 16px rgba(249, 198, 44, 0.3);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+.card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+}
+
+/* Primary button */
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
   padding: 12px 24px;
-  font-size: 1rem;
-  font-family: var(--font-press-start);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
 }
 
-.pokemon-button:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 28px rgba(249, 198, 44, 0.5);
-  background: linear-gradient(135deg, var(--golden-yellow), var(--turquoise));
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-.pokemon-button:active {
-  transform: translateY(-2px) scale(0.98);
-  box-shadow: 0 6px 12px rgba(249, 198, 44, 0.3);
+/* Secondary button */
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-primary);
+  padding: 12px 24px;
+  border: 2px solid var(--accent-primary);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.pokemon-button:focus {
-  outline: 3px solid var(--cyan);
-  outline-offset: 3px;
+.btn-secondary:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: translateY(-1px);
 }
 
-/* Link transitions */
+/* Badge */
+.badge {
+  display: inline-block;
+  background: var(--accent-secondary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Video container - 16:9 aspect ratio */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--slate-900);
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Link styles */
 a {
-  transition:
-    color 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-    text-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* Navigation link hover effects */
-nav a:hover {
-  transform: translateY(-2px);
+a:hover {
+  color: var(--accent-secondary);
 }
 
-nav a:active {
-  transform: translateY(0);
-}
-
-/* Form input transitions */
+/* Form inputs */
 input,
 textarea,
 select {
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  font-family: var(--font-sans);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  transform: scale(1.01);
-  box-shadow: 0 0 0 3px rgba(95, 219, 253, 0.2) !important;
-}
-
-input:hover,
-textarea:hover,
-select:hover {
-  border-color: var(--cyan) !important;
-}
-
-/* Modern badge style */
-.pokemon-badge {
-  display: inline-block;
-  background: rgba(90, 159, 212, 0.2);
-  color: var(--cyan);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.875rem;
-  border: 1px solid var(--cyan);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.pokemon-badge:hover {
-  background: var(--cyan);
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(95, 219, 253, 0.3);
-}
-
-.pokemon-badge:active {
-  transform: scale(0.95);
-}
-
-/* Smooth gradient overlays */
-.gradient-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(106, 213, 225, 0.1),
-    rgba(216, 145, 248, 0.1)
-  );
-  backdrop-filter: blur(8px);
-}
-
-/* Enhanced focus states for accessibility */
-.pokemon-button:focus,
-.pokemon-card:focus {
-  outline: 2px solid var(--blue-soft);
-  outline-offset: 2px;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }

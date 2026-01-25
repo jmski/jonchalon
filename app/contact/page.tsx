@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import Navbar from "@/components/Navbar";
+import ScrollFade from "@/components/ScrollFade";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
@@ -22,79 +22,96 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd send this data to a server
     console.log('Form submitted:', formData);
     setSubmitted(true);
     setTimeout(() => {
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', message: '' });
       setSubmitted(false);
     }, 3000);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       <Navbar />
       
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl sm:text-6xl font-black bg-gradient-to-r text-transparent bg-clip-text mb-4" style={{fontFamily: 'var(--font-press-start)', backgroundImage: 'linear-gradient(to right, #5FDBFD, #80EED3)'}}>
-            Let's Connect
-          </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-300 font-semibold max-w-2xl" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-            Have a project in mind? Let's discuss how I can help bring your ideas to life.
-          </p>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero */}
+        <div className="py-20 sm:py-28">
+          <ScrollFade>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6" style={{fontFamily: 'Georgia, serif'}}>
+              Get in Touch
+            </h1>
+            <p className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl">
+              Have a collaboration idea, sponsorship opportunity, or just want to chat? I'd love to hear from you.
+            </p>
+          </ScrollFade>
         </div>
 
-        {/* Contact Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="pokemon-card p-6 text-center">
-            <div className="text-4xl mb-4">📧</div>
-            <h3 className="font-bold text-slate-900 dark:text-white mb-2" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>Email</h3>
-            <p className="text-slate-600 dark:text-slate-300 font-semibold" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              contact@jonchalon.dev
-            </p>
-          </div>
+        {/* Contact Options */}
+        <section className="mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ScrollFade delay={0}>
+              <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center">
+                <div className="text-4xl mb-4">📧</div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Email
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">
+                  jmski.dev@gmail.com
+                </p>
+              </div>
+            </ScrollFade>
 
-          <div className="pokemon-card p-6 text-center">
-            <div className="text-4xl mb-4">📱</div>
-            <h3 className="font-bold text-slate-900 dark:text-white mb-2" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>Phone</h3>
-            <p className="text-slate-600 dark:text-slate-300 font-semibold" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              (555) 123-4567
-            </p>
-          </div>
+            <ScrollFade delay={100}>
+              <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center">
+                <div className="text-4xl mb-4">🎥</div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  YouTube
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">
+                  @jonchalon
+                </p>
+              </div>
+            </ScrollFade>
 
-          <div className="pokemon-card p-6 text-center">
-            <div className="text-4xl mb-4">🌐</div>
-            <h3 className="font-bold text-slate-900 dark:text-white mb-2" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>Social</h3>
-            <div className="space-y-1 text-sm text-slate-600 dark:text-slate-300 font-semibold" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              <p>Twitter / X</p>
-              <p>LinkedIn</p>
-            </div>
+            <ScrollFade delay={200}>
+              <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center">
+                <div className="text-4xl mb-4">📱</div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Instagram
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">
+                  @jonchalon
+                </p>
+              </div>
+            </ScrollFade>
           </div>
-        </div>
+        </section>
 
         {/* Contact Form */}
-        <div className="pokemon-card p-8 sm:p-10">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8" style={{fontFamily: 'var(--font-press-start)', fontSize: '1.125rem'}}>
-            Send a Message
-          </h2>
+        <section className="mb-20">
+          <ScrollFade>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8" style={{fontFamily: 'Georgia, serif'}}>
+              Send a Message
+            </h2>
+          </ScrollFade>
 
           {submitted ? (
-            <div className="bg-gradient-to-r from-cyan-100 to-mint-100 dark:from-cyan-900/30 dark:to-mint-900/30 border border-cyan-200 dark:border-cyan-700 p-8 rounded-xl text-center animate-fadeIn">
-              <p className="text-3xl mb-3 animate-pulse">✨</p>
-              <p className="text-xl font-bold bg-gradient-to-r text-transparent bg-clip-text mb-2" style={{backgroundImage: 'linear-gradient(to right, #5FDBFD, #80EED3)'}}>
-                Message Sent!
-              </p>
-              <p className="text-slate-600 dark:text-slate-300 font-semibold" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-                Thanks for reaching out. I'll get back to you within 24 hours.
-              </p>
-            </div>
+            <ScrollFade>
+              <div className="p-12 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg text-center">
+                <p className="text-3xl mb-4">✨</p>
+                <h3 className="text-2xl font-bold text-green-900 dark:text-green-100 mb-2">
+                  Message Sent!
+                </h3>
+                <p className="text-green-800 dark:text-green-200">
+                  Thanks for reaching out. I'll get back to you within 24 hours.
+                </p>
+              </div>
+            </ScrollFade>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 animate-fadeIn">
-              {/* Name Field */}
+            <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
               <div>
-                <label className="block font-semibold text-slate-900 dark:text-white mb-3" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>
+                <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
                   Name
                 </label>
                 <input
@@ -103,15 +120,13 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 rounded-lg text-slate-900 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 hover:border-cyan-300 focus:scale-[1.02]"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
                   placeholder="Your name"
-                  style={{fontFamily: 'var(--font-airbnb-cereal)'}}
                 />
               </div>
 
-              {/* Email Field */}
               <div>
-                <label className="block font-semibold text-slate-900 dark:text-white mb-3" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>
+                <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
                   Email
                 </label>
                 <input
@@ -120,32 +135,13 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 rounded-lg text-slate-900 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 hover:border-cyan-300 focus:scale-[1.02]"
-                  placeholder="your@email.com"
-                  style={{fontFamily: 'var(--font-airbnb-cereal)'}}
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+                  placeholder="you@example.com"
                 />
               </div>
 
-              {/* Subject Field */}
               <div>
-                <label className="block font-semibold text-slate-900 dark:text-white mb-3" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 rounded-lg text-slate-900 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 hover:border-cyan-300 focus:scale-[1.02]"
-                  placeholder="What's this about?"
-                  style={{fontFamily: 'var(--font-airbnb-cereal)'}}
-                />
-              </div>
-
-              {/* Message Field */}
-              <div>
-                <label className="block font-semibold text-slate-900 dark:text-white mb-3" style={{fontFamily: 'var(--font-press-start)', fontSize: '0.875rem'}}>
+                <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
                   Message
                 </label>
                 <textarea
@@ -154,43 +150,32 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 rounded-lg text-slate-900 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 hover:border-cyan-300 focus:scale-[1.02] resize-none"
-                  placeholder="Your message here..."
-                  style={{fontFamily: 'var(--font-airbnb-cereal)'}}
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+                  placeholder="Tell me about your idea..."
                 />
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
-                className="pokemon-button w-full text-lg py-4"
+                className="w-full bg-amber-900 dark:bg-amber-800 hover:bg-amber-950 dark:hover:bg-amber-900 text-white font-bold py-3 px-6 rounded-lg transition-colors"
               >
                 Send Message
               </button>
             </form>
           )}
-        </div>
+        </section>
 
-        {/* Additional Info */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
-          <div className="pokemon-card p-8 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 hover:from-blue-500/15 hover:to-cyan-500/15 transition-all duration-300">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-300">
-              ⚡ Quick Response
+        {/* Response Time */}
+        <ScrollFade>
+          <div className="p-12 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg text-center">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+              Quick Response
             </h3>
-            <p className="text-slate-600 dark:text-slate-300 font-semibold leading-relaxed transition-colors duration-300" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              I typically respond to messages within 24 hours. Let's discuss how I can help with your next project.
+            <p className="text-slate-700 dark:text-slate-300">
+              I typically respond to messages within 24 hours.
             </p>
           </div>
-
-          <div className="pokemon-card p-8 bg-gradient-to-br from-purple-500/10 to-pink-500/10 hover:from-purple-500/15 hover:to-pink-500/15 transition-all duration-300">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-300">
-              🚀 Available For
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300 font-semibold leading-relaxed transition-colors duration-300" style={{fontFamily: 'var(--font-airbnb-cereal)'}}>
-              Freelance projects • Web development • Consulting • Open source contributions
-            </p>
-          </div>
-        </div>
+        </ScrollFade>
       </main>
     </div>
   );

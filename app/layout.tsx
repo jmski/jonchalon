@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Jonchalon | Pokemon-Inspired Portfolio",
-  description: "Explore my projects and work inspired by classic Pokemon games",
+  title: "Jon | Dancer, Content Creator & Collaborator",
+  description: "Professional brand hub showcasing dance portfolio, hobby content, and collaboration opportunities",
 };
 
 export default function RootLayout({

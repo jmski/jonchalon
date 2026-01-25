@@ -1,48 +1,92 @@
+'use client';
+
 import Link from 'next/link';
+import { useCallback, useState } from 'react';
+
+const LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Dance', href: '/dance' },
+  { label: 'Showcase', href: '/showcase' },
+  { label: 'Collaborations', href: '/collaborations' },
+  { label: 'Media Kit', href: '/media-kit' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+] as const;
+
+const LINK_STYLES = 'text-slate-700 dark:text-slate-300 hover:text-amber-900 dark:hover:text-amber-400 transition-colors text-sm font-medium';
+
+function MenuIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  );
+}
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = useCallback(() => setIsOpen(prev => !prev), []);
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700/50">
+    <nav className="sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="shrink-0">
-            <h1 className="text-2xl font-black bg-linear-to-r from-cyan-400 to-emerald-500 bg-clip-text text-transparent" style={{fontFamily: 'var(--font-press-start)'}}>
-              JONCHALON
-            </h1>
+          {/* Logo */}
+          <Link
+            href="/"
+            className="font-bold text-xl text-slate-900 dark:text-white hover:text-amber-900 dark:hover:text-amber-400 transition-colors"
+          >
+            Jonchalon
+          </Link>
+
+          {/* Navigation Links - Desktop */}
+          <div className="hidden md:flex items-center gap-8">
+            {LINKS.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={LINK_STYLES}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
-          <div className="flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-slate-700 dark:text-slate-300 font-semibold hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-300 hover:scale-105 active:scale-95 relative" style={{fontFamily: 'var(--font-airbnb-cereal)'}}
-            >
-              HOME
-            </Link>
-            <Link
-              href="/about"
-              className="text-slate-700 dark:text-slate-300 font-semibold hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-300 hover:scale-105 active:scale-95 relative" style={{fontFamily: 'var(--font-airbnb-cereal)'}}
-            >
-              ABOUT
-            </Link>
-            <Link
-              href="/projects"
-              className="text-slate-700 dark:text-slate-300 font-semibold hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-300 hover:scale-105 active:scale-95 relative" style={{fontFamily: 'var(--font-airbnb-cereal)'}}
-            >
-              PROJECTS
-            </Link>
-            <Link
-              href="/blog"
-              className="text-slate-700 dark:text-slate-300 font-semibold hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-300 hover:scale-105 active:scale-95 relative" style={{fontFamily: 'var(--font-airbnb-cereal)'}}
-            >
-              BLOG
-            </Link>
-            <Link
-              href="/contact"
-              className="pokemon-button"
-            >
-              CONTACT
-            </Link>
-          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden text-slate-900 dark:text-white p-2 transition-transform duration-300"
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden pb-4 border-t border-slate-200 dark:border-slate-800">
+            {LINKS.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={closeMenu}
+                className={`block py-2 ${LINK_STYLES}`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );
