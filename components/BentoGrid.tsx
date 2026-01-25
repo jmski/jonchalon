@@ -3,12 +3,42 @@ import FeaturedCard from "./FeaturedCard";
 import Card from "./Card";
 
 const gridCards = [
-  { title: "Design", description: "Beautiful and modern" },
-  { title: "Responsive", description: "Works on all devices" },
-  { title: "Fast", description: "Optimized performance" },
-  { title: "Flexible", description: "Customize easily" },
-  { title: "Modern", description: "Latest technologies" },
-  { title: "Scalable", description: "Grows with your needs" },
+  { 
+    title: "Design", 
+    description: "Beautiful and intuitive user interfaces",
+    expandedContent: "I create designs that prioritize user experience, combining modern aesthetics with functional layouts.",
+    icon: "🎨"
+  },
+  { 
+    title: "Development", 
+    description: "Clean, scalable code",
+    expandedContent: "Building robust applications with React, TypeScript, and Next.js, following best practices and modern patterns.",
+    icon: "💻"
+  },
+  { 
+    title: "Full Stack", 
+    description: "End-to-end solutions",
+    expandedContent: "From database architecture to polished UI, I handle complete project lifecycles with expertise.",
+    icon: "🚀"
+  },
+  { 
+    title: "Performance", 
+    description: "Lightning-fast applications",
+    expandedContent: "Optimization is key. I ensure smooth, responsive experiences with best practices for speed and efficiency.",
+    icon: "⚡"
+  },
+  { 
+    title: "Modern Stack", 
+    description: "Next.js, React & TypeScript",
+    expandedContent: "Expert in the latest web technologies and frameworks, staying current with industry trends.",
+    icon: "🎯"
+  },
+  { 
+    title: "Innovation", 
+    description: "Always learning and growing",
+    expandedContent: "Passionate about exploring new technologies and pushing the boundaries of what's possible.",
+    icon: "✨"
+  },
 ];
 
 export default function BentoGrid() {
@@ -20,7 +50,7 @@ export default function BentoGrid() {
 
         {/* Regular Cards */}
         {gridCards.slice(0, 3).map((card, index) => (
-          <Card key={index} title={card.title} description={card.description} />
+          <Card key={index} title={card.title} description={card.description} expandedContent={card.expandedContent} />
         ))}
 
         {/* Featured Card */}
@@ -32,6 +62,7 @@ export default function BentoGrid() {
             key={index + 3}
             title={card.title}
             description={card.description}
+            expandedContent={card.expandedContent}
           />
         ))}
       </div>
