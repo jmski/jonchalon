@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ScrollFade from "@/components/ScrollFade";
+import CTASection from "@/components/CTASection";
 import CollaborationForm from "@/components/CollaborationForm";
 import { sanityClient } from "@/lib/sanityClient";
 import { collaborationPageQuery, collaborationQuery } from "@/lib/sanityQueries";
@@ -22,8 +23,6 @@ interface CollaborationPageContent {
   servicesTitle: string;
   getInTouchTitle: string;
   getInTouchDescription: string;
-  directEmailText: string;
-  directEmail: string;
 }
 
 export default async function Collaborations() {
@@ -104,11 +103,12 @@ export default async function Collaborations() {
         </section>
 
         {/* Info */}
-        <div className="py-12 border-t border-slate-200 dark:border-slate-700">
-          <p className="text-center text-slate-600 dark:text-slate-400">
-            {pageContent.directEmailText} <a href={`mailto:${pageContent.directEmail}`} className="font-semibold text-amber-900 dark:text-amber-400 hover:underline">{pageContent.directEmail}</a>
-          </p>
-        </div>
+        <CTASection
+          title="Ready to Collaborate?"
+          description="Let's create something amazing together. Reach out using the form above or connect with me on social media."
+          buttonText="Get Started"
+          buttonLink="#contact-form"
+        />
       </main>
     </div>
   );
