@@ -1,4 +1,9 @@
+'use client';
+import { useState, useEffect } from 'react';
 import VideoEmbed from '@/components/VideoEmbed';
+import CursorGlow from '@/components/CursorGlow';
+import MagneticButton from '@/components/MagneticButton';
+import AnimatedHeadline from '@/components/AnimatedHeadline';
 
 interface HeroProps {
   videoUrl?: string;
@@ -19,8 +24,18 @@ export default function Hero({
   secondaryCtaText = 'Explore Work',
   secondaryCtaLink = '/dance',
 }: HeroProps) {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0e27, #1a1f3a, #0a0e27)' }}>
+    <>
+      <CursorGlow />
+      <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0e27, #1a1f3a, #0a0e27)' }}>
       {/* Animated background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse"></div>
@@ -41,7 +56,7 @@ export default function Hero({
       )}
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 sm:py-24 lg:py-32">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 sm:py-24 lg:py-32" style={{ transform: `translateY(${scrollY * 0.5}px)` }}>
         {/* Accent badge */}
         <div className="mb-8 flex justify-center">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-100 text-sm font-semibold backdrop-blur-sm">
@@ -50,22 +65,13 @@ export default function Hero({
           </span>
         </div>
 
-        {/* Headline with gradient */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight" style={{ color: 'var(--text-light)' }}>
-          {headline.split(' ').map((word, idx) => (
-            <span
-              key={idx}
-              style={{
-                background: idx === headline.split(' ').length - 1 ? 'var(--text-gradient-heading)' : 'none',
-                WebkitBackgroundClip: idx === headline.split(' ').length - 1 ? 'text' : 'unset',
-                WebkitTextFillColor: idx === headline.split(' ').length - 1 ? 'transparent' : 'inherit',
-                backgroundClip: idx === headline.split(' ').length - 1 ? 'text' : 'unset',
-              }}
-            >
-              {word}{' '}
-            </span>
-          ))}
-        </h1>
+        {/* Headline with gradient - animated */}
+        <AnimatedHeadline
+          text={headline}
+          className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight"
+          delay={200}
+          duration={0.03}
+        />
 
         {/* Subheadline */}
         <p className="text-lg sm:text-xl lg:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
@@ -74,14 +80,15 @@ export default function Hero({
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <a
+          <MagneticButton
             href={ctaLink}
             className="px-8 py-4 text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
-            style={{ background: 'var(--cta-gradient)' }}
+            magneticRange={60}
           >
-            {ctaText}
-            <span className="text-xl">→</span>
-          </a>
+            <span style={{ background: 'var(--cta-gradient)', display: 'block', padding: '16px 32px', borderRadius: '8px' }}>
+              {ctaText} <span className="text-xl">→</span>
+            </span>
+          </MagneticButton>
           <a
             href={secondaryCtaLink}
             className="px-8 py-4 border-2 font-semibold rounded-lg transition-all duration-300 hover:bg-amber-500/10 backdrop-blur-sm"
@@ -110,5 +117,6 @@ export default function Hero({
         </div>
       </div>
     </section>
+    </>
   );
 }

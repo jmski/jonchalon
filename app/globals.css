@@ -614,3 +614,809 @@ select:focus {
     inset 0 0 0 1px rgba(212, 165, 116, 0.1);
   transform: scale(1.01);
 }
+/* ========== GLOW & ANIMATION EFFECTS ========== */
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(212, 165, 116, 0.4),
+      0 0 40px rgba(255, 107, 53, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(212, 165, 116, 0.6),
+      0 0 60px rgba(255, 107, 53, 0.3);
+  }
+}
+
+.btn-glow:hover {
+  animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+/* Gradient animation for card borders */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.card-gradient-border {
+  position: relative;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-gradient-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2px;
+  background: linear-gradient(90deg, #d4a574, #ff6b35, #d4a574);
+  background-size: 200% 200%;
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.card-gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ========== DAY 3: PREMIUM ANIMATIONS ========== */
+
+/* Page transition fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Slide up on scroll */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Letter-by-letter reveal cursor */
+@keyframes textCursorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.text-cursor {
+  animation: textCursorBlink 1s infinite;
+  margin-left: 2px;
+}
+
+/* Form input focus animation */
+@keyframes inputFocus {
+  from {
+    box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.4);
+  }
+  to {
+    box-shadow: 0 0 0 8px rgba(212, 165, 116, 0);
+  }
+}
+
+input:focus,
+textarea:focus {
+  animation: inputFocus 0.6s ease-out;
+}
+
+/* Button click ripple effect */
+@keyframes ripple {
+  from {
+    box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.7);
+  }
+  to {
+    box-shadow: 0 0 0 20px rgba(212, 165, 116, 0);
+  }
+}
+
+.btn-ripple:active {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Checkbox toggle animation */
+@keyframes toggleCheck {
+  0% {
+    transform: scale(0.8) rotate(-90deg);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+input[type="checkbox"]:checked {
+  animation: toggleCheck 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Loading spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Bounce animation for badges */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* Scale pulse for emphasis */
+@keyframes scalePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-scalePulse {
+  animation: scalePulse 2s ease-in-out infinite;
+}
+
+/* Wiggle for attention */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* Float animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Focus outline glow */
+@keyframes focusGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(212, 165, 116, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 165, 116, 0);
+  }
+}
+
+button:focus,
+a:focus {
+  animation: focusGlow 0.6s ease-out;
+}
+
+/* Stagger animation for list items */
+@keyframes stagger {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-stagger {
+  animation: stagger 0.4s ease-out;
+}
+
+/* Success checkmark animation */
+@keyframes successCheck {
+  0% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-checkmark {
+  animation: successCheck 0.5s ease-out;
+}
+
+/* Micro-interaction: hover lift */
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Micro-interaction: smooth color transition */
+.hover-color-shift:hover {
+  color: var(--accent-primary);
+  transition: color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Micro-interaction: underline animation */
+.underline-animate::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.underline-animate:hover::after {
+  transform: scaleX(1);
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  button,
+  a {
+    -webkit-tap-highlight-color: rgba(212, 165, 116, 0.2);
+  }
+}
+
+/* ========== FORM ENHANCEMENTS ========== */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-color: var(--border-color);
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+  transform: scale(1.01);
+}
+
+/* Form label animations */
+label {
+  transition: color 0.3s ease;
+}
+
+input:focus ~ label,
+textarea:focus ~ label,
+select:focus ~ label {
+  color: var(--accent-primary);
+}
+
+/* Success/error states */
+input.input-success,
+textarea.input-success,
+select.input-success {
+  border-color: var(--color-success);
+  background-color: rgba(34, 197, 94, 0.05);
+}
+
+input.input-error,
+textarea.input-error,
+select.input-error {
+  border-color: var(--color-error);
+  background-color: rgba(239, 68, 68, 0.05);
+  animation: wiggle 0.3s ease-in-out;
+}
+
+/* Submit button enhancements */
+button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(212, 165, 116, 0.3);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Loading spinner in button */
+.btn-loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+/* ========== DAY 4: ADVANCED POLISH & OPTIMIZATION ========== */
+
+/* Glitch animation keyframes */
+@keyframes glitch {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(4px);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes glitch-reverse {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(0);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Blur-in animation for sections */
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.animate-blurIn {
+  animation: blurIn 0.8s ease-out;
+}
+
+/* Advanced scroll reveal with blur */
+@keyframes blurSlideUp {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-blurSlideUp {
+  animation: blurSlideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Advanced glow pulse with blur */
+@keyframes advancedGlowPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(212, 165, 116, 0.4),
+      0 0 40px rgba(255, 107, 53, 0.2),
+      inset 0 0 20px rgba(212, 165, 116, 0.05);
+    filter: drop-shadow(0 0 4px rgba(212, 165, 116, 0.3));
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(212, 165, 116, 0.6),
+      0 0 80px rgba(255, 107, 53, 0.3),
+      inset 0 0 40px rgba(212, 165, 116, 0.1);
+    filter: drop-shadow(0 0 8px rgba(212, 165, 116, 0.5));
+  }
+}
+
+.animate-advancedGlowPulse {
+  animation: advancedGlowPulse 2s ease-in-out infinite;
+}
+
+/* Text reveal with wave effect */
+@keyframes waveReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) rotateX(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.animate-waveReveal {
+  animation: waveReveal 0.6s ease-out;
+  transform-origin: bottom;
+}
+
+/* Smooth entrance with rotation */
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+.animate-rotateIn {
+  animation: rotateIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Exit animation with rotation */
+@keyframes rotateOut {
+  from {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(10deg) scale(0.9);
+  }
+}
+
+.animate-rotateOut {
+  animation: rotateOut 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Accordion-style reveal */
+@keyframes expandHeight {
+  from {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  to {
+    max-height: 1000px;
+    opacity: 1;
+    overflow: visible;
+  }
+}
+
+.animate-expandHeight {
+  animation: expandHeight 0.4s ease-out;
+}
+
+/* Advanced pulse with scale and glow */
+@keyframes advancedPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 0px rgba(212, 165, 116, 0.4));
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 12px rgba(212, 165, 116, 0.6));
+  }
+}
+
+.animate-advancedPulse {
+  animation: advancedPulse 2s ease-in-out infinite;
+}
+
+/* Form validation success check */
+@keyframes validationSuccess {
+  0% {
+    transform: scale(0.8) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-validationSuccess {
+  animation: validationSuccess 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Form validation error shake */
+@keyframes validationError {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-validationError {
+  animation: validationError 0.4s ease-in-out;
+  border-color: var(--color-error) !important;
+  background-color: rgba(255, 107, 53, 0.05) !important;
+}
+
+/* Advanced text shadow effect */
+@keyframes shadowGrow {
+  0% {
+    text-shadow: 0 0 0px rgba(212, 165, 116, 0);
+  }
+  100% {
+    text-shadow:
+      0 0 30px rgba(212, 165, 116, 0.6),
+      0 0 60px rgba(255, 107, 53, 0.3);
+  }
+}
+
+.animate-shadowGrow {
+  animation: shadowGrow 1s ease-out forwards;
+}
+
+/* Smooth morphing animation */
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+.animate-morph {
+  animation: morph 6s ease-in-out infinite;
+}
+
+/* Attention-grabber pulse */
+@keyframes attentionPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-attentionPulse {
+  animation: attentionPulse 0.8s ease-in-out;
+}
+
+/* Optimized micro-interactions */
+
+/* Enhanced input validation styling */
+input.input-validating,
+textarea.input-validating {
+  border-color: var(--accent-primary);
+  animation: validationSuccess 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Loading skeleton shimmer effect */
+.skeleton-loading {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 165, 116, 0.1) 25%,
+    rgba(212, 165, 116, 0.2) 50%,
+    rgba(212, 165, 116, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Lazy loading fade-in */
+@keyframes lazyFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(0);
+  }
+}
+
+.animate-lazyFadeIn {
+  animation: lazyFadeIn 0.6s ease-out;
+}
+
+/* Advanced accessibility focus styles */
+@media (prefers-reduced-motion: no-preference) {
+  :focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+    animation: focusGlow 0.3s ease-out;
+  }
+}
+
+/* Motion preferences support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Performance optimizations */
+.will-animate {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Optimized button interactions */
+button,
+a {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button:active,
+a:active {
+  transform: scale(0.98);
+}
+
+/* Smooth scrolling for supported browsers */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

@@ -1,4 +1,6 @@
+'use client';
 import ScrollFade from "@/components/ScrollFade";
+import MagneticButton from "@/components/MagneticButton";
 
 interface CTASectionProps {
   title: string;
@@ -23,13 +25,15 @@ export default function CTASection({
           <p className="mb-8 max-w-2xl mx-auto text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             {description}
           </p>
-          <a
+          <MagneticButton
             href={buttonLink}
             className="inline-block text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-            style={{ background: 'var(--cta-gradient)', boxShadow: 'var(--shadow-accent-lg)' }}
+            magneticRange={50}
           >
-            {buttonText}
-          </a>
+            <span style={{ background: 'linear-gradient(135deg, #f97316, #fb923c)', display: 'block', padding: '12px 32px', borderRadius: '8px' }}>
+              {buttonText}
+            </span>
+          </MagneticButton>
         </div>
       </ScrollFade>
     </div>

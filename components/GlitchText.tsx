@@ -1,0 +1,82 @@
+'use client';
+import { useState, useEffect } from 'react';
+
+interface GlitchTextProps {
+  text: string;
+  className?: string;
+  intensity?: 'low' | 'medium' | 'high';
+  autoGlitch?: boolean;
+}
+
+export default function GlitchText({
+  text,
+  className = '',
+  intensity = 'medium',
+  autoGlitch = false,
+}: GlitchTextProps) {
+  const [isGlitching, setIsGlitching] = useState(autoGlitch);
+
+  useEffect(() => {
+    if (!autoGlitch) return;
+
+    const interval = setInterval(() => {
+      setIsGlitching(true);
+      setTimeout(() => setIsGlitching(false), 300);
+    }, 3000 + Math.random() * 2000);
+
+    return () => clearInterval(interval);
+  }, [autoGlitch]);
+
+  const glitchDuration = {
+    low: 0.3,
+    medium: 0.4,
+    high: 0.6,
+  }[intensity];
+
+  const glitchOffset = {
+    low: 2,
+    medium: 4,
+    high: 6,
+  }[intensity];
+
+  return (
+    <div
+      className={`relative inline-block ${className}`}
+      onMouseEnter={() => setIsGlitching(true)}
+      onMouseLeave={() => setIsGlitching(false)}
+    >
+      {/* Base text */}
+      <span className="relative z-10">{text}</span>
+
+      {/* Glitch layer 1 (red) */}
+      <span
+        className="absolute top-0 left-0 opacity-75 pointer-events-none"
+        style={{
+          color: 'rgb(255, 0, 0)',
+          zIndex: isGlitching ? 20 : 0,
+          transform: isGlitching ? `translateX(${glitchOffset}px)` : 'translateX(0)',
+          textShadow: isGlitching ? `${glitchOffset}px 0 #0ff` : 'none',
+          transition: `all ${glitchDuration}s steps(2, end)`,
+          animation: isGlitching ? `glitch ${glitchDuration}s steps(2, end)` : 'none',
+        }}
+      >
+        {text}
+      </span>
+
+      {/* Glitch layer 2 (cyan) */}
+      <span
+        className="absolute top-0 left-0 opacity-75 pointer-events-none"
+        style={{
+          color: 'rgb(0, 255, 255)',
+          zIndex: isGlitching ? 21 : 0,
+          transform: isGlitching ? `translateX(-${glitchOffset}px)` : 'translateX(0)',
+          textShadow: isGlitching ? `-${glitchOffset}px 0 #f0f` : 'none',
+          transition: `all ${glitchDuration}s steps(2, end)`,
+          animation: isGlitching ? `glitch-reverse ${glitchDuration}s steps(2, end)` : 'none',
+        }}
+      >
+        {text}
+      </span>
+    </div>
+  );
+}

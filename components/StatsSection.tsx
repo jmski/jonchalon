@@ -1,5 +1,6 @@
 import { sanityClient } from '@/lib/sanityClient';
 import { statsQuery } from '@/lib/sanityQueries';
+import AnimatedStatCard from '@/components/AnimatedStatCard';
 
 interface PlatformStats {
   platform: string;
@@ -45,39 +46,7 @@ export default async function StatsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat) => (
-            <a
-              key={stat.platform}
-              href={stat.profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-center p-6 card-enhanced hover:scale-105 transition-all duration-300 group"
-            >
-              <div className="text-sm font-medium mb-2 uppercase tracking-wider group-hover:transition-colors" style={{ color: 'var(--text-accent-secondary)' }}>
-                {stat.platform}
-              </div>
-              <div className="text-4xl font-bold mb-4 group-hover:transition-colors" style={{ color: 'var(--text-accent-bright)' }}>
-                {stat.followers ? `${(stat.followers / 1000).toFixed(0)}K` : '-'}
-              </div>
-              <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>Followers</p>
-
-              {stat.totalViews > 0 && (
-                <div className="py-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                  <p className="text-2xl font-bold mb-1" style={{ color: 'var(--text-light)' }}>
-                    {stat.totalViews ? `${(stat.totalViews / 1000000).toFixed(1)}M` : '-'}
-                  </p>
-                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Total Views</p>
-                </div>
-              )}
-
-              {stat.avgEngagementRate > 0 && (
-                <div className="py-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                  <p className="text-lg font-bold group-hover:transition-colors" style={{ color: 'var(--text-accent-secondary)' }}>
-                    {stat.avgEngagementRate}%
-                  </p>
-                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Avg Engagement</p>
-                </div>
-              )}
-            </a>
+            <AnimatedStatCard key={stat.platform} stat={stat} />
           ))}
         </div>
 

@@ -5,6 +5,7 @@ import ScrollFade from '@/components/ScrollFade';
 import StatsSection from '@/components/StatsSection';
 import CTASection from '@/components/CTASection';
 import SectionDivider from '@/components/SectionDivider';
+import PageTransition from '@/components/PageTransition';
 
 const homeData = {
   headline: 'Dance Artist & Creator',
@@ -31,8 +32,9 @@ const homeData = {
 export default async function Home() {
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
-      <Navbar />
+    <PageTransition>
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <Navbar />
 
       {/* Hero Section */}
       <Hero
@@ -138,6 +140,7 @@ export default async function Home() {
       <section className="py-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <StatsSection />
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
