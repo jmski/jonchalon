@@ -120,7 +120,7 @@ export default async function Showcase() {
         {/* CTA Section */}
         <div className="py-16 border-t border-slate-200 dark:border-slate-700">
           <ScrollFade>
-            <div className="bg-linear-to-r from-orange-600 to-orange-700 dark:from-orange-700 dark:to-orange-800 rounded-lg p-12 text-center">
+            <div className="rounded-lg p-12 text-center" style={{ background: 'linear-gradient(to right, rgb(249, 115, 22), rgb(234, 88, 12))' }}>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">
                 {pageContent.ctaTitle}
               </h2>
@@ -132,12 +132,11 @@ export default async function Showcase() {
                 className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors"
               >
                 {pageContent.ctaButtonText}
-                </a>
-              </div>
-            </ScrollFade>
-          </section>
-        </main>
-      </div>
+              </a>
+            </div>
+          </ScrollFade>
+        </div>
+      </main>
     </div>
   );
 }

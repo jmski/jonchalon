@@ -274,7 +274,7 @@ export default async function MediaKit() {
         {/* Download Section */}
         <section className="py-16 border-t border-slate-200 dark:border-slate-700">
           <ScrollFade>
-            <div className="bg-gradient-to-r from-amber-900 to-orange-700 dark:from-amber-800 dark:to-orange-600 rounded-lg p-12 text-center">
+            <div className="rounded-lg p-12 text-center" style={{ background: 'linear-gradient(to right, rgb(120, 53, 15), rgb(194, 102, 0))' }}>
               <h2 className="text-3xl font-bold text-white mb-4 font-display">
                 Download Full Media Kit
               </h2>
