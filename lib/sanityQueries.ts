@@ -10,8 +10,6 @@ export const collaborationQuery = `*[_type == "collaboration"]{
   _id, title, type, description, "image": image.asset->url, link
 }`;
 
-export const mediaKitQuery = `*[_type == "mediaKit"]{statName, value, platform}`;
-
 export const statsQuery = `*[_type == "stats"] | order(platform asc){
   platform,
   followers,
@@ -41,7 +39,5 @@ export const dancePageQuery = `*[_type == "dancePageContent"][0]`;
 export const showcasePageQuery = `*[_type == "showcasePage"][0]`;
 
 export const collaborationPageQuery = `*[_type == "collaborationPageContent"][0]`;
-
-export const mediaKitPageQuery = `*[_type == "mediaKitPage"][0]`;
 
 export const siteSettingsQuery = `*[_type == "siteSettings"][0]`;

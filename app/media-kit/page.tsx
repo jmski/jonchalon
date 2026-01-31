@@ -1,7 +1,5 @@
 import Navbar from "@/components/Navbar";
 import ScrollFade from "@/components/ScrollFade";
-import { sanityClient } from "@/lib/sanityClient";
-import { mediaKitPageQuery } from "@/lib/sanityQueries";
 
 export const metadata = {
   title: "Media Kit | Jon",
@@ -44,17 +42,7 @@ interface MediaKitPageData {
 }
 
 export default async function MediaKit() {
-  let pageData: MediaKitPageData | null = null;
-
-  try {
-    pageData = await sanityClient.fetch(mediaKitPageQuery);
-  } catch (error) {
-    console.error('Error fetching media kit page:', error);
-  }
-
-  // Provide fallback data if fetch fails or returns incomplete data
-  if (!pageData) {
-    pageData = {
+  const fallbackData: MediaKitPageData = {
       headline: 'Media Kit',
       subheadline: 'Audience statistics and engagement metrics',
       keyMetrics: [
@@ -95,7 +83,7 @@ export default async function MediaKit() {
         ]
       }
     };
-  }
+  
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
       <Navbar />
@@ -105,10 +93,10 @@ export default async function MediaKit() {
         <div className="py-20 sm:py-28">
           <ScrollFade>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 font-display">
-              {pageData.headline}
+              {fallbackData.headline}
             </h1>
             <p className="text-xl text-slate-700 dark:text-slate-300 max-w-2xl">
-              {pageData.subheadline}
+              {fallbackData.subheadline}
             </p>
           </ScrollFade>
         </div>
@@ -121,7 +109,7 @@ export default async function MediaKit() {
             </h2>
           </ScrollFade>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pageData.keyMetrics.map((stat, idx) => (
+            {fallbackData.keyMetrics.map((stat, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
                 <div
                   className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg"
@@ -149,7 +137,7 @@ export default async function MediaKit() {
             </h2>
           </ScrollFade>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pageData.platforms.map((platform, idx) => (
+            {fallbackData.platforms.map((platform, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
                 <div
                   className="p-8 border border-slate-200 dark:border-slate-700 rounded-lg"
@@ -197,7 +185,7 @@ export default async function MediaKit() {
             </h2>
           </ScrollFade>
           <div className="space-y-6">
-            {pageData.contentCategories.map((category, idx) => (
+            {fallbackData.contentCategories.map((category, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
                 <div>
                   <div className="flex justify-between items-center mb-2">
@@ -238,7 +226,7 @@ export default async function MediaKit() {
                   Age Distribution
                 </h3>
                 <div className="space-y-4">
-                  {pageData.audience.age.map((age, idx) => (
+                  {fallbackData.audience.age.map((age, idx) => (
                     <div key={idx}>
                       <div className="flex justify-between mb-1">
                         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -267,7 +255,7 @@ export default async function MediaKit() {
                   Gender
                 </h3>
                 <div className="space-y-4">
-                  {pageData.audience.gender.map((gender, idx) => (
+                  {fallbackData.audience.gender.map((gender, idx) => (
                     <div key={idx}>
                       <div className="flex justify-between mb-1">
                         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -296,7 +284,7 @@ export default async function MediaKit() {
                   Top Locations
                 </h3>
                 <div className="space-y-3">
-                  {pageData.audience.locations.map((location, idx) => (
+                  {fallbackData.audience.locations.map((location, idx) => (
                     <div key={idx} className="flex justify-between items-center">
                       <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                         {location.country}
