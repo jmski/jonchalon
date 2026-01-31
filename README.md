@@ -60,14 +60,14 @@ npm run dev:sanity
 Create `.env.local` with:
 
 ```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=f0611nfi
+NEXT_PUBLIC_SANITY_PROJECT_ID=<your-project-id>
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
 ```
 
 ### Sanity Project Details
 
-- **Project ID**: `f0611nfi`
+- **Project ID**: Available in your Sanity project dashboard
 - **Dataset**: `production`
 - **Studio URL**: `http://localhost:3333/studio` (local development)
 
@@ -203,7 +203,7 @@ Dynamic content is automatically fetched and displayed on pages. No code changes
 1. Connect GitHub repository to Netlify
 2. Set environment variables in Netlify dashboard:
    ```
-   NEXT_PUBLIC_SANITY_PROJECT_ID=f0611nfi
+   NEXT_PUBLIC_SANITY_PROJECT_ID=<your-project-id>
    NEXT_PUBLIC_SANITY_DATASET=production
    NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
    ```
