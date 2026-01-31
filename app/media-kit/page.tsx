@@ -86,17 +86,17 @@ export default async function MediaKit() {
     };
   
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <Navbar />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="py-20 sm:py-28">
           <ScrollFade>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 font-display">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent mb-6 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {fallbackData.headline}
             </h1>
-            <p className="text-xl text-slate-700 dark:text-slate-300 max-w-2xl">
+            <p className="text-xl max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
               {fallbackData.subheadline}
             </p>
           </ScrollFade>
@@ -105,7 +105,7 @@ export default async function MediaKit() {
         {/* Key Stats */}
         <section className="mb-20">
           <ScrollFade>
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 font-display">
+            <h2 style={{ color: 'var(--text-heading)' }} className="text-4xl font-bold mb-8 font-display">
               Key Metrics
             </h2>
           </ScrollFade>
@@ -113,15 +113,19 @@ export default async function MediaKit() {
             {fallbackData.keyMetrics.map((stat, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
                 <div
-                  className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg"
+                  className="p-8 border rounded-lg"
+                  style={{
+                    backgroundColor: 'var(--bg-secondary)',
+                    borderColor: 'var(--border)',
+                  }}
                 >
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">
+                  <p style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium mb-2">
                     {stat.label}
                   </p>
-                  <p className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+                  <p style={{ color: 'var(--text-heading)' }} className="text-4xl font-bold mb-2">
                     {stat.value}
                   </p>
-                  <p className="text-sm text-green-600 dark:text-green-400">
+                  <p style={{ color: 'var(--color-success)' }} className="text-sm">
                     {stat.change}
                   </p>
                 </div>
@@ -133,7 +137,7 @@ export default async function MediaKit() {
         {/* Platform Breakdown */}
         <section className="mb-20">
           <ScrollFade>
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 font-display">
+            <h2 style={{ color: 'var(--text-heading)' }} className="text-4xl font-bold mb-8 font-display">
               Platform Presence
             </h2>
           </ScrollFade>
@@ -141,33 +145,36 @@ export default async function MediaKit() {
             {fallbackData.platforms.map((platform, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
                 <div
-                  className="p-8 border border-slate-200 dark:border-slate-700 rounded-lg"
+                  className="p-8 border rounded-lg"
+                  style={{
+                    borderColor: 'var(--border)',
+                  }}
                 >
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 style={{ color: 'var(--text-heading)' }} className="text-2xl font-bold mb-2">
                     {platform.name}
                   </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                  <p style={{ color: 'var(--text-secondary)' }} className="text-sm mb-4">
                     {platform.handle}
                   </p>
                   <div className="space-y-3">
                     <div>
-                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                      <p style={{ color: 'var(--text-muted)' }} className="text-xs font-medium uppercase tracking-wide">
                         Followers
                       </p>
-                      <p className="text-lg font-bold text-slate-900 dark:text-white">
+                      <p style={{ color: 'var(--text-heading)' }} className="text-lg font-bold">
                         {platform.followers}
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                      <p style={{ color: 'var(--text-muted)' }} className="text-xs font-medium uppercase tracking-wide">
                         Avg Views
                       </p>
-                      <p className="text-lg font-bold text-slate-900 dark:text-white">
+                      <p style={{ color: 'var(--text-heading)' }} className="text-lg font-bold">
                         {platform.avgViews}
                       </p>
                     </div>
-                    <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
-                      <p className="text-sm text-amber-900 dark:text-amber-400 font-medium">
+                    <div className="pt-3" style={{ borderTopColor: 'var(--border)' }}>
+                      <p style={{ color: 'var(--text-accent-bright)' }} className="text-sm font-medium">
                         {platform.category}
                       </p>
                     </div>
@@ -181,7 +188,7 @@ export default async function MediaKit() {
         {/* Content Mix */}
         <section className="mb-20">
           <ScrollFade>
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 font-display">
+            <h2 style={{ color: 'var(--text-heading)' }} className="text-4xl font-bold mb-8 font-display">
               Content Distribution
             </h2>
           </ScrollFade>
@@ -190,20 +197,23 @@ export default async function MediaKit() {
               <ScrollFade key={idx} delay={idx * 100}>
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                    <h3 style={{ color: 'var(--text-heading)' }} className="text-lg font-semibold">
                       {category.name}
                     </h3>
-                    <span className="text-lg font-bold text-amber-900 dark:text-amber-400">
+                    <span style={{ color: 'var(--text-accent-bright)' }} className="text-lg font-bold">
                       {category.percentage}%
                     </span>
                   </div>
-                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3">
+                  <div className="w-full rounded-full h-3" style={{ backgroundColor: 'var(--bg-secondary)' }}>
                     <div
-                      className="bg-amber-900 dark:bg-amber-700 h-3 rounded-full"
-                      style={{ width: `${category.percentage}%` }}
+                      className="h-3 rounded-full"
+                      style={{
+                        width: `${category.percentage}%`,
+                        background: 'var(--cta-gradient)',
+                      }}
                     />
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                  <p style={{ color: 'var(--text-secondary)' }} className="text-sm mt-2">
                     {category.description}
                   </p>
                 </div>
@@ -215,32 +225,35 @@ export default async function MediaKit() {
         {/* Audience Demographics */}
         <section className="mb-20">
           <ScrollFade>
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 font-display">
+            <h2 style={{ color: 'var(--text-heading)' }} className="text-4xl font-bold mb-8 font-display">
               Audience Demographics
             </h2>
           </ScrollFade>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Age */}
             <ScrollFade delay={0}>
-              <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+              <div className="p-8 border rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <h3 style={{ color: 'var(--text-heading)' }} className="text-xl font-bold mb-6">
                   Age Distribution
                 </h3>
                 <div className="space-y-4">
                   {fallbackData.audience.age.map((age, idx) => (
                     <div key={idx}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                        <span style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium">
                           {age.range}
                         </span>
-                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                        <span style={{ color: 'var(--text-heading)' }} className="text-sm font-semibold">
                           {age.percentage}%
                         </span>
                       </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                      <div className="w-full rounded-full h-2" style={{ backgroundColor: 'var(--bg-muted)' }}>
                         <div
-                          className="bg-orange-500 dark:bg-orange-600 h-2 rounded-full"
-                          style={{ width: `${age.percentage}%` }}
+                          className="h-2 rounded-full"
+                          style={{
+                            width: `${age.percentage}%`,
+                            background: 'var(--cta-gradient)',
+                          }}
                         />
                       </div>
                     </div>
@@ -251,25 +264,28 @@ export default async function MediaKit() {
 
             {/* Gender */}
             <ScrollFade delay={100}>
-              <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+              <div className="p-8 border rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <h3 style={{ color: 'var(--text-heading)' }} className="text-xl font-bold mb-6">
                   Gender
                 </h3>
                 <div className="space-y-4">
                   {fallbackData.audience.gender.map((gender, idx) => (
                     <div key={idx}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                        <span style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium">
                           {gender.label}
                         </span>
-                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                        <span style={{ color: 'var(--text-heading)' }} className="text-sm font-semibold">
                           {gender.percentage}%
                         </span>
                       </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                      <div className="w-full rounded-full h-2" style={{ backgroundColor: 'var(--bg-muted)' }}>
                         <div
-                          className="bg-amber-900 dark:bg-amber-700 h-2 rounded-full"
-                          style={{ width: `${gender.percentage}%` }}
+                          className="h-2 rounded-full"
+                          style={{
+                            width: `${gender.percentage}%`,
+                            background: 'var(--cta-gradient)',
+                          }}
                         />
                       </div>
                     </div>
@@ -280,17 +296,17 @@ export default async function MediaKit() {
 
             {/* Locations */}
             <ScrollFade delay={200}>
-              <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+              <div className="p-8 border rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <h3 style={{ color: 'var(--text-heading)' }} className="text-xl font-bold mb-6">
                   Top Locations
                 </h3>
                 <div className="space-y-3">
                   {fallbackData.audience.locations.map((location, idx) => (
                     <div key={idx} className="flex justify-between items-center">
-                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                      <span style={{ color: 'var(--text-secondary)' }} className="text-sm font-medium">
                         {location.country}
                       </span>
-                      <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                      <span style={{ color: 'var(--text-heading)' }} className="text-sm font-semibold">
                         {location.percentage}%
                       </span>
                     </div>

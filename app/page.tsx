@@ -4,6 +4,7 @@ import PortfolioCard from '@/components/PortfolioCard';
 import ScrollFade from '@/components/ScrollFade';
 import StatsSection from '@/components/StatsSection';
 import CTASection from '@/components/CTASection';
+import SectionDivider from '@/components/SectionDivider';
 
 const homeData = {
   headline: 'Dance Artist & Creator',
@@ -30,7 +31,7 @@ const homeData = {
 export default async function Home() {
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <Navbar />
 
       {/* Hero Section */}
@@ -43,53 +44,59 @@ export default async function Home() {
         secondaryCtaLink={homeData.secondaryCtaLink}
       />
 
-      {/* Featured Section */}
-      <section id="featured" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <ScrollFade>
-          <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4 font-display">
-            {homeData.featuredTitle}
-          </h2>
-          <p className="text-slate-700 dark:text-slate-300 mb-12 max-w-2xl text-lg">
-            {homeData.featuredDescription}
-          </p>
-        </ScrollFade>
+      <SectionDivider variant="wave" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <ScrollFade delay={100}>
-            <PortfolioCard
-              title="Choreography Reel"
-              description="Original choreography combining hip-hop and contemporary dance"
-              category="Dance"
-              image="https://picsum.photos/500/400?random=1"
-            />
+      {/* Featured Section */}
+      <section id="featured" className="py-20" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollFade>
+            <h2 className="text-5xl sm:text-6xl font-bold bg-clip-text text-transparent mb-4 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              {homeData.featuredTitle}
+            </h2>
+            <p className="mb-12 max-w-2xl text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              {homeData.featuredDescription}
+            </p>
           </ScrollFade>
-          <ScrollFade delay={200}>
-            <PortfolioCard
-              title="Freestyle Jam"
-              description="Freestyle dance performance showcasing improvisation skills"
-              category="Dance"
-              image="https://picsum.photos/500/400?random=2"
-            />
-          </ScrollFade>
-          <ScrollFade delay={300}>
-            <PortfolioCard
-              title="Gunpla Build Showcase"
-              description="Mobile suit builds with professional photography"
-              category="Hobby"
-              image="https://picsum.photos/500/400?random=3"
-            />
-          </ScrollFade>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ScrollFade delay={100}>
+              <PortfolioCard
+                title="Choreography Reel"
+                description="Original choreography combining hip-hop and contemporary dance"
+                category="Dance"
+                image="https://picsum.photos/500/400?random=1"
+              />
+            </ScrollFade>
+            <ScrollFade delay={200}>
+              <PortfolioCard
+                title="Freestyle Jam"
+                description="Freestyle dance performance showcasing improvisation skills"
+                category="Dance"
+                image="https://picsum.photos/500/400?random=2"
+              />
+            </ScrollFade>
+            <ScrollFade delay={300}>
+              <PortfolioCard
+                title="Gunpla Build Showcase"
+                description="Mobile suit builds with professional photography"
+                category="Hobby"
+                image="https://picsum.photos/500/400?random=3"
+              />
+            </ScrollFade>
+          </div>
         </div>
       </section>
 
+      <SectionDivider variant="diagonal" />
+
       {/* Content Pillars */}
-      <section className="bg-slate-50 dark:bg-slate-800 py-20">
+      <section className="py-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollFade>
-            <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4 font-display">
+            <h2 className="text-5xl sm:text-6xl font-bold bg-clip-text text-transparent mb-4 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {homeData.offerTitle}
             </h2>
-            <p className="text-slate-700 dark:text-slate-300 mb-12 max-w-2xl text-lg">
+            <p className="mb-12 max-w-2xl text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               {homeData.offerDescription}
             </p>
           </ScrollFade>
@@ -97,11 +104,11 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {homeData.services.map((service, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
-                <div className="card p-8">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
+                <div className="card-enhanced p-8 group">
+                  <h3 className="text-xl font-bold mb-3 group-hover:transition-colors group-hover:duration-300" style={{ color: 'var(--text-light)' }}>
                     {service.title}
                   </h3>
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                  <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     {service.description}
                   </p>
                 </div>
@@ -111,18 +118,26 @@ export default async function Home() {
         </div>
       </section>
 
+      <SectionDivider variant="gradient" />
+
       {/* CTA Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <CTASection
-          title={homeData.collaborateTitle}
-          description={homeData.collaborateDescription}
-          buttonText={homeData.collaborateButtonText}
-          buttonLink="/collaborations"
-        />
+      <section className="py-20" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <CTASection
+            title={homeData.collaborateTitle}
+            description={homeData.collaborateDescription}
+            buttonText={homeData.collaborateButtonText}
+            buttonLink="/collaborations"
+          />
+        </div>
       </section>
 
+      <SectionDivider variant="wave" />
+
       {/* Stats Section */}
-      <StatsSection />
+      <section className="py-20" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <StatsSection />
+      </section>
     </div>
   );
 }

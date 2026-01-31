@@ -61,20 +61,20 @@ export default function CollaborationForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {status === 'success' && (
-        <div className="p-4 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300">
+        <div className="p-4 border rounded-lg" style={{ backgroundColor: 'var(--color-success-light)', borderColor: 'var(--color-success)', color: 'var(--color-success-dark)' }}>
           ✓ Thank you! Your inquiry has been received. I&apos;ll get back to you soon.
         </div>
       )}
 
       {status === 'error' && (
-        <div className="p-4 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-700 rounded-lg text-red-700 dark:text-red-300">
+        <div className="p-4 border rounded-lg" style={{ backgroundColor: 'var(--color-error-light)', borderColor: 'var(--color-error)', color: 'var(--color-error-dark)' }}>
           ✗ {errorMessage}
         </div>
       )}
 
       <div>
-        <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-          Your Name <span className="text-red-500">*</span>
+        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-heading)' }}>
+          Your Name <span style={{ color: 'var(--color-error)' }}>*</span>
         </label>
         <input
           type="text"
@@ -83,13 +83,18 @@ export default function CollaborationForm() {
           onChange={handleChange}
           placeholder="John Doe"
           required
-          className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
+          style={{
+            borderColor: 'var(--form-input-border)',
+            backgroundColor: 'var(--form-input-bg)',
+            color: 'var(--form-input-text)',
+          }}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-          Email <span className="text-red-500">*</span>
+        <label style={{ color: 'var(--text-heading)' }} className="block text-sm font-medium mb-2">
+          Email <span style={{ color: 'var(--color-error)' }}>*</span>
         </label>
         <input
           type="email"
@@ -98,12 +103,17 @@ export default function CollaborationForm() {
           onChange={handleChange}
           placeholder="you@company.com"
           required
-          className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
+          style={{
+            borderColor: 'var(--form-input-border)',
+            backgroundColor: 'var(--form-input-bg)',
+            color: 'var(--form-input-text)',
+          }}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+        <label style={{ color: 'var(--text-heading)' }} className="block text-sm font-medium mb-2">
           Company / Brand
         </label>
         <input
@@ -112,20 +122,30 @@ export default function CollaborationForm() {
           value={formData.company}
           onChange={handleChange}
           placeholder="Your company name"
-          className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
+          style={{
+            borderColor: 'var(--form-input-border)',
+            backgroundColor: 'var(--form-input-bg)',
+            color: 'var(--form-input-text)',
+          }}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-          Collaboration Type <span className="text-red-500">*</span>
+        <label style={{ color: 'var(--text-heading)' }} className="block text-sm font-medium mb-2">
+          Collaboration Type <span style={{ color: 'var(--color-error)' }}>*</span>
         </label>
         <select
           name="collaborationType"
           value={formData.collaborationType}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
+          style={{
+            borderColor: 'var(--form-input-border)',
+            backgroundColor: 'var(--form-input-bg)',
+            color: 'var(--form-input-text)',
+          }}
         >
           <option value="">Select a collaboration type...</option>
           <option value="Sponsored Content">Sponsored Content</option>
@@ -137,8 +157,8 @@ export default function CollaborationForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
-          Message <span className="text-red-500">*</span>
+        <label style={{ color: 'var(--text-heading)' }} className="block text-sm font-medium mb-2">
+          Message <span style={{ color: 'var(--color-error)' }}>*</span>
         </label>
         <textarea
           name="message"
@@ -147,14 +167,22 @@ export default function CollaborationForm() {
           rows={5}
           placeholder="Tell me about your collaboration idea..."
           required
-          className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
+          style={{
+            borderColor: 'var(--form-input-border)',
+            backgroundColor: 'var(--form-input-bg)',
+            color: 'var(--form-input-text)',
+          }}
         />
       </div>
 
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-amber-900 dark:bg-amber-800 hover:bg-amber-950 dark:hover:bg-amber-900 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 px-6 rounded-lg transition-colors"
+        className="w-full text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{
+          background: 'var(--cta-gradient)',
+        }}
       >
         {status === 'loading' ? 'Sending...' : 'Send Inquiry'}
       </button>

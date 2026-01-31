@@ -27,16 +27,16 @@ export default async function Showcase() {
   const pokemonShowcase = showcaseItems.filter((item: any) => item.category === "Pokémon");
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <Navbar />
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="py-20 sm:py-28">
           <ScrollFade>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 font-display">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent mb-6 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {pageContent.headline}
             </h1>
-            <p className="text-xl text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed">
+            <p className="text-xl max-w-2xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               {pageContent.subheadline}
             </p>
           </ScrollFade>
@@ -46,10 +46,10 @@ export default async function Showcase() {
         <section className="mb-20">
           <ScrollFade>
             <div className="mb-8">
-              <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-2 font-display">
+              <h2 className="text-4xl font-bold bg-clip-text text-transparent mb-2 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {pageContent.gunplaTitle}
               </h2>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p style={{ color: 'var(--text-secondary)' }}>
                 {pageContent.gunplaDescription}
               </p>
             </div>
@@ -72,10 +72,10 @@ export default async function Showcase() {
         <section className="mb-20">
           <ScrollFade>
             <div className="mb-8">
-              <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-2 font-display">
+              <h2 className="text-4xl font-bold bg-clip-text text-transparent mb-2 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {pageContent.pokemonTitle}
               </h2>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p style={{ color: 'var(--text-secondary)' }}>
                 {pageContent.pokemonDescription}
               </p>
             </div>

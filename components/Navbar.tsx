@@ -13,8 +13,6 @@ const NAV_LINKS = [
   { label: 'Contact', href: '/contact' },
 ];
 
-const LINK_STYLES = 'text-slate-700 dark:text-slate-300 hover:text-amber-900 dark:hover:text-amber-400 transition-colors text-sm font-medium';
-
 function MenuIcon() {
   return (
     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,13 +35,13 @@ export default function Navbar() {
   const closeMenu = useCallback(() => setIsOpen(false), []);
 
   return (
-    <nav className="sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <nav className="sticky top-0 z-40 border-b backdrop-blur-sm bg-opacity-95" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-subtle)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             href="/"
-            className="font-bold text-xl text-slate-900 dark:text-white hover:text-amber-900 dark:hover:text-amber-400 transition-colors"
+            className="font-bold text-xl bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent hover:from-amber-300 hover:to-orange-400 transition-all duration-300"
           >
             Jonchalon
           </Link>
@@ -54,7 +52,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={LINK_STYLES}
+                className="nav-link"
               >
                 {link.label}
               </Link>
@@ -64,9 +62,10 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-slate-900 dark:text-white p-2 transition-transform duration-300"
+            className="md:hidden p-2 transition-transform duration-300"
             aria-label="Toggle menu"
             aria-expanded={isOpen}
+            style={{ color: 'var(--text-heading)' }}
           >
             {isOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -74,13 +73,13 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pb-4 border-t border-slate-200 dark:border-slate-800">
+          <div className="md:hidden pb-4 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
             {NAV_LINKS.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={closeMenu}
-                className={`block py-2 ${LINK_STYLES}`}
+                className="block py-2 nav-link"
               >
                 {link.label}
               </Link>

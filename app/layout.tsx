@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GA_ID && (
@@ -37,7 +37,7 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="antialiased">
+      <body className="antialiased text-slate-50 dark:text-slate-50" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-light)' }}>
         {children}
       </body>
     </html>

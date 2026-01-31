@@ -44,17 +44,17 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <Navbar />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="py-20 sm:py-28">
           <ScrollFade>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 font-display">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent mb-6 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {contactData.headline}
             </h1>
-            <p className="text-xl text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl">
+            <p className="text-xl leading-relaxed max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
               {contactData.subheadline}
             </p>
           </ScrollFade>
@@ -65,12 +65,12 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {contactData.contactOptions.map((option, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
-                <div className="p-8 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center">
+                <div className="card-enhanced p-8 text-center">
                   <div className="text-4xl mb-4">{option.icon}</div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-accent-bright)' }}>
                     {option.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <p style={{ color: 'var(--text-secondary)' }}>
                     {option.value}
                   </p>
                 </div>
@@ -82,19 +82,19 @@ export default function Contact() {
         {/* Contact Form */}
         <section className="mb-20">
           <ScrollFade>
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 font-display">
+            <h2 className="text-4xl font-bold bg-clip-text text-transparent mb-8 font-display" style={{ background: 'var(--gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {contactData.formTitle}
             </h2>
           </ScrollFade>
 
           {submitted ? (
             <ScrollFade>
-              <div className="p-12 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg text-center">
+              <div className="p-12 card-enhanced text-center">
                 <p className="text-3xl mb-4">✨</p>
-                <h3 className="text-2xl font-bold text-green-900 dark:text-green-100 mb-2">
+                <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-accent-secondary)' }}>
                   Message Sent!
                 </h3>
-                <p className="text-green-800 dark:text-green-200">
+                <p style={{ color: 'var(--text-secondary)' }}>
                   Thanks for reaching out. I&apos;ll get back to you within 24 hours.
                 </p>
               </div>
@@ -102,7 +102,7 @@ export default function Contact() {
           ) : (
             <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                <label style={{ color: 'var(--text-accent-bright)' }} className="block text-sm font-medium mb-2">
                   Name
                 </label>
                 <input
@@ -111,13 +111,18 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
                   placeholder="Your name"
+                  style={{
+                    borderColor: 'var(--form-input-border)',
+                    backgroundColor: 'var(--form-input-bg)',
+                    color: 'var(--form-input-text)',
+                  }}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                <label style={{ color: 'var(--text-accent-bright)' }} className="block text-sm font-medium mb-2">
                   Email
                 </label>
                 <input
@@ -126,13 +131,18 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
                   placeholder="you@example.com"
+                  style={{
+                    borderColor: 'var(--form-input-border)',
+                    backgroundColor: 'var(--form-input-bg)',
+                    color: 'var(--form-input-text)',
+                  }}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
+                <label style={{ color: 'var(--text-accent-bright)' }} className="block text-sm font-medium mb-2">
                   Message
                 </label>
                 <textarea
@@ -141,14 +151,22 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-900 dark:focus:ring-amber-700"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
                   placeholder="Tell me about your idea..."
+                  style={{
+                    borderColor: 'var(--form-input-border)',
+                    backgroundColor: 'var(--form-input-bg)',
+                    color: 'var(--form-input-text)',
+                  }}
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-amber-900 dark:bg-amber-800 hover:bg-amber-950 dark:hover:bg-amber-900 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                className="w-full text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+                style={{
+                  background: 'var(--cta-gradient)',
+                }}
               >
                 Send Message
               </button>
@@ -158,11 +176,11 @@ export default function Contact() {
 
         {/* Response Time */}
         <ScrollFade>
-          <div className="p-12 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg text-center">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+          <div className="p-12 card-enhanced text-center">
+            <h3 style={{ color: 'var(--text-accent-bright)' }} className="text-xl font-bold mb-2">
               Quick Response
             </h3>
-            <p className="text-slate-700 dark:text-slate-300">
+            <p style={{ color: 'var(--text-secondary)' }}>
               I typically respond to messages within 24 hours.
             </p>
           </div>

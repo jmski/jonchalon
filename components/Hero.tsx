@@ -20,23 +20,23 @@ export default function Hero({
   secondaryCtaLink = '/dance',
 }: HeroProps) {
   return (
-    <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0e27, #1a1f3a, #0a0e27)' }}>
       {/* Animated background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
         <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-orange-600/5 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
       </div>
 
       {/* Background video (optional) */}
       {videoUrl && (
-        <div className="absolute inset-0 z-0 opacity-30">
+        <div className="absolute inset-0 z-0 opacity-20">
           <VideoEmbed
             src={videoUrl}
             title="Hero Video"
             lazy={false}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/50 to-slate-900/80"></div>
+          <div style={{ background: 'linear-gradient(to bottom, rgba(10, 14, 39, 0.8), rgba(26, 31, 58, 0.5), rgba(10, 14, 39, 0.8))', position: 'absolute', inset: 0 }}></div>
         </div>
       )}
 
@@ -51,15 +51,16 @@ export default function Hero({
         </div>
 
         {/* Headline with gradient */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight text-white">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight" style={{ color: 'var(--text-light)' }}>
           {headline.split(' ').map((word, idx) => (
             <span
               key={idx}
-              className={
-                idx === headline.split(' ').length - 1
-                  ? 'bg-gradient-to-r from-orange-400 via-orange-500 to-amber-600 bg-clip-text text-transparent'
-                  : ''
-              }
+              style={{
+                background: idx === headline.split(' ').length - 1 ? 'var(--text-gradient-heading)' : 'none',
+                WebkitBackgroundClip: idx === headline.split(' ').length - 1 ? 'text' : 'unset',
+                WebkitTextFillColor: idx === headline.split(' ').length - 1 ? 'transparent' : 'inherit',
+                backgroundClip: idx === headline.split(' ').length - 1 ? 'text' : 'unset',
+              }}
             >
               {word}{' '}
             </span>
@@ -67,7 +68,7 @@ export default function Hero({
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg sm:text-xl lg:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+        <p className="text-lg sm:text-xl lg:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
           {subheadline}
         </p>
 
@@ -75,21 +76,23 @@ export default function Hero({
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <a
             href={ctaLink}
-            className="px-8 py-4 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+            className="px-8 py-4 text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+            style={{ background: 'var(--cta-gradient)' }}
           >
             {ctaText}
             <span className="text-xl">→</span>
           </a>
           <a
             href={secondaryCtaLink}
-            className="px-8 py-4 border-2 border-slate-500 text-slate-100 hover:border-orange-500 hover:text-orange-400 font-semibold rounded-lg transition-all duration-300 hover:bg-orange-500/10 backdrop-blur-sm"
+            className="px-8 py-4 border-2 font-semibold rounded-lg transition-all duration-300 hover:bg-amber-500/10 backdrop-blur-sm"
+            style={{ borderColor: 'var(--border-accent)', color: 'var(--text-secondary)' }}
           >
             {secondaryCtaText}
           </a>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 text-slate-400 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce" style={{ color: 'var(--text-muted)' }}>
           <span className="text-sm font-medium">Scroll to explore</span>
           <svg
             className="w-5 h-5"

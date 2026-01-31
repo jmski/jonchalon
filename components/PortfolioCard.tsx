@@ -16,19 +16,22 @@ export default function PortfolioCard({
   link,
 }: PortfolioCardProps) {
   const content = (
-    <div className="card overflow-hidden h-full hover:border-accent-primary transition-colors group">
+    <div className="card-enhanced overflow-hidden h-full group">
       {/* Image */}
       {image && (
-        <div className="relative w-full h-48 overflow-hidden bg-slate-100">
+        <div className="relative w-full h-48 overflow-hidden bg-slate-800">
           <Image
             src={image}
             alt={title}
             width={500}
             height={400}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
+          {/* Overlay on hover */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to top, var(--bg-primary), transparent)' }}></div>
+          
           {category && (
-            <div className="absolute top-3 left-3">
+            <div className="absolute top-3 left-3 group-hover:top-2 group-hover:left-2 transition-all duration-300">
               <span className="badge">{category}</span>
             </div>
           )}
@@ -36,20 +39,25 @@ export default function PortfolioCard({
       )}
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+      <div className="p-6" style={{ background: 'linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary))' }}>
+        <h3 className="text-lg font-bold mb-2 group-hover:transition-colors group-hover:duration-300" style={{ color: 'var(--text-accent-bright)' }}>
           {title}
         </h3>
-        <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-body)' }}>
           {description}
         </p>
+        {link && (
+          <div className="mt-4 flex items-center gap-2 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: 'var(--text-accent-bright)' }}>
+            Learn more <span>→</span>
+          </div>
+        )}
       </div>
     </div>
   );
 
   if (link) {
     return (
-      <a href={link} className="group no-underline">
+      <a href={link} className="no-underline">
         {content}
       </a>
     );
