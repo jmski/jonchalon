@@ -26,6 +26,11 @@
   --font-display: "Georgia", "Garamond", serif;
 }
 
+/* Display font class */
+.font-display {
+  font-family: var(--font-display);
+}
+
 @theme inline {
   --color-background: var(--bg-light);
   --color-foreground: var(--slate-900);

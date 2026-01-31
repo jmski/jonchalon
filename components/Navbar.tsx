@@ -1,9 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
-const LINKS = [
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const DEFAULT_LINKS: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Dance', href: '/dance' },
   { label: 'Showcase', href: '/showcase' },
@@ -11,7 +16,7 @@ const LINKS = [
   { label: 'Media Kit', href: '/media-kit' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
-] as const;
+];
 
 const LINK_STYLES = 'text-slate-700 dark:text-slate-300 hover:text-amber-900 dark:hover:text-amber-400 transition-colors text-sm font-medium';
 
@@ -33,6 +38,25 @@ function CloseIcon() {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [links, setLinks] = useState<NavLink[]>(DEFAULT_LINKS);
+
+  useEffect(() => {
+    // Fetch navigation links from Sanity
+    const fetchNavLinks = async () => {
+      try {
+        const response = await fetch('/api/site-settings');
+        const data = await response.json();
+        if (data && data.navLinks) {
+          setLinks(data.navLinks);
+        }
+      } catch (error) {
+        console.error('Error fetching nav links:', error);
+        // Keep default links on error
+      }
+    };
+    fetchNavLinks();
+  }, []);
+
   const toggleMenu = useCallback(() => setIsOpen(prev => !prev), []);
   const closeMenu = useCallback(() => setIsOpen(false), []);
 
@@ -50,7 +74,7 @@ export default function Navbar() {
 
           {/* Navigation Links - Desktop */}
           <div className="hidden md:flex items-center gap-8">
-            {LINKS.map(link => (
+            {links.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -75,7 +99,7 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden pb-4 border-t border-slate-200 dark:border-slate-800">
-            {LINKS.map(link => (
+            {links.map(link => (
               <Link
                 key={link.href}
                 href={link.href}

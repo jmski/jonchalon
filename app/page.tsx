@@ -2,28 +2,58 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import PortfolioCard from '@/components/PortfolioCard';
 import ScrollFade from '@/components/ScrollFade';
+import StatsSection from '@/components/StatsSection';
+import { sanityClient } from '@/lib/sanityClient';
+import { homePageQuery } from '@/lib/sanityQueries';
 
-export default function Home() {
+interface HomePage {
+  headline: string;
+  subheadline: string;
+  ctaText: string;
+  ctaLink: string;
+  featuredTitle: string;
+  featuredDescription: string;
+  offerTitle: string;
+  offerDescription: string;
+  collaborateTitle: string;
+  collaborateDescription: string;
+  collaborateButtonText: string;
+  services: Array<{ title: string; description: string }>;
+}
+
+export default async function Home() {
+  let homeData: HomePage | null = null;
+
+  try {
+    homeData = await sanityClient.fetch(homePageQuery);
+  } catch (error) {
+    console.error('Error fetching home data:', error);
+  }
+
+  if (!homeData) {
+    return <div>Unable to load home page data</div>;
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
       <Navbar />
 
       {/* Hero Section */}
       <Hero
-        headline="Dancer, Content Creator & Collaborator"
-        subheadline="Showcasing dance expertise, creative projects, and exciting partnership opportunities"
-        ctaText="Explore My Work"
-        ctaLink="#featured"
+        headline={homeData.headline}
+        subheadline={homeData.subheadline}
+        ctaText={homeData.ctaText}
+        ctaLink={homeData.ctaLink}
       />
 
       {/* Featured Section */}
       <section id="featured" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <ScrollFade>
-          <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4" style={{fontFamily: 'Georgia, serif'}}>
-            Featured Work
+          <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4 font-display">
+            {homeData.featuredTitle}
           </h2>
           <p className="text-slate-700 dark:text-slate-300 mb-12 max-w-2xl text-lg">
-            A curated selection of my best dance videos, creative projects, and recent collaborations
+            {homeData.featuredDescription}
           </p>
         </ScrollFade>
 
@@ -59,33 +89,16 @@ export default function Home() {
       <section className="bg-slate-50 dark:bg-slate-800 py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollFade>
-            <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4" style={{fontFamily: 'Georgia, serif'}}>
-              What I Offer
+            <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4 font-display">
+              {homeData.offerTitle}
             </h2>
             <p className="text-slate-700 dark:text-slate-300 mb-12 max-w-2xl text-lg">
-              Professional services spanning dance, content creation, and brand collaborations
+              {homeData.offerDescription}
             </p>
           </ScrollFade>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                title: 'Dance Services',
-                description: 'Choreography, performance, tutorials, and dance content creation for brands and collaborators',
-              },
-              {
-                title: 'Content Creation',
-                description: 'High-quality video production, unboxing/reviews, and lifestyle content in otaku culture niche',
-              },
-              {
-                title: 'Brand Collaborations',
-                description: 'Influencer partnerships, sponsored content, and promotional campaigns across multiple niches',
-              },
-              {
-                title: 'Media Kit',
-                description: 'Comprehensive audience analytics, engagement metrics, and collaboration packages',
-              },
-            ].map((service, idx) => (
+            {homeData.services.map((service, idx) => (
               <ScrollFade key={idx} delay={idx * 100}>
                 <div className="card p-8">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
@@ -105,47 +118,21 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <ScrollFade>
           <div className="bg-amber-900 dark:bg-amber-950 text-white rounded-lg p-12 text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{fontFamily: 'Georgia, serif'}}>
-              Let&apos;s Collaborate
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4 font-display">
+              {homeData.collaborateTitle}
             </h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              Interested in working together? Explore collaboration opportunities and partnerships
+              {homeData.collaborateDescription}
             </p>
             <a href="/collaborations" className="inline-block bg-white text-amber-900 px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors">
-              View Collaboration Options
+              {homeData.collaborateButtonText}
             </a>
           </div>
         </ScrollFade>
       </section>
 
       {/* Stats Section */}
-      <section className="bg-slate-50 dark:bg-slate-800 py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollFade>
-            <h2 className="text-5xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-12 text-center" style={{fontFamily: 'Georgia, serif'}}>
-              By The Numbers
-            </h2>
-          </ScrollFade>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { label: 'Videos Created', value: '150+' },
-              { label: 'Followers', value: '10K+' },
-              { label: 'Avg Views', value: '25K+' },
-              { label: 'Collaborations', value: '20+' },
-            ].map((stat, idx) => (
-              <ScrollFade key={idx} delay={idx * 150}>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-amber-900 dark:text-amber-400 mb-2">
-                    {stat.value}
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300">{stat.label}</p>
-                </div>
-              </ScrollFade>
-            ))}
-          </div>
-        </div>
-      </section>
+      <StatsSection />
     </div>
   );
 }
