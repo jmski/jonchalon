@@ -5,23 +5,14 @@ import ScrollFade from "@/components/ScrollFade";
 import CTASection from "@/components/CTASection";
 import { sanityClient } from "@/lib/sanityClient";
 import { showcaseQuery } from "@/lib/sanityQueries";
+import { PAGE_CONTENT } from "@/lib/pageContent";
 
 export const metadata = {
   title: "Showcase | Jon",
   description: "Gunpla builds, model photography, and Pokémon collection"
 };
 
-const pageContent = {
-  headline: 'Showcase',
-  subheadline: 'Gunpla builds, model photography, and creative hobby projects.',
-  gunplaTitle: 'Gunpla Builds',
-  gunplaDescription: 'High-quality Gundam model kit builds with professional photography.',
-  pokemonTitle: 'Pokémon Collection',
-  pokemonDescription: 'Curated Pokémon collectibles and unboxing content.',
-  ctaTitle: 'Let\'s Create Together',
-  ctaDescription: 'Interested in collaborating on a project?',
-  ctaButtonText: 'Get in Touch'
-};
+const pageContent = PAGE_CONTENT.showcase;
 
 export default async function Showcase() {
   let showcaseItems: any[] = [];

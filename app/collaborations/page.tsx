@@ -4,19 +4,14 @@ import CTASection from "@/components/CTASection";
 import CollaborationForm from "@/components/CollaborationForm";
 import { sanityClient } from "@/lib/sanityClient";
 import { collaborationQuery } from "@/lib/sanityQueries";
+import { PAGE_CONTENT } from "@/lib/pageContent";
 
 export const metadata = {
   title: "Collaborations | Jon",
   description: "Brand partnerships, sponsored content, and collaboration opportunities"
 };
 
-const pageContent = {
-  headline: 'Collaborations & Services',
-  subheadline: 'Let\'s create something amazing together. From sponsored content to brand partnerships.',
-  servicesTitle: 'Services & Collaboration Types',
-  getInTouchTitle: 'Get in Touch',
-  getInTouchDescription: 'Ready to collaborate? Fill out the form below with your project details.'
-};
+const pageContent = PAGE_CONTENT.collaborations;
 
 export default async function Collaborations() {
   let services: any[] = [];
@@ -42,7 +37,7 @@ export default async function Collaborations() {
         <section className="mb-20">
           <ScrollFade>
             <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-12 font-display">
-              {pageContent.servicesTitle}
+              Services & Collaboration Types
             </h2>
           </ScrollFade>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -72,10 +67,10 @@ export default async function Collaborations() {
         <section className="mb-20">
           <ScrollFade>
             <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 font-display">
-              {pageContent.getInTouchTitle}
+              Get in Touch
             </h2>
             <p className="text-lg text-slate-700 dark:text-slate-300 mb-12 max-w-2xl">
-              {pageContent.getInTouchDescription}
+              Ready to collaborate? Fill out the form below with your project details.
             </p>
           </ScrollFade>
           <div className="max-w-2xl">

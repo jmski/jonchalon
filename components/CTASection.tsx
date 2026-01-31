@@ -19,7 +19,7 @@ export default function CTASection({
         <div
           className="rounded-lg p-12 text-center"
           style={{
-            background: "linear-gradient(to right, rgb(249, 115, 22), rgb(234, 88, 12))"
+            background: "var(--cta-gradient)"
           }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 font-display">

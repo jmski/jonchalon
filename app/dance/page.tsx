@@ -4,21 +4,14 @@ import DanceFilter from "@/components/DanceFilter";
 import CTASection from "@/components/CTASection";
 import { sanityClient } from "@/lib/sanityClient";
 import { dancePortfolioQuery } from "@/lib/sanityQueries";
+import { PAGE_CONTENT, DANCE_FILTER_CATEGORIES } from "@/lib/pageContent";
 
 export const metadata = {
   title: "Dance Portfolio | Jon",
   description: "Dance choreography, freestyle performances, and movement artistry"
 };
 
-const pageContent = {
-  headline: 'Dance Portfolio',
-  subheadline: 'Choreography, freestyle performances, and artistic movement.',
-  ctaTitle: 'Let\'s Create Together',
-  ctaDescription: 'Ready to collaborate on a dance project? Reach out with your vision.',
-  ctaButtonText: 'Start a Project'
-};
-
-const categories = ["All", "Choreography", "Freestyle", "Performance"];
+const pageContent = PAGE_CONTENT.dance;
 
 export default async function Dance() {
   let dancePortfolio: any[] = [];
@@ -47,7 +40,7 @@ export default async function Dance() {
         </div>
 
         {/* Dynamic Filter and Portfolio */}
-        <DanceFilter items={dancePortfolio} categories={categories} />
+        <DanceFilter items={dancePortfolio} categories={DANCE_FILTER_CATEGORIES} />
 
         {/* CTA Section */}
         <CTASection
