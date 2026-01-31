@@ -3,42 +3,23 @@ import ScrollFade from "@/components/ScrollFade";
 import CTASection from "@/components/CTASection";
 import CollaborationForm from "@/components/CollaborationForm";
 import { sanityClient } from "@/lib/sanityClient";
-import { collaborationPageQuery, collaborationQuery } from "@/lib/sanityQueries";
+import { collaborationQuery } from "@/lib/sanityQueries";
 
 export const metadata = {
   title: "Collaborations | Jon",
   description: "Brand partnerships, sponsored content, and collaboration opportunities"
 };
 
-interface CollaborationService {
-  _id: string;
-  title: string;
-  description: string;
-  price?: string;
-}
-
-interface CollaborationPageContent {
-  headline: string;
-  subheadline: string;
-  servicesTitle: string;
-  getInTouchTitle: string;
-  getInTouchDescription: string;
-}
+const pageContent = {
+  headline: 'Collaborations & Services',
+  subheadline: 'Let\'s create something amazing together. From sponsored content to brand partnerships.',
+  servicesTitle: 'Services & Collaboration Types',
+  getInTouchTitle: 'Get in Touch',
+  getInTouchDescription: 'Ready to collaborate? Fill out the form below with your project details.'
+};
 
 export default async function Collaborations() {
-  let services: CollaborationService[] = [];
-  let pageContent: CollaborationPageContent | null = null;
-
-  try {
-    services = await sanityClient.fetch(collaborationQuery);
-    pageContent = await sanityClient.fetch(collaborationPageQuery);
-  } catch (error) {
-    console.error('Error fetching collaboration data:', error);
-  }
-
-  if (!pageContent) {
-    return <div>Unable to load collaborations page data</div>;
-  }
+  let services: any[] = [];
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">

@@ -3,36 +3,30 @@ import ScrollFade from "@/components/ScrollFade";
 import DanceFilter from "@/components/DanceFilter";
 import CTASection from "@/components/CTASection";
 import { sanityClient } from "@/lib/sanityClient";
-import { dancePortfolioQuery, dancePageQuery } from "@/lib/sanityQueries";
+import { dancePortfolioQuery } from "@/lib/sanityQueries";
 
 export const metadata = {
   title: "Dance Portfolio | Jon",
   description: "Dance choreography, freestyle performances, and movement artistry"
 };
 
-interface DancePageContent {
-  headline: string;
-  subheadline: string;
-  ctaTitle: string;
-  ctaDescription: string;
-  ctaButtonText: string;
-}
+const pageContent = {
+  headline: 'Dance Portfolio',
+  subheadline: 'Choreography, freestyle performances, and artistic movement.',
+  ctaTitle: 'Let\'s Create Together',
+  ctaDescription: 'Ready to collaborate on a dance project? Reach out with your vision.',
+  ctaButtonText: 'Start a Project'
+};
 
 const categories = ["All", "Choreography", "Freestyle", "Performance"];
 
 export default async function Dance() {
-  let dancePortfolio = [];
-  let pageContent: DancePageContent | null = null;
+  let dancePortfolio: any[] = [];
 
   try {
     dancePortfolio = await sanityClient.fetch(dancePortfolioQuery);
-    pageContent = await sanityClient.fetch(dancePageQuery);
   } catch (error) {
     console.error('Error fetching dance data:', error);
-  }
-
-  if (!pageContent) {
-    return <div>Unable to load dance page data</div>;
   }
 
   return (

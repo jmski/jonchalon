@@ -10,16 +10,6 @@ export const collaborationQuery = `*[_type == "collaboration"]{
   _id, title, type, description, "image": image.asset->url, link
 }`;
 
-export const statsQuery = `*[_type == "stats"] | order(platform asc){
-  platform,
-  followers,
-  totalViews,
-  avgEngagementRate,
-  monthlyGrowth,
-  profileUrl,
-  updatedAt
-}`;
-
 export const inquiriesQuery = `*[_type == "inquiry"] | order(submittedAt desc){
   _id,
   name,
@@ -32,12 +22,3 @@ export const inquiriesQuery = `*[_type == "inquiry"] | order(submittedAt desc){
 }`;
 
 // Page content queries
-export const homePageQuery = `*[_type == "homePage"][0]`;
-
-export const dancePageQuery = `*[_type == "dancePageContent"][0]`;
-
-export const showcasePageQuery = `*[_type == "showcasePage"][0]`;
-
-export const collaborationPageQuery = `*[_type == "collaborationPageContent"][0]`;
-
-export const siteSettingsQuery = `*[_type == "siteSettings"][0]`;

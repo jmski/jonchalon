@@ -3,36 +3,28 @@ import Hero from '@/components/Hero';
 import PortfolioCard from '@/components/PortfolioCard';
 import ScrollFade from '@/components/ScrollFade';
 import StatsSection from '@/components/StatsSection';
-import { sanityClient } from '@/lib/sanityClient';
-import { homePageQuery } from '@/lib/sanityQueries';
 
-interface HomePage {
-  headline: string;
-  subheadline: string;
-  ctaText: string;
-  ctaLink: string;
-  featuredTitle: string;
-  featuredDescription: string;
-  offerTitle: string;
-  offerDescription: string;
-  collaborateTitle: string;
-  collaborateDescription: string;
-  collaborateButtonText: string;
-  services: Array<{ title: string; description: string }>;
-}
+const homeData = {
+  headline: 'Jon',
+  subheadline: 'Dance Artist, Creator & Brand Collaborator',
+  ctaText: 'Let\'s Collaborate',
+  ctaLink: '/collaborations',
+  featuredTitle: 'Featured Work',
+  featuredDescription: 'Explore my latest choreography, performances, and creative projects.',
+  offerTitle: 'What I Offer',
+  offerDescription: 'Professional dance content creation and brand collaborations',
+  collaborateTitle: 'Ready to Work Together?',
+  collaborateDescription: 'Let\'s create something amazing. From sponsored content to collaborations, I\'m always open to exciting opportunities.',
+  collaborateButtonText: 'Explore Collaboration Options',
+  services: [
+    { title: 'Choreography', description: 'Custom choreography for your brand or project' },
+    { title: 'Dance Content', description: 'High-quality dance videos for social media' },
+    { title: 'Tutorials', description: 'Dance tutorials and how-to content' },
+    { title: 'Brand Partnerships', description: 'Sponsored content and brand collaborations' }
+  ]
+};
 
 export default async function Home() {
-  let homeData: HomePage | null = null;
-
-  try {
-    homeData = await sanityClient.fetch(homePageQuery);
-  } catch (error) {
-    console.error('Error fetching home data:', error);
-  }
-
-  if (!homeData) {
-    return <div>Unable to load home page data</div>;
-  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">

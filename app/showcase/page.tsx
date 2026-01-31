@@ -4,51 +4,36 @@ import PortfolioCard from "@/components/PortfolioCard";
 import ScrollFade from "@/components/ScrollFade";
 import CTASection from "@/components/CTASection";
 import { sanityClient } from "@/lib/sanityClient";
-import { showcaseQuery, showcasePageQuery } from "@/lib/sanityQueries";
+import { showcaseQuery } from "@/lib/sanityQueries";
 
 export const metadata = {
   title: "Showcase | Jon",
   description: "Gunpla builds, model photography, and Pokémon collection"
 };
 
-interface ShowcaseItem {
-  _id: string;
-  title: string;
-  category: string;
-  description: string;
-  image?: string;
-  videoUrl?: string;
-}
-
-interface ShowcasePageContent {
-  headline: string;
-  subheadline: string;
-  gunplaTitle: string;
-  gunplaDescription: string;
-  pokemonTitle: string;
-  pokemonDescription: string;
-  ctaTitle: string;
-  ctaDescription: string;
-  ctaButtonText: string;
-}
+const pageContent = {
+  headline: 'Showcase',
+  subheadline: 'Gunpla builds, model photography, and creative hobby projects.',
+  gunplaTitle: 'Gunpla Builds',
+  gunplaDescription: 'High-quality Gundam model kit builds with professional photography.',
+  pokemonTitle: 'Pokémon Collection',
+  pokemonDescription: 'Curated Pokémon collectibles and unboxing content.',
+  ctaTitle: 'Let\'s Create Together',
+  ctaDescription: 'Interested in collaborating on a project?',
+  ctaButtonText: 'Get in Touch'
+};
 
 export default async function Showcase() {
-  let showcaseItems: ShowcaseItem[] = [];
-  let pageContent: ShowcasePageContent | null = null;
+  let showcaseItems: any[] = [];
 
   try {
     showcaseItems = await sanityClient.fetch(showcaseQuery);
-    pageContent = await sanityClient.fetch(showcasePageQuery);
   } catch (error) {
     console.error('Error fetching showcase data:', error);
   }
 
-  if (!pageContent) {
-    return <div>Unable to load showcase page data</div>;
-  }
-
-  const gunplaShowcase = showcaseItems.filter((item) => item.category === "Gunpla");
-  const pokemonShowcase = showcaseItems.filter((item) => item.category === "Pokémon");
+  const gunplaShowcase = showcaseItems.filter((item: any) => item.category === "Gunpla");
+  const pokemonShowcase = showcaseItems.filter((item: any) => item.category === "Pokémon");
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
@@ -79,7 +64,7 @@ export default async function Showcase() {
             </div>
           </ScrollFade>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {gunplaShowcase.map((item, idx) => (
+            {gunplaShowcase.map((item: any, idx: number) => (
               <ScrollFade key={item._id} delay={idx * 100}>
                 <PortfolioCard
                   title={item.title}
@@ -105,7 +90,7 @@ export default async function Showcase() {
             </div>
           </ScrollFade>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {pokemonShowcase.map((item, idx) => (
+            {pokemonShowcase.map((item: any, idx: number) => (
               <ScrollFade key={item._id} delay={idx * 100}>
                 <PortfolioCard
                   title={item.title}
