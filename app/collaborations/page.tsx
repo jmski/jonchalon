@@ -73,7 +73,7 @@ export default async function Collaborations() {
               Ready to collaborate? Fill out the form below with your project details.
             </p>
           </ScrollFade>
-          <div className="max-w-2xl">
+          <div className="max-w-2xl mx-auto">
             <CollaborationForm />
           </div>
         </section>

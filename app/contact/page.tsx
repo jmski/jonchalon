@@ -100,7 +100,7 @@ export default function Contact() {
               </div>
             </ScrollFade>
           ) : (
-            <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
+            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
               <div>
                 <label className="block text-sm font-medium text-slate-900 dark:text-white mb-2">
                   Name

@@ -8,7 +8,11 @@
   /* ========== CTA GRADIENT - Orange (Primary) ========== */
   --cta-gradient-start: rgb(249, 115, 22);
   --cta-gradient-end: rgb(234, 88, 12);
-  --cta-gradient: linear-gradient(to right, var(--cta-gradient-start), var(--cta-gradient-end));
+  --cta-gradient: linear-gradient(
+    to right,
+    var(--cta-gradient-start),
+    var(--cta-gradient-end)
+  );
   --cta-text-light: rgb(255, 255, 255); /* White text on gradient */
   --cta-text-accent: rgb(234, 88, 12); /* Orange text for buttons on white bg */
   --cta-bg-light: rgb(255, 237, 213); /* Light orange background (orange-50) */
