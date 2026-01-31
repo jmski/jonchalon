@@ -82,10 +82,12 @@ SANITY_API_TOKEN = <PASTE_TOKEN_FROM_STEP_1>
 ### STEP 5: Verify Deployment (1 minute)
 
 Visit your new site:
+
 - URL shown in Netlify dashboard
 - Format: `https://[random-name].netlify.app`
 
 Check these work:
+
 - [ ] Homepage loads
 - [ ] All navigation links work
 - [ ] Content displays from Sanity
@@ -104,18 +106,21 @@ Your site is now live on Netlify!
 ## 📝 What Happens Next?
 
 ### Automatic Builds
+
 - Every GitHub push triggers auto-build
 - Build logs available in Netlify dashboard
 - Takes 2-3 minutes per build
 - Notified of build failures via email
 
 ### Content Updates
+
 - Edit content in Sanity Studio
 - Changes live in seconds
 - No rebuild needed
 - Works automatically!
 
 ### Custom Domain (Optional)
+
 1. Go to Netlify dashboard
 2. **Domain management** → **Add custom domain**
 3. Follow DNS setup instructions
@@ -126,18 +131,21 @@ Your site is now live on Netlify!
 ## ⚠️ Troubleshooting
 
 ### Build Fails?
+
 - Check Netlify build logs (Deploys tab)
 - Most common: Missing environment variables
 - Verify all 4 environment variables are set
 - Redeploy after fixing
 
 ### Content Not Showing?
+
 - Verify Sanity API token is correct
 - Check token permissions (read + write)
 - Confirm project ID is `f0611nfi`
 - Check Sanity Studio has content
 
 ### Still Having Issues?
+
 - Check [NETLIFY_DEPLOYMENT.md](NETLIFY_DEPLOYMENT.md) for detailed guide
 - Review [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)
 - See error details in Netlify build logs
@@ -155,6 +163,7 @@ Your site is now live on Netlify!
 ## 🎯 Success Metrics
 
 After deployment:
+
 - ✅ Site accessible at netlify.app URL
 - ✅ Pages load in < 2 seconds
 - ✅ Sanity content displays correctly
@@ -167,6 +176,7 @@ After deployment:
 **That's it! You're live! 🎉**
 
 For more details, see:
+
 - [Full Deployment Guide](NETLIFY_DEPLOYMENT.md)
 - [Deployment Checklist](DEPLOYMENT_CHECKLIST.md)
 - [Project README](README_NEW.md)

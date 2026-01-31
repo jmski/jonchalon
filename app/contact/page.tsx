@@ -3,45 +3,27 @@
 import { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import ScrollFade from "@/components/ScrollFade";
-import { useEffect } from 'react';
 
-interface ContactOption {
-  icon: string;
-  title: string;
-  value: string;
-}
-
-interface ContactPageContent {
-  headline: string;
-  subheadline: string;
-  formTitle: string;
-  contactOptions: ContactOption[];
-  directEmailText: string;
-  directEmail: string;
-}
+const contactData = {
+  headline: 'Get in Touch',
+  subheadline: 'Have a collaboration idea or just want to chat? I\'d love to hear from you.',
+  formTitle: 'Send me a Message',
+  contactOptions: [
+    { icon: '✉️', title: 'Email', value: 'contact@jonchalon.com' },
+    { icon: '📱', title: 'Instagram', value: '@jonchalon' },
+    { icon: '🎬', title: 'TikTok', value: '@jonchalon' }
+  ],
+  directEmailText: 'Or email me directly at',
+  directEmail: 'contact@jonchalon.com'
+};
 
 export default function Contact() {
-  const [contactData, setContactData] = useState<ContactPageContent | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    // Fetch contact page data
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/contact-page');
-        const data = await response.json();
-        setContactData(data);
-      } catch (error) {
-        console.error('Error fetching contact page data:', error);
-      }
-    };
-    fetchData();
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -60,10 +42,6 @@ export default function Contact() {
       setSubmitted(false);
     }, 3000);
   };
-
-  if (!contactData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">

@@ -12,17 +12,6 @@ export const collaborationQuery = `*[_type == "collaboration"]{
 
 export const mediaKitQuery = `*[_type == "mediaKit"]{statName, value, platform}`;
 
-export const aboutQuery = `*[_type == "about"][0]{
-  headline, 
-  tagline, 
-  bio,
-  "profileImage": profileImage.asset->url,
-  philosophy,
-  expertise
-}`;
-
-export const contactQuery = `*[_type == "contact"][0]{email, social}`;
-
 export const statsQuery = `*[_type == "stats"] | order(platform asc){
   platform,
   followers,
@@ -52,8 +41,6 @@ export const dancePageQuery = `*[_type == "dancePageContent"][0]`;
 export const showcasePageQuery = `*[_type == "showcasePage"][0]`;
 
 export const collaborationPageQuery = `*[_type == "collaborationPageContent"][0]`;
-
-export const contactPageQuery = `*[_type == "contactPage"][0]`;
 
 export const mediaKitPageQuery = `*[_type == "mediaKitPage"][0]`;
 
