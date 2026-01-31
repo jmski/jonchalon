@@ -22,3 +22,22 @@ export const inquiriesQuery = `*[_type == "inquiry"] | order(submittedAt desc){
 }`;
 
 // Page content queries
+
+export const aboutQuery = `*[_type == "about"][0]{
+  headline, 
+  tagline, 
+  bio,
+  "profileImage": profileImage.asset->url,
+  philosophy,
+  expertise
+}`;
+
+export const statsQuery = `*[_type == "stats"] | order(platform asc){
+  platform,
+  followers,
+  totalViews,
+  avgEngagementRate,
+  monthlyGrowth,
+  profileUrl,
+  updatedAt
+}`;
