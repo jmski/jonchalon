@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import PortfolioCard from '@/components/PortfolioCard';
 import ScrollFade from '@/components/ScrollFade';
 import StatsSection from '@/components/StatsSection';
+import CTASection from '@/components/CTASection';
 
 const homeData = {
   headline: 'Jon',
@@ -107,20 +108,13 @@ export default async function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <ScrollFade>
-          <div className="bg-amber-900 dark:bg-amber-950 text-white rounded-lg p-12 text-center">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4 font-display">
-              {homeData.collaborateTitle}
-            </h2>
-            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              {homeData.collaborateDescription}
-            </p>
-            <a href="/collaborations" className="inline-block bg-white text-amber-900 px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors">
-              {homeData.collaborateButtonText}
-            </a>
-          </div>
-        </ScrollFade>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CTASection
+          title={homeData.collaborateTitle}
+          description={homeData.collaborateDescription}
+          buttonText={homeData.collaborateButtonText}
+          buttonLink="/collaborations"
+        />
       </section>
 
       {/* Stats Section */}

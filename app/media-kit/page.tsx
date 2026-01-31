@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ScrollFade from "@/components/ScrollFade";
+import CTASection from "@/components/CTASection";
 
 export const metadata = {
   title: "Media Kit | Jon",
@@ -301,21 +302,12 @@ export default async function MediaKit() {
         </section>
 
         {/* Download Section */}
-        <section className="py-16 border-t border-slate-200 dark:border-slate-700">
-          <ScrollFade>
-            <div className="rounded-lg p-12 text-center" style={{ background: 'linear-gradient(to right, rgb(120, 53, 15), rgb(194, 102, 0))' }}>
-              <h2 className="text-3xl font-bold text-white mb-4 font-display">
-                Download Full Media Kit
-              </h2>
-              <p className="text-amber-100 mb-8">
-                Get a PDF version with complete statistics and collaboration packages.
-              </p>
-              <button className="inline-block bg-white text-amber-900 px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors">
-                Download PDF
-              </button>
-            </div>
-          </ScrollFade>
-        </section>
+        <CTASection
+          title="Download Full Media Kit"
+          description="Get a PDF version with complete statistics and collaboration packages."
+          buttonText="Download PDF"
+          buttonLink="#"
+        />
       </main>
     </div>
   );

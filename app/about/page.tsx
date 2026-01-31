@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ScrollFade from "@/components/ScrollFade";
+import CTASection from "@/components/CTASection";
 import { sanityClient } from "@/lib/sanityClient";
 import { aboutQuery } from "@/lib/sanityQueries";
 
@@ -88,7 +89,7 @@ export default async function About() {
         </section>
 
         {/* Philosophy */}
-        <section className="mb-20 bg-amber-50 dark:bg-amber-900/20 p-12 rounded-lg border border-amber-200 dark:border-amber-700">
+        <section className="mb-20 bg-orange-50 dark:bg-orange-900/20 p-12 rounded-lg border border-orange-200 dark:border-orange-700">
           <ScrollFade>
             <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 font-display">
               My Philosophy
@@ -104,24 +105,12 @@ export default async function About() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 border-t border-slate-200 dark:border-slate-700">
-          <ScrollFade>
-            <div className="text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4 font-display">
-                Let&apos;s Create Something Together
-              </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
-                Whether it&apos;s a dance collaboration, hobby content, or brand partnership, I&apos;d love to hear your ideas.
-              </p>
-              <a
-                href="/collaborations"
-                className="inline-block bg-amber-900 dark:bg-amber-800 hover:bg-amber-950 dark:hover:bg-amber-900 text-white px-8 py-4 rounded-lg font-bold transition-colors"
-              >
-                Explore Collaborations
-              </a>
-            </div>
-          </ScrollFade>
-        </section>
+        <CTASection
+          title="Let's Create Something Together"
+          description="Whether it's a dance collaboration, hobby content, or brand partnership, I'd love to hear your ideas."
+          buttonText="Explore Collaborations"
+          buttonLink="/collaborations"
+        />
       </main>
     </div>
   );
