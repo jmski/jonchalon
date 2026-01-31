@@ -132,11 +132,12 @@ export default async function Showcase() {
                 className="inline-block bg-white text-orange-600 px-8 py-3 rounded-lg font-bold hover:bg-slate-100 transition-colors"
               >
                 {pageContent.ctaButtonText}
-              </a>
-            </div>
-          </ScrollFade>
-        </section>
-      </main>
+                </a>
+              </div>
+            </ScrollFade>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }

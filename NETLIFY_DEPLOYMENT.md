@@ -151,12 +151,12 @@ After deployment completes:
 
 ### Environment Variables
 
-| Variable | Purpose | Type |
-|----------|---------|------|
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project ID | Public |
-| `NEXT_PUBLIC_SANITY_DATASET` | Sanity dataset name | Public |
-| `NEXT_PUBLIC_SANITY_API_VERSION` | Sanity API version | Public |
-| `SANITY_API_TOKEN` | Sanity authentication (server-side only) | Secret |
+| Variable                         | Purpose                                  | Type   |
+| -------------------------------- | ---------------------------------------- | ------ |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID`  | Sanity project ID                        | Public |
+| `NEXT_PUBLIC_SANITY_DATASET`     | Sanity dataset name                      | Public |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | Sanity API version                       | Public |
+| `SANITY_API_TOKEN`               | Sanity authentication (server-side only) | Secret |
 
 ⚠️ **Security**: Prefix `NEXT_PUBLIC_` variables are exposed to browser. Never put sensitive data there.
 
@@ -165,11 +165,13 @@ After deployment completes:
 ### Build Fails
 
 **Error: "npm ERR!"**
+
 - Ensure all dependencies in `package.json`
 - Run `npm install` locally first
 - Check Node version matches `netlify.toml`
 
 **Error: "Cannot find module"**
+
 ```bash
 # Rebuild dependencies
 rm -rf node_modules package-lock.json
@@ -186,6 +188,7 @@ npm install
 ### Sanity Connection Issues
 
 **Error: "Sanity API request failed"**
+
 - Verify `SANITY_API_TOKEN` in Netlify environment
 - Check token has read permissions in Sanity dashboard
 - Confirm project ID matches (`f0611nfi`)
@@ -201,6 +204,7 @@ npm install
 ## Monitoring & Logs
 
 ### View Build Logs
+
 1. Netlify Dashboard → **Deploys** tab
 2. Click latest deploy
 3. Scroll to **Build log** section
@@ -219,6 +223,7 @@ npm install
 ### Monitor Live Site
 
 Use Netlify Analytics (free):
+
 - Dashboard → **Analytics**
 - View page views, bandwidth, errors
 
