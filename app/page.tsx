@@ -6,10 +6,12 @@ import StatsSection from '@/components/StatsSection';
 import CTASection from '@/components/CTASection';
 
 const homeData = {
-  headline: 'Jon',
-  subheadline: 'Dance Artist, Creator & Brand Collaborator',
-  ctaText: 'Let\'s Collaborate',
+  headline: 'Dance Artist & Creator',
+  subheadline: 'Transforming movement into stories. Specializing in choreography, content creation, and brand collaborations for creators who move the world.',
+  ctaText: 'Start Collaboration',
   ctaLink: '/collaborations',
+  secondaryCtaText: 'View Portfolio',
+  secondaryCtaLink: '/dance',
   featuredTitle: 'Featured Work',
   featuredDescription: 'Explore my latest choreography, performances, and creative projects.',
   offerTitle: 'What I Offer',
@@ -37,6 +39,8 @@ export default async function Home() {
         subheadline={homeData.subheadline}
         ctaText={homeData.ctaText}
         ctaLink={homeData.ctaLink}
+        secondaryCtaText={homeData.secondaryCtaText}
+        secondaryCtaLink={homeData.secondaryCtaLink}
       />
 
       {/* Featured Section */}
@@ -56,7 +60,7 @@ export default async function Home() {
               title="Choreography Reel"
               description="Original choreography combining hip-hop and contemporary dance"
               category="Dance"
-              image="https://images.unsplash.com/photo-1599184861866-38f3d3eeae60?w=500&h=400&fit=crop"
+              image="https://picsum.photos/500/400?random=1"
             />
           </ScrollFade>
           <ScrollFade delay={200}>
@@ -64,7 +68,7 @@ export default async function Home() {
               title="Freestyle Jam"
               description="Freestyle dance performance showcasing improvisation skills"
               category="Dance"
-              image="https://images.unsplash.com/photo-1598594882280-3ced26c2da9a?w=500&h=400&fit=crop"
+              image="https://picsum.photos/500/400?random=2"
             />
           </ScrollFade>
           <ScrollFade delay={300}>
@@ -72,7 +76,7 @@ export default async function Home() {
               title="Gunpla Build Showcase"
               description="Mobile suit builds with professional photography"
               category="Hobby"
-              image="https://images.unsplash.com/photo-1612036782180-69c73116e76f?w=500&h=400&fit=crop"
+              image="https://picsum.photos/500/400?random=3"
             />
           </ScrollFade>
         </div>

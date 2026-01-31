@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface PortfolioCardProps {
   title: string;
   description: string;
@@ -14,13 +16,15 @@ export default function PortfolioCard({
   link,
 }: PortfolioCardProps) {
   const content = (
-    <div className="card overflow-hidden h-full hover:border-accent-primary transition-colors">
+    <div className="card overflow-hidden h-full hover:border-accent-primary transition-colors group">
       {/* Image */}
       {image && (
         <div className="relative w-full h-48 overflow-hidden bg-slate-100">
-          <img
+          <Image
             src={image}
             alt={title}
+            width={500}
+            height={400}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {category && (
