@@ -1,105 +1,105 @@
 @import "tailwindcss";
 
 :root {
-  /* ========== PRIMARY ACCENT COLORS - Modern Warm Palette ========== */
-  --accent-primary: #d4a574; /* Warm gold/tan - luxury, sophistication */
-  --accent-secondary: #ff6b35; /* Vibrant coral/orange - energy, creativity */
-  --accent-tertiary: #00d4ff; /* Cyan - modern, tech-forward */
+  /* ========== PRIMARY ACCENT COLORS - BTS-Inspired Tech Luxury ========== */
+  --accent-primary: #ffd700; /* Gold - luxury, spotlight, performance */
+  --accent-secondary: #00d9ff; /* Electric cyan - energy, modern movement */
+  --accent-tertiary: #ff006e; /* Neon pink - bold creativity, artistic statement */
 
   /* ========== TEXT COLORS - Dark Mode First ========== */
-  --text-heading: #f5f1ed; /* Off-white for headings */
-  --text-body: #d8d4cf; /* Light beige for body text */
-  --text-secondary: #a89d95; /* Muted warm gray */
-  --text-muted: #808080; /* Even more muted */
-  --text-accent: #d4a574; /* Gold text for accents */
-  --text-accent-bright: #fbbf24; /* Bright amber for interactive elements */
-  --text-accent-secondary: #ff6b35; /* Orange for secondary accents */
-  --text-light: #f5f1ed; /* Off-white text */
-  --text-white: #f5f1ed; /* Off-white instead of pure white */
+  --text-heading: #ffffff; /* Pure white for headings - maximum impact */
+  --text-body: #e0e7ff; /* Light lavender for body text */
+  --text-secondary: #a5b4fc; /* Soft indigo gray */
+  --text-muted: #818cf8; /* Medium indigo */
+  --text-accent: #ffd700; /* Gold text for accents */
+  --text-accent-bright: #00d9ff; /* Cyan for interactive elements */
+  --text-accent-secondary: #ff006e; /* Pink for secondary accents */
+  --text-light: #ffffff; /* Pure white text */
+  --text-white: #ffffff; /* Pure white */
   --text-success: #10b981; /* Green for success */
-  --text-error: #ff6b35; /* Coral for errors */
+  --text-error: #ff006e; /* Pink for errors */
 
-  /* ========== BACKGROUND COLORS - Dark Palette ========== */
-  --bg-primary: #0a0e27; /* Very dark navy - main background */
-  --bg-secondary: #1a1f3a; /* Dark navy - cards, elevated surfaces */
-  --bg-tertiary: #13182f; /* Slightly different shade for sections */
-  --bg-muted: #151b32; /* Slightly darker secondary */
-  --bg-light: #f5f1ed; /* Off-white (used sparingly) */
-  --bg-hover: #232d47; /* Hover state background */
+  /* ========== BACKGROUND COLORS - BTS Dark Purple Palette ========== */
+  --bg-primary: #0a0614; /* Deep purple - main background */
+  --bg-secondary: #16213e; /* Rich purple-navy - cards, elevated surfaces */
+  --bg-tertiary: #1a0f2e; /* Darker purple for sections */
+  --bg-muted: #0f0820; /* Deep purple-black */
+  --bg-light: #ffffff; /* Pure white (used sparingly) */
+  --bg-hover: #1d1642; /* Hover state background - lighter purple */
 
   /* ========== SECTION BACKGROUNDS ========== */
-  --section-bg-dark: #13182f; /* For contrast sections */
-  --section-bg-light: #1a1f3a; /* Light sections */
+  --section-bg-dark: #1a0f2e; /* For contrast sections */
+  --section-bg-light: #16213e; /* Light sections */
 
   /* ========== BORDER & DIVIDER COLORS ========== */
-  --border-color: #2d334d; /* Subtle borders on dark bg */
-  --border-color-light: #3d4563; /* Lighter borders for contrast */
-  --border-muted: #1f2538; /* Darker borders */
-  --border-accent: #d4a574; /* Gold borders for accents */
-  --border-accent-secondary: #ff6b35; /* Orange borders */
+  --border-color: #2d2250; /* Subtle purple borders on dark bg */
+  --border-color-light: #4d3d75; /* Lighter borders for contrast */
+  --border-muted: #1a0f2e; /* Darker borders */
+  --border-accent: #ffd700; /* Gold borders for accents */
+  --border-accent-secondary: #00d9ff; /* Cyan borders */
 
   /* ========== CARD STYLING ========== */
-  --card-bg: #1a1f3a; /* Card backgrounds */
-  --card-border: #2d334d; /* Card borders */
-  --card-hover-bg: #232d47; /* Card hover background */
-  --card-hover-border: #d4a574; /* Card hover border */
+  --card-bg: #16213e; /* Card backgrounds */
+  --card-border: #2d2250; /* Card borders */
+  --card-hover-bg: #1d1642; /* Card hover background */
+  --card-hover-border: #00d9ff; /* Card hover border - cyan glow */
 
   /* ========== BUTTON STYLING ========== */
-  --btn-primary-bg: #d4a574; /* Primary button background */
-  --btn-primary-text: #ffffff; /* Primary button text */
-  --btn-primary-hover: #c99a68; /* Primary button hover */
+  --btn-primary-bg: #ffd700; /* Primary button background */
+  --btn-primary-text: #0a0614; /* Primary button text - dark purple */
+  --btn-primary-hover: #ffed4e; /* Primary button hover - lighter gold */
   --btn-secondary-bg: transparent; /* Secondary button background */
-  --btn-secondary-border: #2d334d; /* Secondary button border */
-  --btn-secondary-text: #d8d4cf; /* Secondary button text */
-  --btn-secondary-hover-text: #d4a574; /* Secondary button hover text */
-  --btn-secondary-hover-border: #d4a574; /* Secondary button hover border */
+  --btn-secondary-border: #2d2250; /* Secondary button border */
+  --btn-secondary-text: #e0e7ff; /* Secondary button text */
+  --btn-secondary-hover-text: #00d9ff; /* Secondary button hover text - cyan */
+  --btn-secondary-hover-border: #00d9ff; /* Secondary button hover border - cyan */
 
   /* ========== FORM STYLING ========== */
-  --form-input-bg: #0f1629; /* Form input backgrounds */
-  --form-input-border: #2d334d; /* Form input borders */
-  --form-input-text: #f5f1ed; /* Form input text */
-  --form-input-placeholder: #808080; /* Form input placeholder */
-  --form-input-focus-border: #d4a574; /* Form input focus border */
+  --form-input-bg: #0f0820; /* Form input backgrounds */
+  --form-input-border: #2d2250; /* Form input borders */
+  --form-input-text: #ffffff; /* Form input text */
+  --form-input-placeholder: #818cf8; /* Form input placeholder */
+  --form-input-focus-border: #00d9ff; /* Form input focus border - cyan */
   --form-input-focus-shadow: rgba(
-    212,
-    165,
-    116,
+    0,
+    217,
+    255,
     0.2
-  ); /* Form input focus shadow */
+  ); /* Form input focus shadow - cyan */
 
-  /* ========== CTA GRADIENT - Warm to Vibrant ========== */
-  --cta-gradient-start: rgb(212, 165, 116);
-  --cta-gradient-end: rgb(255, 107, 53);
+  /* ========== CTA GRADIENT - BTS Tech Luxury ========== */
+  --cta-gradient-start: rgb(0, 217, 255);
+  --cta-gradient-end: rgb(255, 107, 255);
   --cta-gradient: linear-gradient(
     to right,
     var(--cta-gradient-start),
     var(--cta-gradient-end)
   );
-  --text-gradient-heading: linear-gradient(to right, #fbbf24, #ff6b35);
-  --cta-text-light: rgb(245, 241, 237); /* Off-white text on gradient */
-  --cta-text-accent: rgb(255, 107, 53); /* Coral text for buttons on dark bg */
-  --cta-bg-light: rgba(212, 165, 116, 0.15); /* Gold background (subtle) */
-  --cta-border-light: rgb(212, 165, 116); /* Gold border */
+  --text-gradient-heading: linear-gradient(to right, #00d9ff, #ff006e);
+  --cta-text-light: rgb(255, 255, 255); /* Pure white text on gradient */
+  --cta-text-accent: rgb(255, 215, 0); /* Gold text for buttons on dark bg */
+  --cta-bg-light: rgba(0, 217, 255, 0.15); /* Cyan background (subtle) */
+  --cta-border-light: rgb(0, 217, 255); /* Cyan border */
 
-  /* ========== SHADOWS - Enhanced for dark theme ========== */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.5);
-  --shadow-accent: 0 0 20px rgba(212, 165, 116, 0.2);
-  --shadow-accent-lg: 0 0 30px rgba(212, 165, 116, 0.3);
+  /* ========== SHADOWS - Enhanced for BTS Luxury ========== */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.8);
+  --shadow-accent: 0 0 20px rgba(0, 217, 255, 0.3);
+  --shadow-accent-lg: 0 0 30px rgba(0, 217, 255, 0.4);
 
   /* ========== UTILITY COLORS ========== */
   --color-success: #10b981; /* Green - for success messages */
   --color-success-light: #d1fae5; /* Light green - for success backgrounds */
   --color-success-dark: #064e3b; /* Dark green - for success text on light bg */
-  --color-error: #ff6b35; /* Coral red - for errors */
-  --color-error-light: #fee2e2; /* Light red - for error backgrounds */
-  --color-error-dark: #7c2d12; /* Dark red - for error text on light bg */
-  --color-warning: #fbbf24; /* Amber - for warnings */
+  --color-error: #ff006e; /* Pink - for errors */
+  --color-error-light: #fce7f3; /* Light pink - for error backgrounds */
+  --color-error-dark: #831843; /* Dark pink - for error text on light bg */
+  --color-warning: #ffd700; /* Gold - for warnings */
 
   /* ========== GRADIENT HEADINGS ========== */
-  --gradient-heading: linear-gradient(to right, #f5f1ed, #fde047);
-  --gradient-accent: linear-gradient(to right, #fbbf24, #ff6b35);
+  --gradient-heading: linear-gradient(to right, #00d9ff, #ff006e);
+  --gradient-accent: linear-gradient(to right, #ffd700, #00d9ff);
 
   /* ========== INPUT STYLING FOR LIGHT MODE ========== */
   --input-light-bg: #f8fafc;
@@ -113,10 +113,10 @@
   --font-display: "Poppins", "Inter", sans-serif;
 
   /* ========== NEUTRALS ========== */
-  --slate-900: #0a0e27; /* Deep navy */
-  --slate-700: #1a1f3a; /* Navy */
-  --slate-500: #a89d95; /* Warm gray */
-  --white: #f5f1ed; /* Off-white */
+  --slate-900: #0a0614; /* Deep purple */
+  --slate-700: #16213e; /* Purple-navy */
+  --slate-500: #818cf8; /* Indigo */
+  --white: #ffffff; /* Pure white */
 }
 
 /* Display font class */
@@ -458,7 +458,152 @@ body {
   transform: translateY(-8px);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(212, 165, 116, 0.2);
+    0 0 30px rgba(212, 165, 116, 0.2),
+    0 0 50px rgba(255, 215, 0, 0.2);
+}
+
+/* Enhanced card with cyan glow */
+.card-enhanced-cyan {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.card-enhanced-cyan::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 217, 255, 0.5),
+    rgba(0, 217, 255, 0.3)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-enhanced-cyan:hover::before {
+  opacity: 1;
+}
+
+.card-enhanced-cyan:hover {
+  border-color: var(--accent-secondary);
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 217, 255, 0.3),
+    0 0 50px rgba(0, 217, 255, 0.2);
+}
+
+/* Enhanced card with gold glow */
+.card-enhanced-gold {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.card-enhanced-gold::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.5),
+    rgba(255, 215, 0, 0.3)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-enhanced-gold:hover::before {
+  opacity: 1;
+}
+
+.card-enhanced-gold:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 0 50px rgba(255, 215, 0, 0.2);
+}
+
+/* Enhanced card with pink glow */
+.card-enhanced-pink {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.card-enhanced-pink::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 110, 0.5),
+    rgba(255, 0, 110, 0.3)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-enhanced-pink:hover::before {
+  opacity: 1;
+}
+
+.card-enhanced-pink:hover {
+  border-color: var(--accent-tertiary);
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 0, 110, 0.3),
+    0 0 50px rgba(255, 0, 110, 0.2);
 }
 
 /* Clean card style */
@@ -472,8 +617,52 @@ body {
 
 .card:hover {
   border-color: var(--accent-primary);
-  box-shadow: var(--shadow-md);
+  box-shadow:
+    var(--shadow-md),
+    0 0 20px rgba(255, 215, 0, 0.2);
   transform: translateY(-4px);
+}
+
+/* Card with cyan glow */
+.card-cyan {
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-cyan:hover {
+  border-color: var(--accent-secondary);
+  box-shadow:
+    0 0 20px rgba(0, 217, 255, 0.3),
+    0 0 40px rgba(0, 217, 255, 0.15);
+  transform: translateY(-6px);
+}
+
+/* Card with gold glow */
+.card-gold {
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-gold:hover {
+  border-color: var(--accent-primary);
+  box-shadow:
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 40px rgba(255, 215, 0, 0.15);
+  transform: translateY(-6px);
+}
+
+/* Card with pink glow */
+.card-pink {
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-pink:hover {
+  border-color: var(--accent-tertiary);
+  box-shadow:
+    0 0 20px rgba(255, 0, 110, 0.3),
+    0 0 40px rgba(255, 0, 110, 0.15);
+  transform: translateY(-6px);
 }
 
 /* Primary button */
@@ -513,6 +702,168 @@ body {
   transform: translateY(0);
 }
 
+/* ========== PHASE 5: GLOWING ELEMENTS ========== */
+
+/* Gold CTA Glow - Primary buttons and CTAs */
+.glow-gold {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glow-gold:hover {
+  box-shadow:
+    0 0 20px rgba(255, 215, 0, 0.5),
+    0 0 40px rgba(255, 215, 0, 0.3),
+    0 0 60px rgba(255, 215, 0, 0.2);
+  filter: brightness(1.1);
+}
+
+/* Cyan Interactive Glow - Secondary buttons and interactive elements */
+.glow-cyan {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glow-cyan:hover {
+  box-shadow:
+    0 0 20px rgba(0, 217, 255, 0.5),
+    0 0 40px rgba(0, 217, 255, 0.3),
+    0 0 60px rgba(0, 217, 255, 0.2);
+  filter: brightness(1.1);
+}
+
+/* Pink Creative Glow - Creative sections and accent elements */
+.glow-pink {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glow-pink:hover {
+  box-shadow:
+    0 0 20px rgba(255, 0, 110, 0.5),
+    0 0 40px rgba(255, 0, 110, 0.3),
+    0 0 60px rgba(255, 0, 110, 0.2);
+  filter: brightness(1.1);
+}
+
+/* Combined Glow Animations */
+@keyframes glow-gold-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 15px rgba(255, 215, 0, 0.3),
+      0 0 30px rgba(255, 215, 0, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(255, 215, 0, 0.5),
+      0 0 50px rgba(255, 215, 0, 0.3);
+  }
+}
+
+@keyframes glow-cyan-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 15px rgba(0, 217, 255, 0.3),
+      0 0 30px rgba(0, 217, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(0, 217, 255, 0.5),
+      0 0 50px rgba(0, 217, 255, 0.3);
+  }
+}
+
+@keyframes glow-pink-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 15px rgba(255, 0, 110, 0.3),
+      0 0 30px rgba(255, 0, 110, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(255, 0, 110, 0.5),
+      0 0 50px rgba(255, 0, 110, 0.3);
+  }
+}
+
+/* Persistent glow pulse animations */
+.glow-gold-pulse {
+  animation: glow-gold-pulse 2.5s ease-in-out infinite;
+}
+
+.glow-cyan-pulse {
+  animation: glow-cyan-pulse 2.5s ease-in-out infinite;
+}
+
+.glow-pink-pulse {
+  animation: glow-pink-pulse 2.5s ease-in-out infinite;
+}
+
+/* Enhanced button glows */
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.btn-primary:hover {
+  background: #c99a68;
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(212, 165, 116, 0.4),
+    0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary button with cyan glow */
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-secondary);
+  padding: 12px 24px;
+  border: 2px solid var(--accent-secondary);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow:
+    0 0 20px rgba(0, 217, 255, 0.4),
+    0 0 40px rgba(0, 217, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
 /* Badge */
 .badge {
   display: inline-block;
@@ -529,7 +880,51 @@ body {
 
 .badge:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.5);
+  box-shadow:
+    0 6px 16px rgba(255, 107, 53, 0.5),
+    0 0 20px rgba(255, 0, 110, 0.4);
+}
+
+/* Gold badge with glow */
+.badge-gold {
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.badge-gold:hover {
+  box-shadow:
+    0 0 25px rgba(255, 215, 0, 0.4),
+    0 0 40px rgba(255, 215, 0, 0.2);
+}
+
+/* Cyan badge with glow */
+.badge-cyan {
+  background: rgba(0, 217, 255, 0.15);
+  border: 1px solid var(--accent-secondary);
+  color: var(--accent-secondary);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+}
+
+.badge-cyan:hover {
+  box-shadow:
+    0 0 25px rgba(0, 217, 255, 0.4),
+    0 0 40px rgba(0, 217, 255, 0.2);
+}
+
+/* Pink badge with glow */
+.badge-pink {
+  background: rgba(255, 0, 110, 0.15);
+  border: 1px solid var(--accent-tertiary);
+  color: var(--accent-tertiary);
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.2);
+}
+
+.badge-pink:hover {
+  box-shadow:
+    0 0 25px rgba(255, 0, 110, 0.4),
+    0 0 40px rgba(255, 0, 110, 0.2);
 }
 
 /* Video container - 16:9 aspect ratio */
@@ -547,7 +942,10 @@ body {
 
 .video-container:hover {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 20px rgba(212, 165, 116, 0.2);
+  box-shadow:
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 40px rgba(255, 215, 0, 0.15);
+  transform: translateY(-4px);
 }
 
 .video-container iframe {
@@ -611,9 +1009,33 @@ select:focus {
   border-color: var(--accent-primary);
   box-shadow:
     0 0 0 3px rgba(212, 165, 116, 0.2),
-    inset 0 0 0 1px rgba(212, 165, 116, 0.1);
+    inset 0 0 0 1px rgba(212, 165, 116, 0.1),
+    0 0 20px rgba(255, 215, 0, 0.2);
   transform: scale(1.01);
 }
+
+/* Form input with cyan glow focus */
+input.focus-cyan:focus,
+textarea.focus-cyan:focus,
+select.focus-cyan:focus {
+  border-color: var(--accent-secondary);
+  box-shadow:
+    0 0 0 3px rgba(0, 217, 255, 0.2),
+    inset 0 0 0 1px rgba(0, 217, 255, 0.1),
+    0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+/* Form input with pink glow focus */
+input.focus-pink:focus,
+textarea.focus-pink:focus,
+select.focus-pink:focus {
+  border-color: var(--accent-tertiary);
+  box-shadow:
+    0 0 0 3px rgba(255, 0, 110, 0.2),
+    inset 0 0 0 1px rgba(255, 0, 110, 0.1),
+    0 0 20px rgba(255, 0, 110, 0.2);
+}
+
 /* ========== GLOW & ANIMATION EFFECTS ========== */
 
 @keyframes glow-pulse {

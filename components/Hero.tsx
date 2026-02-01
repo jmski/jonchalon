@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import VideoEmbed from '@/components/VideoEmbed';
 import CursorGlow from '@/components/CursorGlow';
+import StageLighting from '@/components/StageLighting';
 import MagneticButton from '@/components/MagneticButton';
 import AnimatedHeadline from '@/components/AnimatedHeadline';
 
@@ -36,7 +37,10 @@ export default function Hero({
     <>
       <CursorGlow />
       <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0e27, #1a1f3a, #0a0e27)' }}>
-      {/* Animated background gradient orbs */}
+        {/* Stage Lighting Effect */}
+        <StageLighting />
+
+        {/* Animated background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
