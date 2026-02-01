@@ -18,7 +18,7 @@ export default function CTASection({
   return (
     <div className="py-16 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
       <ScrollFade>
-        <div className="rounded-lg p-12 text-center border" style={{ background: 'linear-gradient(135deg, #1a1f3a, #0f172a)', borderColor: 'var(--border-accent)' }}>
+        <div className="rounded-lg p-12 text-center border" style={{ background: 'linear-gradient(135deg, var(--bg-tertiary), var(--bg-muted))', borderColor: 'var(--border-accent)' }}>
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 font-display" style={{ background: 'var(--text-gradient-heading)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {title}
           </h2>

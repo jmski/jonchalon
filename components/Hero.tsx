@@ -36,7 +36,7 @@ export default function Hero({
   return (
     <>
       <CursorGlow />
-      <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0a0e27, #1a1f3a, #0a0e27)' }}>
+      <section className="relative min-h-[600px] sm:min-h-[700px] lg:min-h-screen flex items-center justify-center overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--bg-primary), var(--bg-tertiary), var(--bg-primary))' }}>
         {/* Stage Lighting Effect */}
         <StageLighting />
 
