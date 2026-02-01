@@ -34,11 +34,23 @@ export default function DanceFilter({ items, categories }: DanceFilterProps) {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                cat === activeCategory
-                  ? "bg-amber-900 dark:bg-amber-700 text-white"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-amber-900 dark:hover:bg-amber-700 hover:text-white"
-              }`}
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200"
+              style={{
+                backgroundColor: cat === activeCategory ? 'var(--accent-primary)' : 'var(--card-bg)',
+                color: cat === activeCategory ? 'var(--btn-primary-text)' : 'var(--text-secondary)',
+              }}
+              onMouseEnter={(e) => {
+                if (cat !== activeCategory) {
+                  e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
+                  e.currentTarget.style.color = 'var(--btn-primary-text)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (cat !== activeCategory) {
+                  e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                }
+              }}
             >
               {cat}
             </button>
