@@ -30,7 +30,7 @@ export default function CTASection({
             className="inline-block text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
             magneticRange={50}
           >
-            <span style={{ background: 'linear-gradient(135deg, #f97316, #fb923c)', display: 'block', padding: '12px 32px', borderRadius: '8px' }}>
+            <span style={{ background: 'linear-gradient(135deg, #ffd700, #ffed4e)', display: 'block', padding: '12px 32px', borderRadius: '8px', color: '#0a0614' }}>
               {buttonText}
             </span>
           </MagneticButton>

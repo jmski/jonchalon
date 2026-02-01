@@ -41,7 +41,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-bold text-xl bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent hover:from-amber-300 hover:to-orange-400 transition-all duration-300"
+            className="font-bold text-xl bg-clip-text text-transparent transition-all duration-300"
           >
             Jonchalon
           </Link>

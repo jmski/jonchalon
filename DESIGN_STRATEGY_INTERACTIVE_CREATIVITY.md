@@ -7,14 +7,16 @@
 ## 🎭 Current State Analysis
 
 **Your Current Strengths:**
+
 - ✅ Dark theme is excellent foundation
 - ✅ Good component library already in place (AnimatedCounter, CardTilt, GlitchText, etc.)
 - ✅ Warm gold/coral palette is sophisticated
 - ✅ Performance-optimized (88/100 Lighthouse)
 
 **Opportunity Areas:**
+
 - ⚠️ Color scheme could be bolder and more energetic
-- ⚠️ Interactivity is present but not *showcased* prominently
+- ⚠️ Interactivity is present but not _showcased_ prominently
 - ⚠️ Missing rhythm/music-inspired visual language
 - ⚠️ No 3D perspective elements yet
 - ⚠️ Animations feel separated from content, not integrated
@@ -24,6 +26,7 @@
 ## 🎨 RECOMMENDED COLOR SCHEME EVOLUTION
 
 ### **Option A: BTS-Inspired Tech Luxury** (Recommended)
+
 **Aesthetic**: Cutting-edge, bold, high-contrast, premium
 
 ```css
@@ -39,6 +42,7 @@ Neutral: Off-black #0a0a0a (clean, modern)
 ---
 
 ### **Option B: Breakdancing Urban** (Bold Alternative)
+
 **Aesthetic**: Street culture, graffiti-inspired, vibrant energy
 
 ```css
@@ -54,6 +58,7 @@ Neutral: Off-white #f0f0f0 (contrast for impact)
 ---
 
 ### **Option C: Bruno Mars Retro-Funk** (Modern Twist)
+
 **Aesthetic**: Polished but cool, smooth moves, vintage meets modern
 
 ```css
@@ -71,6 +76,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ## ⚡ INTERACTIVE ELEMENTS TO ADD
 
 ### **1. Music-Synchronized Animations** 🎵
+
 ```tsx
 // Rhythm-based visual feedback
 - Heartbeat pulse tied to music playback
@@ -84,6 +90,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **2. 3D Perspective & Depth**
+
 ```tsx
 // Add dimension to showcase artistic presence
 - Tilting video cards (already have CardTilt!)
@@ -98,6 +105,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **3. Interactive Performance Timeline**
+
 ```tsx
 // Showcase your dance evolution like a live performance
 - Hover to "play" different era performances
@@ -112,6 +120,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **4. Gesture-Based Interactions**
+
 ```tsx
 // Breakdancing-inspired fluid movement
 - Swipe/drag to navigate galleries (breakdancing moves theme)
@@ -125,6 +134,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **5. Dynamic Stage Lighting**
+
 ```tsx
 // Michael Jackson-inspired dramatic lighting
 - Spotlight follows mouse cursor over hero section
@@ -139,6 +149,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **6. Interactive Dance Move Dictionary**
+
 ```tsx
 // Showcase artistic knowledge interactively
 - Hover over terms to see micro-animations
@@ -153,6 +164,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **7. Beat-Synced Particle System** (Enhanced)
+
 ```tsx
 // Particles that respond to music/user interaction
 - Frequency-based particle generation
@@ -166,6 +178,7 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ---
 
 ### **8. Live Performance Mode**
+
 ```tsx
 // Interactive showcase of performances
 - Click to "perform" - video expands
@@ -182,7 +195,9 @@ Neutral: Cream #f5f1ed (warm, inviting)
 ## 🏗️ NEW COMPONENTS TO BUILD
 
 ### **1. MusicReactiveBackground**
+
 Particles and animations that respond to audio frequency
+
 ```tsx
 export default function MusicReactiveBackground({ audioElement }) {
   // Analyze audio frequency
@@ -194,7 +209,9 @@ export default function MusicReactiveBackground({ audioElement }) {
 ---
 
 ### **2. InteractiveTimeline**
+
 Showcase journey with interactive beats
+
 ```tsx
 export default function InteractiveTimeline({ events }) {
   // Hover reveals performance details
@@ -207,7 +224,9 @@ export default function InteractiveTimeline({ events }) {
 ---
 
 ### **3. StageLighting**
+
 Spotlight follows cursor, dramatic lighting effects
+
 ```tsx
 export default function StageLighting({ children }) {
   // Cursor position = spotlight position
@@ -220,13 +239,15 @@ export default function StageLighting({ children }) {
 ---
 
 ### **4. PerformanceCard**
+
 Elevated card component with performance showcase
+
 ```tsx
-export default function PerformanceCard({ 
-  video, 
-  title, 
+export default function PerformanceCard({
+  video,
+  title,
   choreographer,
-  danceMove 
+  danceMove,
 }) {
   // 3D tilt effect
   // Music-reactive glow
@@ -238,7 +259,9 @@ export default function PerformanceCard({
 ---
 
 ### **5. BeatVisualizer**
+
 Shows audio frequency/energy real-time
+
 ```tsx
 export default function BeatVisualizer({ audioUrl }) {
   // Frequency bars
@@ -253,9 +276,10 @@ export default function BeatVisualizer({ audioUrl }) {
 ## 🎯 LAYOUT & UX IMPROVEMENTS
 
 ### **Hero Section**
+
 ```
 Before: Static headline + CTA
-After:  
+After:
   - Spotlight follows cursor
   - GlitchText pulses with beat
   - ParticleBackground reacts to hover
@@ -266,6 +290,7 @@ After:
 ---
 
 ### **Dance Portfolio Page**
+
 ```
 Before: Grid of videos
 After:
@@ -280,6 +305,7 @@ After:
 ---
 
 ### **Collaborations Page**
+
 ```
 Before: Static collaboration list
 After:
@@ -293,6 +319,7 @@ After:
 ---
 
 ### **About Page**
+
 ```
 Before: Bio text + image
 After:
@@ -312,26 +339,22 @@ After:
 
 ```css
 /* Core Colors */
---primary-dark: #1a0f2e      /* Deep purple - main background */
---primary-accent: #00d9ff    /* Electric cyan - energy, movement */
---secondary-accent: #ffd700  /* Gold - luxury, spotlight */
---tertiary-accent: #ff006e   /* Neon pink - bold creative statement */
---neutral-bg: #0f0a1a        /* Ultra-dark for depth */
-
-/* Text & Contrast */
---text-primary: #f0e6ff      /* Light purple-tinted white */
---text-secondary: #a8a0c0    /* Muted purple-gray */
---text-accent: #00d9ff       /* Cyan for important text */
---text-highlight: #ffd700    /* Gold for emphasis */
-
-/* Interactive States */
---hover-glow: rgba(0, 217, 255, 0.3)
---active-glow: rgba(255, 215, 0, 0.4)
---error: #ff1744             /* Bold red for errors */
---success: #00e676           /* Bright green for success */
+--primary-dark: #1a0f2e /* Deep purple - main background */
+  --primary-accent: #00d9ff /* Electric cyan - energy, movement */
+  --secondary-accent: #ffd700 /* Gold - luxury, spotlight */
+  --tertiary-accent: #ff006e /* Neon pink - bold creative statement */
+  --neutral-bg: #0f0a1a /* Ultra-dark for depth */ /* Text & Contrast */
+  --text-primary: #f0e6ff /* Light purple-tinted white */
+  --text-secondary: #a8a0c0 /* Muted purple-gray */ --text-accent: #00d9ff
+  /* Cyan for important text */ --text-highlight: #ffd700
+  /* Gold for emphasis */ /* Interactive States */
+  --hover-glow: rgba(0, 217, 255, 0.3) --active-glow: rgba(255, 215, 0, 0.4)
+  --error: #ff1744 /* Bold red for errors */ --success: #00e676
+  /* Bright green for success */;
 ```
 
 **Why This Works:**
+
 - ✅ BTS-like cutting-edge aesthetic
 - ✅ High contrast (great for showcasing videos)
 - ✅ Purple = creativity, creativity
@@ -347,6 +370,7 @@ After:
 **Guiding Principle**: Every animation should feel like a **performance move**
 
 ### **Animation Types:**
+
 1. **Entrance Animations** - Like stepping onto stage
 2. **Interaction Animations** - Like responding to music
 3. **Transition Animations** - Like flowing between choreography
@@ -358,12 +382,14 @@ After:
 ## 📱 Mobile-First Enhancements
 
 ### **Gesture Support**
+
 - Swipe to navigate galleries
 - Tap twice to "perform" (enlarge video)
 - Pinch to zoom choreography details
 - Shake device for surprise interactions
 
 ### **Responsive Music Reactivity**
+
 - Smaller particle systems on mobile
 - Optimized frequency analysis
 - Touch-friendly beat markers
@@ -374,24 +400,28 @@ After:
 ## 🚀 IMPLEMENTATION ROADMAP
 
 ### **Phase 1: Foundation (3-4 hours)**
+
 - [ ] Update color scheme to BTS-inspired palette
 - [ ] Create StageLighting component
 - [ ] Add spotlight effect to Hero
 - [ ] Implement MusicReactiveBackground
 
 ### **Phase 2: Interactive Performance (5-6 hours)**
+
 - [ ] Build InteractiveTimeline component
 - [ ] Create PerformanceCard with 3D effects
 - [ ] Add beat-synced animations
 - [ ] Implement live performance mode
 
 ### **Phase 3: Polish & Gestures (4-5 hours)**
+
 - [ ] Add gesture support (swipe, tap, shake)
 - [ ] Build BeatVisualizer component
 - [ ] Music-sync all major sections
 - [ ] Add dance move dictionary
 
 ### **Phase 4: Advanced Effects (3-4 hours)**
+
 - [ ] 3D perspective elements
 - [ ] Advanced parallax
 - [ ] Frequency-based particle effects
@@ -431,6 +461,7 @@ After:
 ## 🎯 FINAL RECOMMENDATIONS
 
 **Choose This Path:**
+
 1. **Update to BTS-inspired color scheme** ← Start here
 2. **Add stage lighting effect** ← Immediate wow factor
 3. **Implement beat-synced interactions** ← Shows technical skill
@@ -438,6 +469,7 @@ After:
 5. **Add gesture support** ← Modern, engaging UX
 
 **Why This Wins:**
+
 - ✅ Transforms the site from "portfolio" to "experience"
 - ✅ Showcases your artistic creativity
 - ✅ Technical implementation impresses collaborators

@@ -15,25 +15,25 @@ Replace your current color variables with BTS-inspired palette:
 
 :root {
   /* PRIMARY COLORS - BTS Tech Luxury */
-  --bg-primary: #1a0f2e;           /* Deep purple background */
-  --bg-secondary: #2d1b4a;         /* Slightly lighter purple */
-  --bg-tertiary: #0f0a1a;          /* Ultra-dark for depth */
-  --bg-hover: #3d2560;             /* Hover state purple */
+  --bg-primary: #1a0f2e; /* Deep purple background */
+  --bg-secondary: #2d1b4a; /* Slightly lighter purple */
+  --bg-tertiary: #0f0a1a; /* Ultra-dark for depth */
+  --bg-hover: #3d2560; /* Hover state purple */
 
   /* ACCENT COLORS - Energy & Luxury */
-  --accent-primary: #00d9ff;       /* Electric cyan - energy, movement */
-  --accent-secondary: #ffd700;     /* Gold - luxury, spotlight */
-  --accent-tertiary: #ff006e;      /* Neon pink - bold creativity */
-  --accent-success: #00e676;       /* Bright green - success */
-  --accent-error: #ff1744;         /* Bold red - errors */
+  --accent-primary: #00d9ff; /* Electric cyan - energy, movement */
+  --accent-secondary: #ffd700; /* Gold - luxury, spotlight */
+  --accent-tertiary: #ff006e; /* Neon pink - bold creativity */
+  --accent-success: #00e676; /* Bright green - success */
+  --accent-error: #ff1744; /* Bold red - errors */
 
   /* TEXT COLORS */
-  --text-heading: #f0e6ff;         /* Light purple-white */
-  --text-body: #d4cee0;            /* Light purple-gray */
-  --text-secondary: #a8a0c0;       /* Muted purple-gray */
-  --text-muted: #6b638a;           /* Dark purple-gray */
-  --text-accent: #00d9ff;          /* Cyan accent text */
-  --text-highlight: #ffd700;       /* Gold highlight text */
+  --text-heading: #f0e6ff; /* Light purple-white */
+  --text-body: #d4cee0; /* Light purple-gray */
+  --text-secondary: #a8a0c0; /* Muted purple-gray */
+  --text-muted: #6b638a; /* Dark purple-gray */
+  --text-accent: #00d9ff; /* Cyan accent text */
+  --text-highlight: #ffd700; /* Gold highlight text */
 
   /* SHADOWS - Purple-tinted */
   --shadow-sm: 0 2px 8px rgba(0, 217, 255, 0.15);
@@ -58,18 +58,18 @@ Replace your current color variables with BTS-inspired palette:
 ### Create new component: StageLighting.tsx
 
 ```tsx
-'use client';
-import { useEffect, useRef, useState } from 'react';
+"use client";
+import { useEffect, useRef, useState } from "react";
 
 interface SpotlightPosition {
   x: number;
   y: number;
 }
 
-export default function StageLighting({ 
-  children, 
+export default function StageLighting({
+  children,
   enabled = true,
-  intensity = 0.4 
+  intensity = 0.4,
 }: {
   children: React.ReactNode;
   enabled?: boolean;
@@ -92,10 +92,10 @@ export default function StageLighting({
     };
 
     const container = containerRef.current;
-    container?.addEventListener('mousemove', handleMouseMove);
+    container?.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      container?.removeEventListener('mousemove', handleMouseMove);
+      container?.removeEventListener("mousemove", handleMouseMove);
     };
   }, [enabled]);
 
@@ -109,21 +109,19 @@ export default function StageLighting({
           rgba(0, 217, 255, ${intensity * 0.3}) 0%,
           rgba(0, 217, 255, ${intensity * 0.15}) 30%,
           transparent 80%
-        )`
+        )`,
       }}
     >
       {/* Vignette effect (darkening edges) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          boxShadow: `inset 0 0 60px rgba(0, 0, 0, ${intensity * 0.5})`
+          boxShadow: `inset 0 0 60px rgba(0, 0, 0, ${intensity * 0.5})`,
         }}
       />
 
       {/* Children content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
@@ -132,14 +130,12 @@ export default function StageLighting({
 ### Use in Hero section (app/page.tsx):
 
 ```tsx
-import StageLighting from '@/components/StageLighting';
+import StageLighting from "@/components/StageLighting";
 
 export default function Home() {
   return (
     <StageLighting intensity={0.5}>
-      <section className="hero">
-        {/* Your existing hero content */}
-      </section>
+      <section className="hero">{/* Your existing hero content */}</section>
     </StageLighting>
   );
 }
@@ -165,9 +161,9 @@ interface Particle {
   intensity: number;
 }
 
-export default function MusicReactiveParticles({ 
+export default function MusicReactiveParticles({
   audioUrl?: string,
-  sensitivity = 1.0 
+  sensitivity = 1.0
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -195,14 +191,14 @@ export default function MusicReactiveParticles({
       const audio = new Audio(audioUrl);
       const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       const analyser = audioContext.createAnalyser();
-      
+
       const source = audioContext.createMediaElementAudioSource(audio);
       source.connect(analyser);
       analyser.connect(audioContext.destination);
-      
+
       audioContextRef.current = audioContext;
       analyserRef.current = analyser;
-      
+
       audio.play().catch(() => {
         // Audio autoplay prevented, that's ok
       });
@@ -309,8 +305,8 @@ export default function MusicReactiveParticles({
 ### Create InteractiveTimeline.tsx:
 
 ```tsx
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 interface TimelineEvent {
   year: number;
@@ -321,10 +317,10 @@ interface TimelineEvent {
   tags: string[];
 }
 
-export default function InteractiveTimeline({ 
-  events 
-}: { 
-  events: TimelineEvent[] 
+export default function InteractiveTimeline({
+  events,
+}: {
+  events: TimelineEvent[];
 }) {
   const [selectedEvent, setSelectedEvent] = useState<number>(0);
   const selected = events[selectedEvent];
@@ -343,9 +339,10 @@ export default function InteractiveTimeline({
             <div
               className={`
                 w-4 h-4 rounded-full mb-2 transition-all duration-300
-                ${idx === selectedEvent 
-                  ? 'bg-accent-primary scale-125 shadow-lg shadow-accent-primary' 
-                  : 'bg-accent-secondary group-hover:bg-accent-primary'
+                ${
+                  idx === selectedEvent
+                    ? "bg-accent-primary scale-125 shadow-lg shadow-accent-primary"
+                    : "bg-accent-secondary group-hover:bg-accent-primary"
                 }
               `}
             />
@@ -354,9 +351,10 @@ export default function InteractiveTimeline({
             <span
               className={`
                 text-sm font-semibold transition-colors duration-300
-                ${idx === selectedEvent 
-                  ? 'text-accent-primary' 
-                  : 'text-text-secondary group-hover:text-accent-primary'
+                ${
+                  idx === selectedEvent
+                    ? "text-accent-primary"
+                    : "text-text-secondary group-hover:text-accent-primary"
                 }
               `}
             >
@@ -423,7 +421,7 @@ const timelineEvents = [
     title: "First Upload",
     description: "Started my journey with experimental dance videos",
     tags: ["Freestyle", "Experimental"],
-    videoUrl: "https://youtube.com/embed/..."
+    videoUrl: "https://youtube.com/embed/...",
   },
   // Add more events...
 ];
@@ -474,7 +472,8 @@ export default function DancePage() {
 
 /* Pulse animation */
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px currentColor;
   }
   50% {
@@ -490,15 +489,19 @@ export default function DancePage() {
 ### Apply to buttons:
 
 ```tsx
-{/* CTA Button with glow */}
+{
+  /* CTA Button with glow */
+}
 <button className="glow-cyan px-6 py-3 bg-accent-primary text-bg-primary rounded-lg font-semibold">
   Explore My Work
-</button>
+</button>;
 
-{/* Video cards with glow */}
+{
+  /* Video cards with glow */
+}
 <div className="glow-gold rounded-lg overflow-hidden">
   {/* Video content */}
-</div>
+</div>;
 ```
 
 ---
@@ -506,30 +509,35 @@ export default function DancePage() {
 ## 📋 IMPLEMENTATION CHECKLIST
 
 ### Phase 1: Colors ✓
+
 - [ ] Update all CSS variables in globals.css
 - [ ] Test across all pages
 - [ ] Verify text contrast meets WCAG standards
 - [ ] Update Tailwind config if needed
 
 ### Phase 2: Stage Lighting ✓
+
 - [ ] Create StageLighting component
 - [ ] Add to Hero section
 - [ ] Test cursor tracking on desktop
 - [ ] Ensure mobile-friendly fallback
 
 ### Phase 3: Music Reactivity ✓
+
 - [ ] Enhance ParticleBackground
 - [ ] Add frequency analysis
 - [ ] Test with actual audio
 - [ ] Optimize performance
 
 ### Phase 4: Timeline ✓
+
 - [ ] Create InteractiveTimeline component
 - [ ] Populate with your dance journey
 - [ ] Add video embeds
 - [ ] Test interactivity
 
 ### Phase 5: Glows ✓
+
 - [ ] Add CSS glow classes
 - [ ] Apply to all interactive elements
 - [ ] Test hover states
@@ -570,18 +578,21 @@ export default function DancePage() {
 After completing all phases, your portfolio will:
 
 ✨ **Visual Impact**
+
 - Immediately recognizable artistic energy
 - BTS-level cutting-edge aesthetic
 - Interactive elements everywhere
 - Professional yet creative
 
 🎭 **User Experience**
+
 - Feels like a performance experience
 - Encourages interaction and exploration
 - Showcases technical skill
 - Memorable and engaging
 
 📈 **Career Impact**
+
 - Stand out to collaborators
 - Impress potential clients
 - Demonstrate creativity and skill

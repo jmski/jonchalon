@@ -395,7 +395,7 @@ These changes alone will dramatically improve perception:
 
 Your portfolio transforms from:
 
-**"Professional Portfolio"** →  **"Artistic Experience"**
+**"Professional Portfolio"** → **"Artistic Experience"**
 
 - No longer just viewing your work
 - **Living through your performances**

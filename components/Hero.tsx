@@ -42,9 +42,9 @@ export default function Hero({
 
         {/* Animated background gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-orange-600/5 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-yellow-400/5 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
       </div>
 
       {/* Background video (optional) */}
@@ -63,8 +63,8 @@ export default function Hero({
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 sm:py-24 lg:py-32" style={{ transform: `translateY(${scrollY * 0.5}px)` }}>
         {/* Accent badge */}
         <div className="mb-8 flex justify-center">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-100 text-sm font-semibold backdrop-blur-sm">
-            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/20 border border-yellow-400/40 text-yellow-100 text-sm font-semibold backdrop-blur-sm">
+            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
             Creative Professional
           </span>
         </div>
@@ -95,7 +95,7 @@ export default function Hero({
           </MagneticButton>
           <a
             href={secondaryCtaLink}
-            className="px-8 py-4 border-2 font-semibold rounded-lg transition-all duration-300 hover:bg-amber-500/10 backdrop-blur-sm"
+            className="px-8 py-4 border-2 font-semibold rounded-lg transition-all duration-300 hover:bg-yellow-400/10 backdrop-blur-sm"
             style={{ borderColor: 'var(--border-accent)', color: 'var(--text-secondary)' }}
           >
             {secondaryCtaText}

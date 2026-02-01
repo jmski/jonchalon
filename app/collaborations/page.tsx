@@ -51,7 +51,7 @@ export default async function Collaborations() {
                     {service.description}
                   </p>
                   {service.price && (
-                    <p className="text-lg font-semibold text-orange-400">
+                    <p className="text-lg font-semibold text-yellow-400">
                       {service.price}
                     </p>
                   )}
