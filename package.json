@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sanity": "sanity start",
-    "migrate": "node --loader dotenv/config scripts/migrate-data.js"
+    "sanity": "sanity start"
   },
   "dependencies": {
     "@sanity/image-url": "^2.0.3",
