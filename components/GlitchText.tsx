@@ -52,10 +52,10 @@ export default function GlitchText({
       <span
         className="absolute top-0 left-0 opacity-75 pointer-events-none"
         style={{
-          color: 'rgb(255, 0, 0)',
+          color: 'var(--glitch-red)',
           zIndex: isGlitching ? 20 : 0,
           transform: isGlitching ? `translateX(${glitchOffset}px)` : 'translateX(0)',
-          textShadow: isGlitching ? `${glitchOffset}px 0 #0ff` : 'none',
+          textShadow: isGlitching ? `${glitchOffset}px 0 var(--glitch-magenta)` : 'none',
           transition: `all ${glitchDuration}s steps(2, end)`,
           animation: isGlitching ? `glitch ${glitchDuration}s steps(2, end)` : 'none',
         }}
@@ -67,10 +67,10 @@ export default function GlitchText({
       <span
         className="absolute top-0 left-0 opacity-75 pointer-events-none"
         style={{
-          color: 'rgb(0, 255, 255)',
+          color: 'var(--glitch-cyan)',
           zIndex: isGlitching ? 21 : 0,
           transform: isGlitching ? `translateX(-${glitchOffset}px)` : 'translateX(0)',
-          textShadow: isGlitching ? `-${glitchOffset}px 0 #f0f` : 'none',
+          textShadow: isGlitching ? `-${glitchOffset}px 0 var(--glitch-magenta)` : 'none',
           transition: `all ${glitchDuration}s steps(2, end)`,
           animation: isGlitching ? `glitch-reverse ${glitchDuration}s steps(2, end)` : 'none',
         }}

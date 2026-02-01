@@ -97,6 +97,18 @@
   --color-error-dark: #831843; /* Dark pink - for error text on light bg */
   --color-warning: #ffd700; /* Gold - for warnings */
 
+  /* ========== GLITCH & EFFECT COLORS ========== */
+  --glitch-red: rgb(255, 0, 0); /* Red glitch layer */
+  --glitch-cyan: rgb(0, 255, 255); /* Cyan glitch layer */
+  --glitch-magenta: #f0f; /* Magenta text shadow */
+
+  /* ========== BADGE & ACCENT COLORS ========== */
+  --badge-gold-bg: rgba(255, 215, 0, 0.2); /* Gold badge background */
+  --badge-gold-border: rgba(255, 215, 0, 0.4); /* Gold badge border */
+  --badge-gold-text: #fef3c7; /* Light yellow text */
+  --badge-cyan-bg: rgba(0, 217, 255, 0.1); /* Cyan badge background */
+  --badge-cyan-border: rgba(0, 217, 255, 0.2); /* Cyan badge border */
+
   /* ========== GRADIENT HEADINGS ========== */
   --gradient-heading: linear-gradient(to right, #00d9ff, #ff006e);
   --gradient-accent: linear-gradient(to right, #ffd700, #00d9ff);

@@ -63,8 +63,8 @@ export default function Hero({
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 sm:py-24 lg:py-32" style={{ transform: `translateY(${scrollY * 0.5}px)` }}>
         {/* Accent badge */}
         <div className="mb-8 flex justify-center">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/20 border border-yellow-400/40 text-yellow-100 text-sm font-semibold backdrop-blur-sm">
-            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm" style={{ backgroundColor: 'var(--badge-gold-bg)', border: '1px solid var(--badge-gold-border)', color: 'var(--badge-gold-text)' }}>
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: 'var(--accent-primary)' }}></span>
             Creative Professional
           </span>
         </div>
