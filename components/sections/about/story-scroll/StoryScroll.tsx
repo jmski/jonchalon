@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { renderHeadline } from '@/lib/render-headline';
 import { urlFor } from '@/lib/sanity';
 import type { StoryBeat } from '@/lib/types';
 
@@ -86,7 +87,7 @@ export function StoryScroll({ beats = [] }: StoryScrollProps) {
                   <h2
                     className={`story-scroll-headline${isKinetic ? ' story-scroll-headline--kinetic' : ''}`}
                   >
-                    {beat.headline}
+                    {renderHeadline(beat.headline)}
                   </h2>
                 )}
                 {paragraphs.length > 0 && (

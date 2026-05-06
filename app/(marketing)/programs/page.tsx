@@ -8,6 +8,7 @@ import FAQ from '@/components/shared/faq/FAQ'
 import { CurriculumBento } from '@/components/sections/programs/CurriculumBento'
 import { CaseStudyCard } from '@/components/utilities/cards'
 import { StarterGuideForm } from '@/components/forms/StarterGuideForm'
+import { renderHeadline } from '@/lib/render-headline'
 import { getPagePrograms, getCaseStudies, getCurriculumWeeks, getSiteConfig } from '@/lib/sanity'
 import { CourseSchema } from '@/lib/schema'
 import type { CurriculumWeek, CaseStudy } from '@/lib/types'
@@ -99,7 +100,7 @@ export default async function Programs() {
                     <p className="programs-offers-eyebrow">{page.caseStudiesHeader.eyebrow}</p>
                   )}
                   {page?.caseStudiesHeader?.headline && (
-                    <h2 className="programs-case-studies-title">{page.caseStudiesHeader.headline}</h2>
+                    <h2 className="programs-case-studies-title">{renderHeadline(page.caseStudiesHeader.headline)}</h2>
                   )}
                   {page?.caseStudiesHeader?.subhead && (
                     <p className="programs-case-studies-body">{page.caseStudiesHeader.subhead}</p>
@@ -150,7 +151,7 @@ export default async function Programs() {
                       <p className="programs-offers-eyebrow">{page.programCardsHeader.eyebrow}</p>
                     )}
                     {page.programCardsHeader.headline && (
-                      <h2 className="programs-offers-heading">{page.programCardsHeader.headline}</h2>
+                      <h2 className="programs-offers-heading">{renderHeadline(page.programCardsHeader.headline)}</h2>
                     )}
                     {page.programCardsHeader.subhead && (
                       <p className="programs-offers-subtext">{page.programCardsHeader.subhead}</p>
@@ -222,7 +223,7 @@ export default async function Programs() {
               <ScrollFade>
                 <div className="cta-section">
                   <div className="cta-section-left">
-                    <h2 className="cta-section-title">{page.closingCta.headline}</h2>
+                    <h2 className="cta-section-title">{renderHeadline(page.closingCta.headline)}</h2>
                     {page.closingCta.primaryCta && (
                       <Button as="a" href={page.closingCta.primaryCta.href}>
                         {page.closingCta.primaryCta.label}

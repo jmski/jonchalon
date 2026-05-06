@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
+import { useFormSubmission } from '@/lib/hooks'
+import { renderHeadline } from '@/lib/render-headline'
 import type { StarterGuideCapture } from '@/lib/types'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -31,7 +33,14 @@ const FALLBACK = {
 export function StarterGuideForm({ guide, successMessage }: StarterGuideFormProps) {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+
+  const { state, submit } = useFormSubmission({
+    endpoint: '/api/starter-guide',
+    onSuccess: () => {
+      setFirstName('')
+      setEmail('')
+    },
+  })
 
   const eyebrow = guide?.eyebrow ?? FALLBACK.eyebrow
   const headline = guide?.headline ?? FALLBACK.headline
@@ -43,14 +52,7 @@ export function StarterGuideForm({ guide, successMessage }: StarterGuideFormProp
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!email.trim()) return
-    // TODO: Wire to a real starter-guide endpoint. No backend exists yet.
-    // Matches existing useFormSubmission convention used by EmailCapture
-    // (see components/sections/home/email-capture/EmailCapture.tsx) — swap the
-    // placeholder for `useFormSubmission({ endpoint: '/api/starter-guide' })`
-    // once the API route lands.
-    console.log('[StarterGuideForm] submit', { firstName, email })
-    setSubmitted(true)
+    submit({ firstName, email })
   }
 
   return (
@@ -58,11 +60,11 @@ export function StarterGuideForm({ guide, successMessage }: StarterGuideFormProp
       <div className="email-capture-inner">
         <div className="email-capture-copy">
           {eyebrow && <span className="email-capture-eyebrow">{eyebrow}</span>}
-          <h2 className="email-capture-heading">{headline}</h2>
+          <h2 className="email-capture-heading">{renderHeadline(headline)}</h2>
           {body && <p className="email-capture-subheading">{body}</p>}
         </div>
 
-        {submitted ? (
+        {state.submitted ? (
           <div className="email-capture-success">
             <p className="email-capture-success-message">{success}</p>
           </div>
@@ -76,6 +78,7 @@ export function StarterGuideForm({ guide, successMessage }: StarterGuideFormProp
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 aria-label="First name"
+                disabled={state.isSubmitting}
               />
               <input
                 type="email"
@@ -85,9 +88,15 @@ export function StarterGuideForm({ guide, successMessage }: StarterGuideFormProp
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 aria-label="Email address"
+                disabled={state.isSubmitting}
               />
-              <Button type="submit">{submitLabel}</Button>
+              <Button type="submit" disabled={state.isSubmitting}>
+                {state.isSubmitting ? 'Sending…' : submitLabel}
+              </Button>
             </div>
+            {state.error && (
+              <p className="email-capture-error" role="alert">{state.error}</p>
+            )}
           </form>
         )}
       </div>
@@ -96,3 +105,4 @@ export function StarterGuideForm({ guide, successMessage }: StarterGuideFormProp
 }
 
 export default StarterGuideForm
+

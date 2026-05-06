@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { useFormSubmission } from '@/lib/hooks';
+import { renderHeadline } from '@/lib/render-headline';
 import type { NewsletterCapture } from '@/lib/types';
 
 interface EmailCaptureProps {
@@ -63,7 +64,7 @@ export function EmailCapture({ newsletter, successMessage }: EmailCaptureProps) 
       <div className="email-capture-inner">
         <div className="email-capture-copy">
           <span className="email-capture-eyebrow">{eyebrow}</span>
-          <h2 className="email-capture-heading">{headline}</h2>
+          <h2 className="email-capture-heading">{renderHeadline(headline)}</h2>
           <p className="email-capture-subheading">{subhead}</p>
         </div>
 

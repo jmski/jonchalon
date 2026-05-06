@@ -6,6 +6,7 @@ import { BlogCard } from '@/components/utilities/cards'
 import { BlogOptIn } from '@/components/forms/BlogOptIn'
 import { ScrollStagger, ScrollStaggerItem } from '@/components/animations'
 import { SectionWrapper, SectionContent } from '@/components/layout'
+import { renderHeadline } from '@/lib/render-headline'
 import type { Hero, NewsletterCapture } from '@/lib/types'
 
 interface BlogPost {
@@ -92,7 +93,7 @@ export function BlogClient({
         <SectionContent>
           <div className="blog-page-header">
             {hero?.eyebrow && <p className="blog-page-eyebrow">{hero.eyebrow}</p>}
-            <h1 className="blog-page-title">{heroTitle}</h1>
+            <h1 className="blog-page-title">{renderHeadline(heroTitle)}</h1>
             <p className="blog-page-subtitle">{heroSubhead}</p>
             <div className="blog-search-bar">
               <svg

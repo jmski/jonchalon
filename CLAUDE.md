@@ -69,6 +69,54 @@ When editing copy or generating new content:
 
 ---
 
+## Headline rendering convention
+
+Headlines from Sanity contain `{{double-brace}}` markers around italic anchor
+words (e.g., `Find the work you were {{meant}} for.`). These markers must be
+stripped and the anchor word wrapped in `<em>` (or `<AnchorWord>` for kinetic
+headings) before rendering.
+
+**The rule:** any time a `.headline` field is interpolated into JSX, route it
+through `renderHeadline()`:
+
+```tsx
+// wrong - renders literal braces
+<h2 className="...">{content.section.headline}</h2>
+
+// right
+<h2 className="...">{renderHeadline(content.section.headline)}</h2>
+```
+
+For sections built using `<SectionHeader>` or `<KineticHeading>`, the wrapping
+happens automatically - those components run `renderHeadline` internally on
+string input. For raw `<h1>`/`<h2>`/etc. interpolations in page routes or
+shared components, the wrap must be explicit.
+
+**ESLint enforcement:** The `jonchalant/headline-needs-render` rule (in
+`eslint-plugin-jonchalant/`) enforces this automatically. It flags any `.headline`
+member expression used directly in JSX that is not wrapped in `renderHeadline()`
+and not passed as a prop to an allowlisted safe-consumer component.
+
+**Safe-consumer allowlist** (components that call `renderHeadline` internally —
+passing `.headline` to these as any prop is fine):
+
+```text
+Hero, GenericHero, PageHero, CTA, SectionHeader, KineticHeading,
+BlogOptIn, StarterGuideForm, EmailCapture, FourPillars, MeetJon,
+Method, WhoFor, StoryScroll, CurriculumBento, Testimonials, BlogCards
+```
+
+When you add a new component that accepts a headline string and calls
+`renderHeadline()` internally, add its JSX element name to both:
+1. `DEFAULT_SAFE_CONSUMERS` in `eslint-plugin-jonchalant/rules/headline-needs-render.js`
+2. The `safeConsumers` list in `eslint.config.mjs` (if you ever override the default there)
+
+The rule does **not** flag boolean guards (`{x?.headline && <jsx>}`) or values
+inside `JSON.stringify()` (schema data). It only catches direct renders like
+`<h2>{x.headline}</h2>` and passing to non-allowlisted components.
+
+---
+
 ## Strict Rules
 
 **CSS:**
@@ -79,6 +127,7 @@ When editing copy or generating new content:
 - **BEM-inspired kebab-case naming**: `.section-name`, `.section-name-header`, `.section-name-title`
 - **Light mode only** — no dark mode
 - **Always use CSS variables for colors** — never hardcode hex in page-scoped CSS files
+- **Use `overflow: clip` / `overflow-x: clip` (not `overflow: hidden` / `overflow-x: hidden`) on layout-establishing elements** (`html`, `body`, `main`, `section`, `article`, `.container`, `.section-wrapper`) unless they are intentionally scroll containers — hidden overflow can establish a scroll context that breaks descendant `position: sticky`
 - **Standard breakpoints only**: 640px (sm), 768px (md), 1024px (lg) — no 480px, 560px, 960px
 - **OpenGraph image exception**: `app/**/opengraph-image.tsx` files render server-side to PNG via `next/og` and may use inline styles + hardcoded hex. Nowhere else.
 
@@ -110,7 +159,7 @@ When editing copy or generating new content:
 ## Architecture
 
 ### Route Groups
-```
+```text
 app/
 ├── (marketing)/    ← Navbar + Footer layout (public pages)
 │   ├── layout.tsx

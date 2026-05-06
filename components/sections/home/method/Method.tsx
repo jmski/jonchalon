@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader';
+import { renderHeadline } from '@/lib/render-headline';
 import type { MethodStep, SectionHeader as SectionHeaderType } from '@/lib/types';
 
 interface MethodProps {
@@ -56,7 +57,7 @@ export function Method({ header, steps }: MethodProps) {
           <div className="why-it-works-left">
             <SectionHeader
               eyebrow={header.eyebrow}
-              title={header.headline}
+              title={renderHeadline(header.headline)}
               description={header.subhead}
               className="home-why-works-header"
             />
