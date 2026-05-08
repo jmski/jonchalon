@@ -19,6 +19,7 @@ export { WhoFor } from './about/who-for';
 export { StoryScroll as AboutStoryScroll } from './about/story-scroll';
 
 // ─────────────── SHARED SECTIONS (Reusable across pages) ────────────────
+export { KineticMoment } from '@/components/shared/kinetic-moment';
 export { Testimonials } from '@/components/shared/testimonials';
 export { Services } from '@/components/shared/services';
 

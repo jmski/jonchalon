@@ -201,11 +201,6 @@
   padding: 1.25rem;
   padding-top: calc(70px + 1rem);
   padding-bottom: 0;
-  overflow-y: auto;
-  overflow-x: clip;
-  /* Hide scrollbar while preserving scroll functionality */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 
 @media (min-width: 640px) {
@@ -227,10 +222,6 @@
 /* Admin/Portal pages use flex: 0 0 60% for main content */
 .layout-with-sidebar .main-content {
   flex: 0 0 60%;
-}
-
-.main-content::-webkit-scrollbar {
-  display: none;
 }
 
 .sidebar-toggle {
@@ -422,8 +413,9 @@
 
    Three-way primitive split (all three are emitted by SectionWrapper in TSX):
    · .section-wrapper        — base layout: full-bleed mechanics (negative
-                               margin + calc width), padding, overflow hidden
+                               margin + calc width), padding, overflow clip
    · .section-wrapper-dark   — background color modifier only (--mocha-deep)
+  · .section-wrapper-dark-mid — background color modifier only (--mocha-mid)
    · .jc-section--dark       — content styling: text colors, heading colors,
                                link colors, child element overrides, typography
                                tweaks; lives in sections.css and typography.css
@@ -434,7 +426,7 @@
 
 .section-wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   width: calc(
     100% + 2.5rem
   ); /* negates main-content 1.25rem padding on mobile */
@@ -491,6 +483,10 @@
 
 .section-wrapper-dark {
   background-color: var(--mocha-deep);
+}
+
+.section-wrapper-dark-mid {
+  background-color: var(--mocha-mid);
 }
 
 .section-wrapper--moss {

@@ -39,9 +39,10 @@ const serverSchema = z.object({
   // AI
   ANTHROPIC_API_KEY: optionalString,
 
-  // Newsletter
+  // Newsletter / starter guide
   KIT_API_KEY: optionalString,
   KIT_FORM_ID: optionalString,
+  KIT_STARTER_GUIDE_FORM_ID: optionalString,
 
   // Observability
   SENTRY_DSN: optionalUrl,

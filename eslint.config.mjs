@@ -1,6 +1,10 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const jonchalantPlugin = require("./eslint-plugin-jonchalant/index.js");
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -12,7 +16,19 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Sanity Studio build output — large bundled files, not source
+    "sanity/dist/**",
+    // Local ESLint plugin — CJS tooling, not part of the app bundle
+    "eslint-plugin-jonchalant/**",
   ]),
+  {
+    plugins: {
+      jonchalant: jonchalantPlugin,
+    },
+    rules: {
+      "jonchalant/headline-needs-render": "error",
+    },
+  },
 ]);
 
 export default eslintConfig;

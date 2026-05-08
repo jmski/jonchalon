@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Button } from '@/components/ui/Button';
+import { renderHeadline } from '@/lib/render-headline';
 
 interface CTAButton {
   label: string;
@@ -33,7 +34,7 @@ export default function PageHero({
           <span className="page-hero-eyebrow">{eyebrow}</span>
           <h1 className="page-hero-headline">
             {headlineLines.map((line, idx) => (
-              <span key={idx} className="page-hero-headline-line">{line}</span>
+              <span key={idx} className="page-hero-headline-line">{renderHeadline(line)}</span>
             ))}
           </h1>
           <p className="page-hero-subheading">{subheading}</p>

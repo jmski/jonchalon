@@ -1,4 +1,5 @@
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader';
+import { renderHeadline } from '@/lib/render-headline';
 import type { PillarCard, SectionHeader as SectionHeaderType } from '@/lib/types';
 
 interface FourPillarsProps {
@@ -14,7 +15,7 @@ export function FourPillars({ header, pillars }: FourPillarsProps) {
       <div className="four-pillars-header">
         {header?.eyebrow && <p className="four-pillars-eyebrow">{header.eyebrow}</p>}
         {header?.headline && (
-          <h2 className="four-pillars-headline">{header.headline}</h2>
+          <h2 className="four-pillars-headline">{renderHeadline(header.headline)}</h2>
         )}
         {header?.subhead && (
           <p className="four-pillars-subhead">{header.subhead}</p>

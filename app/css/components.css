@@ -646,7 +646,9 @@ tbody tr:hover {
 
 /* ---------- GLOBAL NAV ---------- */
 .jc-nav {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
   padding: 1.1rem 2rem;
@@ -783,6 +785,12 @@ tbody tr:hover {
   font-variation-settings: "opsz" 36, "SOFT" 100, "WONK" 1;
 }
 
+.jc-nav-mobile-links {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .jc-nav-mobile-footer {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
@@ -793,9 +801,69 @@ tbody tr:hover {
   letter-spacing: 0.08em;
 }
 
+.jc-nav-mobile-cta-bar {
+  position: sticky;
+  bottom: 0;
+  margin: 0 -1.5rem;
+  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom));
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  z-index: 1;
+}
+
+.jc-nav-mobile-cta {
+  width: 100%;
+  justify-content: center;
+}
+
+.jc-nav-mobile-cta-bar .jc-btn--primary,
+.jc-nav-mobile-cta-bar .jc-btn--primary:link,
+.jc-nav-mobile-cta-bar .jc-btn--primary:visited {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.875rem 1.75rem;
+  border: 1px solid var(--accent-primary);
+  border-radius: 8px;
+  background-color: var(--accent-primary);
+  color: var(--btn-primary-text);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: center;
+  outline: none;
+  box-shadow: none;
+  user-select: none;
+}
+
+.jc-nav-mobile-cta-bar .jc-btn--primary:hover {
+  background-color: transparent;
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+@supports not (position: sticky) {
+  .jc-nav-mobile-cta-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .jc-nav-mobile {
+    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom));
+  }
+}
+
 @media (max-width: 767px) {
   .jc-nav {
     padding: 0.9rem 1.25rem;
+    grid-template-columns: 1fr auto;
     gap: 0.75rem;
   }
 
@@ -804,8 +872,42 @@ tbody tr:hover {
     display: none;
   }
 
+  .jc-nav-actions {
+    justify-self: end;
+    margin-left: auto;
+  }
+
   .jc-nav-hamburger {
     display: inline-flex;
+  }
+
+  .jc-nav-mobile {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - var(--nav-height));
+    height: calc(100dvh - var(--nav-height));
+    z-index: 90;
+    background: var(--bg-primary);
+    border-bottom: none;
+    padding: 1.5rem 1.5rem 0;
+    overflow: clip;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding-bottom: 0;
+  }
+
+  .jc-nav-mobile.is-open {
+    display: flex;
+  }
+
+  .jc-nav-mobile-links {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 1rem;
   }
 }
 

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { FormField } from '@/components/ui/FormField'
 import { FormMessage } from '@/components/ui/FormMessage'
 import { useFormSubmission } from '@/lib/hooks'
+import { renderHeadline } from '@/lib/render-headline'
 import type { PageContact, InquiryCard } from '@/lib/types'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -183,7 +184,7 @@ export default function ContactClient({ content }: ContactClientProps) {
           <div className="contact-audit-prompt-inner">
             <div className="contact-audit-prompt-text">
               {content.hero.eyebrow && <span className="contact-audit-badge">{content.hero.eyebrow}</span>}
-              <h1 className="contact-audit-title">{content.hero.headline}</h1>
+              <h1 className="contact-audit-title">{renderHeadline(content.hero.headline)}</h1>
               {content.hero.subhead && <p className="contact-audit-body">{content.hero.subhead}</p>}
               {content.hero.primaryCta?.href && content.hero.primaryCta?.label && (
                 <div className="contact-audit-btn">

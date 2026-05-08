@@ -6,6 +6,7 @@ import { BlogCard } from '@/components/utilities/cards'
 import { BlogOptIn } from '@/components/forms/BlogOptIn'
 import { ScrollStagger, ScrollStaggerItem } from '@/components/animations'
 import { SectionWrapper, SectionContent } from '@/components/layout'
+import { renderHeadline } from '@/lib/render-headline'
 import type { Hero, NewsletterCapture } from '@/lib/types'
 
 interface BlogPost {
@@ -22,10 +23,9 @@ interface BlogPost {
 
 const FILTERS = [
   { id: 'all', label: 'All' },
-  { id: 'the-lab', label: 'The Lab' },
-  { id: 'movement-body', label: 'Movement & Body' },
-  { id: 'presence-confidence', label: 'Presence & Confidence' },
-  { id: 'leadership-career', label: 'Leadership & Career' },
+  { id: 'movement-body', label: 'Movement' },
+  { id: 'presence-confidence', label: 'Presence' },
+  { id: 'leadership-career', label: 'Leadership' },
 ] as const
 
 type FilterId = (typeof FILTERS)[number]['id']
@@ -92,7 +92,7 @@ export function BlogClient({
         <SectionContent>
           <div className="blog-page-header">
             {hero?.eyebrow && <p className="blog-page-eyebrow">{hero.eyebrow}</p>}
-            <h1 className="blog-page-title">{heroTitle}</h1>
+            <h1 className="blog-page-title">{renderHeadline(heroTitle)}</h1>
             <p className="blog-page-subtitle">{heroSubhead}</p>
             <div className="blog-search-bar">
               <svg

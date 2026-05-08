@@ -140,7 +140,7 @@ export default async function FoundationPage() {
                       <p className="foundation-section-eyebrow">{content.whyDanceHeader.eyebrow}</p>
                     )}
                     {content?.whyDanceHeader?.headline && (
-                      <h2 className="foundation-section-title">{content.whyDanceHeader.headline}</h2>
+                      <h2 className="foundation-section-title">{renderHeadline(content.whyDanceHeader.headline)}</h2>
                     )}
                     {content?.whyDanceHeader?.subhead && (
                       <p className="foundation-section-body">{content.whyDanceHeader.subhead}</p>
@@ -168,7 +168,7 @@ export default async function FoundationPage() {
                       <p className="foundation-section-eyebrow">{content.curriculumHeader.eyebrow}</p>
                     )}
                     {content.curriculumHeader?.headline && (
-                      <h2 className="foundation-section-title">{content.curriculumHeader.headline}</h2>
+                      <h2 className="foundation-section-title">{renderHeadline(content.curriculumHeader.headline)}</h2>
                     )}
                     {content.curriculumHeader?.subhead && (
                       <p className="foundation-section-body">{content.curriculumHeader.subhead}</p>
@@ -205,7 +205,7 @@ export default async function FoundationPage() {
                       <p className="foundation-section-eyebrow">{content.howItWorksHeader.eyebrow}</p>
                     )}
                     {content.howItWorksHeader?.headline && (
-                      <h2 className="foundation-section-title">{content.howItWorksHeader.headline}</h2>
+                      <h2 className="foundation-section-title">{renderHeadline(content.howItWorksHeader.headline)}</h2>
                     )}
                   </div>
                   <div className="foundation-how-grid">
@@ -233,7 +233,7 @@ export default async function FoundationPage() {
                     <p className="foundation-section-eyebrow">{content.enrollmentHeader.eyebrow}</p>
                   )}
                   {content?.enrollmentHeader?.headline && (
-                    <h2 className="foundation-section-title">{content.enrollmentHeader.headline}</h2>
+                    <h2 className="foundation-section-title">{renderHeadline(content.enrollmentHeader.headline)}</h2>
                   )}
                 </div>
                 <div className="foundation-pricing-grid">
@@ -292,7 +292,7 @@ export default async function FoundationPage() {
           <SectionWrapper variant="secondary">
             <SectionContent>
               <section className="foundation-cta">
-                <h2 className="foundation-cta-title">{content.softCta.headline}</h2>
+                <h2 className="foundation-cta-title">{renderHeadline(content.softCta.headline)}</h2>
                 {content.softCta.body && (
                   <p className="foundation-cta-body">{content.softCta.body}</p>
                 )}

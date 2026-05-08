@@ -51,7 +51,7 @@ export default function DesignTestPage() {
       <SectionWrapper variant="dark">
         <SectionContent>
           <p style={{ fontFamily: 'monospace', fontSize: '0.7rem', marginBottom: '2rem', opacity: 0.5, color: 'var(--text-white)' }}>
-            variant=&quot;dark&quot; — mocha-deep background, --text-white + #E8C8B0 em
+            variant=&quot;dark&quot; — mocha-deep background, --text-white + var(--anchor-on-dark) em
           </p>
           {phrases.map(({ key, content }) => (
             <div key={key} className="jc-kinetic-frame">

@@ -66,7 +66,9 @@
   /* Mocha Mousse system — the anchor */
   --mocha-mousse: #A47864;
   --mocha-deep:   #6B4F3F;
+  --mocha-mid:    #8C7264;
   --mocha-soft:   #D4B8A3;
+  --anchor-on-dark: #E8C8B0;
 
   /* Sage whisper — single cool accent, used sparingly for contrast */
   --sage-whisper: #8A9A85;
@@ -162,4 +164,5 @@
 :root {
   --column-gap:  1.5rem;
   --element-gap: 1rem;
+  --nav-height: 64px;
 }

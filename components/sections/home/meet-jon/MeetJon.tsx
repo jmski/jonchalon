@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { renderHeadline } from '@/lib/render-headline';
 import { urlFor } from '@/lib/sanity';
 import type { Cta, SanityImage, SectionHeader as SectionHeaderType } from '@/lib/types';
 
@@ -12,21 +13,6 @@ interface MeetJonProps {
   bodyParagraphs?: string[];
   primaryLink?: Cta;
   secondaryLink?: Cta;
-}
-
-function renderHeadingWithEmphasis(heading: string) {
-  const match = heading.match(/lesson/i);
-  if (!match || match.index === undefined) return heading;
-  const before = heading.slice(0, match.index);
-  const word = heading.slice(match.index, match.index + match[0].length);
-  const after = heading.slice(match.index + match[0].length);
-  return (
-    <>
-      {before}
-      <em>{word}</em>
-      {after}
-    </>
-  );
 }
 
 export function MeetJon({
@@ -82,7 +68,7 @@ export function MeetJon({
             </div>
           )}
           {header?.headline && (
-            <h2 className="meet-jon-heading">{renderHeadingWithEmphasis(header.headline)}</h2>
+            <h2 className="meet-jon-heading">{renderHeadline(header.headline)}</h2>
           )}
           {paragraphs.length > 0 && (
             <div className="meet-jon-body">

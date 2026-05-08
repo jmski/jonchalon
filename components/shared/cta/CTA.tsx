@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { ScrollReveal } from "@/components/animations";
 import { Button } from '@/components/ui/Button';
+import { renderHeadline } from '@/lib/render-headline';
 
 export interface CTAPreviewItem {
   number: string;
@@ -75,11 +76,11 @@ export default function CTA({
           <h2 className="cta-section-title">
             {lines.length === 2 ? (
               <>
-                <span className="cta-headline-line" data-direction="left">{lines[0]}</span>
-                <span className="cta-headline-line" data-direction="right">{lines[1]}</span>
+                <span className="cta-headline-line" data-direction="left">{renderHeadline(lines[0])}</span>
+                <span className="cta-headline-line" data-direction="right">{renderHeadline(lines[1])}</span>
               </>
             ) : (
-              title
+              renderHeadline(title)
             )}
           </h2>
           {sub && <p className="cta-sub">{sub}</p>}

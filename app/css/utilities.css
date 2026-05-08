@@ -56,7 +56,7 @@
 /* ── CONTAINER & OVERFLOW ──────────────────────────────────────────────────── */
 .container {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   box-sizing: border-box;
 }
 
@@ -64,7 +64,7 @@ section,
 article,
 main {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ── RESPONSIVE BREAKPOINTS ────────────────────────────────────────────────── */

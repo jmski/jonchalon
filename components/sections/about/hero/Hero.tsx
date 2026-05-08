@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { urlFor } from '@/lib/sanity';
+import { renderHeadline } from '@/lib/render-headline';
 import type { SanityImage } from '@/lib/types';
 import { ScrollReveal } from '@/components/animations';
 
@@ -22,7 +23,7 @@ export function Hero({ headline, description, heroImage }: AboutHeroProps) {
           <ScrollReveal variant="fade-up">
             <span className="about-hero-intro">Who I Am</span>
             <h1 className="about-hero-title">
-              {displayHeadline}
+              {renderHeadline(displayHeadline)}
             </h1>
           </ScrollReveal>
           <ScrollReveal variant="fade-up" delay={150}>

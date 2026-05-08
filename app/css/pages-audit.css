@@ -777,6 +777,15 @@ body.audit-immersive-mode .main-content {
   margin-right: auto;
 }
 
+.audit-mid-encouragement {
+  margin: 0 auto 1.25rem;
+  max-width: 42rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
 .audit-options {
   gap: 0.65rem;
 }
@@ -812,6 +821,13 @@ body.audit-immersive-mode .main-content {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+
+.audit-result-starter-guide {
+  width: 100%;
+  margin-top: 2.25rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2rem;
 }
 
 .audit-nav-back,

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { ScrollReveal } from '@/components/animations';
+import { renderHeadline } from '@/lib/render-headline';
 import { urlFor } from '@/lib/sanity';
 import type { SanityImage } from '@/lib/types';
 
@@ -17,7 +18,7 @@ export function WhoFor({ image, headline, body }: WhoForProps) {
       <div className="about-section-divider"></div>
 
       <ScrollReveal variant="fade-up">
-        <span className="about-who-for-label">{headline}</span>
+        <span className="about-who-for-label">{renderHeadline(headline)}</span>
       </ScrollReveal>
 
       {image?.asset && (

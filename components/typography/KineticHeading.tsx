@@ -1,11 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
+import type { ReactNode } from 'react';
 import { useScrollTrigger } from '@/lib/hooks/useScrollTrigger';
 import { AnchorWord } from '@/components/typography/AnchorWord';
 
 interface KineticHeadingProps {
-  children: string;
+  children: ReactNode;
   as?: 'h1' | 'h2' | 'h3';
   anchorWords?: string[];
   className?: string;
@@ -26,34 +27,38 @@ export function KineticHeading({
   const ref = useRef<HTMLHeadingElement>(null);
   const isVisible = useScrollTrigger(ref, 0.3, true);
 
-  const words = children.split(/(\s+)/);
+  const rendered = typeof children === 'string'
+    ? (() => {
+      const words = children.split(/(\s+)/);
+      let wordIdx = 0;
 
-  // Track actual word index (not whitespace tokens) for stagger delay
-  let wordIdx = 0;
+      return words.map((token, i) => {
+        if (/^\s+$/.test(token)) {
+          return token;
+        }
 
-  const rendered = words.map((token, i) => {
-    // Whitespace-only token — render as-is (preserves natural spacing)
-    if (/^\s+$/.test(token)) {
-      return token;
-    }
+        const braceMatch = token.match(/^\{\{(.+?)\}\}([.,!?;:]?)$/);
+        const isBraceAnchor = !!braceMatch;
+        const displayToken = isBraceAnchor ? `${braceMatch[1]}${braceMatch[2]}` : token;
 
-    const currentIdx = wordIdx++;
-    const isAnchor = anchorWords.some(
-      (w) => w.toLowerCase() === token.toLowerCase()
-    );
+        const currentIdx = wordIdx++;
+        const isPropAnchor = anchorWords.some(
+          (w) => w.toLowerCase() === displayToken.toLowerCase()
+        );
+        const isAnchor = isBraceAnchor || isPropAnchor;
 
-    const wordEl = (
-      <span
-        key={i}
-        className="kinetic-word"
-        style={{ '--word-index': currentIdx } as React.CSSProperties}
-      >
-        {isAnchor ? <AnchorWord>{token}</AnchorWord> : token}
-      </span>
-    );
-
-    return wordEl;
-  });
+        return (
+          <span
+            key={i}
+            className="kinetic-word"
+            style={{ '--word-index': currentIdx } as React.CSSProperties}
+          >
+            {isAnchor ? <AnchorWord>{displayToken}</AnchorWord> : displayToken}
+          </span>
+        );
+      });
+    })()
+    : children;
 
   const classes = [
     'kinetic-heading',

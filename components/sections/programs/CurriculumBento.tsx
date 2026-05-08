@@ -1,5 +1,6 @@
 import { Bento, BentoCell } from '@/components/shared/bento';
 import { KineticHeading } from '@/components/typography/KineticHeading';
+import { renderHeadline } from '@/lib/render-headline';
 import type { CurriculumWeek } from '@/lib/types';
 
 interface CurriculumBentoProps {
@@ -18,7 +19,7 @@ export function CurriculumBento({ headline, weeks }: CurriculumBentoProps) {
             as="h2"
             anchorWords={['weeks', 'foundation', 'presence', 'movement']}
           >
-            {headline}
+            {renderHeadline(headline)}
           </KineticHeading>
         </div>
       )}

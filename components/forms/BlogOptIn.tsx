@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { FormField } from '@/components/ui/FormField'
 import { FormMessage } from '@/components/ui/FormMessage'
 import { useFormSubmission } from '@/lib/hooks'
+import { renderHeadline } from '@/lib/render-headline'
 import type { NewsletterCapture } from '@/lib/types'
 
 const STORAGE_KEY = 'jonchalant_subscribed'
@@ -62,7 +63,7 @@ export function BlogOptIn({ newsletter, successMessage, variant = 'blog' }: Blog
             <span className="jc-footer-optin-eyebrow">{newsletter.eyebrow}</span>
           )}
           {newsletter?.headline && (
-            <h3 className="jc-footer-optin-title">{newsletter.headline}</h3>
+            <h3 className="jc-footer-optin-title">{renderHeadline(newsletter.headline)}</h3>
           )}
           {newsletter?.subhead && (
             <p className="jc-footer-optin-description">{newsletter.subhead}</p>
@@ -122,7 +123,7 @@ export function BlogOptIn({ newsletter, successMessage, variant = 'blog' }: Blog
             <p className="blog-optin-eyebrow">{newsletter.eyebrow}</p>
           )}
           {newsletter?.headline && (
-            <h3 className="blog-optin-title">{newsletter.headline}</h3>
+            <h3 className="blog-optin-title">{renderHeadline(newsletter.headline)}</h3>
           )}
           {newsletter?.subhead && (
             <p className="blog-optin-description">{newsletter.subhead}</p>
