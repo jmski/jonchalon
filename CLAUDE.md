@@ -156,6 +156,97 @@ inside `JSON.stringify()` (schema data). It only catches direct renders like
 
 ---
 
+## Surface Tier System
+
+The dark surface system has **three tiers**, used deliberately to create chromatic hierarchy on pages with multiple darker sections:
+
+- **`--mocha-deep` (`#6B4F3F`)** — the deepest mocha. **Reserved for the page's chromatic climax.** On Home, this is the Method section only. Do not introduce additional `--mocha-deep` sections on a page that already has one without rebalancing the existing one — having two sections at this depth flattens the hierarchy.
+- **`--mocha-mid` (`#8C7264`)** — tertiary warm surface, lighter than `--mocha-deep` but visibly darker than cream. Used for warm-toned content sections that should feel distinct from the cream majority but subordinate to the page's deepest dark moment. Currently used for Home's testimonial and body newsletter sections.
+- **`--bg-tertiary` and below** — cream surface tiers for the bulk of page content.
+
+When introducing a new dark or warm-tinted section, choose the tier that preserves the page's existing rhythm. If the page has a `--mocha-deep` climax already, new dark-tinted content uses `--mocha-mid`. If the page has no climax yet, the new section *might* be the climax — but that's a design call, not a default.
+
+The legacy `--bg-dark` (`#0a0a0a`) token exists in `variables.css` but is not used by any current section and should not be introduced into new work without an explicit design decision.
+
+### SectionWrapper Variants
+
+`SectionWrapper` exposes these variants for surface tier:
+
+- **`variant="primary"`** — `--bg-primary` (cream)
+- **`variant="secondary"`** — `--bg-secondary` (warmer cream)
+- **`variant="dark"`** — emits `.jc-section--dark`, surface `--mocha-deep` (page climax)
+- **`variant="dark-mid"`** — emits `.jc-section--dark-mid`, surface `--mocha-mid` (subordinate warm-dark)
+
+Choose by tier intent, not by current hex value. If the design system later shifts `--mocha-mid`'s exact value, every `dark-mid` consumer updates with it. New content rules for dark surfaces should be written against `.jc-section--dark` and `.jc-section--dark-mid` classes (e.g., `.jc-section--dark-mid .some-element`), parallel to existing rules.
+
+**Opacity convention on dark surfaces:**
+- Body text and attribution copy on dark-mid surfaces uses opacity `0.88` (not the `0.72` used on `--mocha-deep`) to compensate for the lighter background
+- Eyebrow text on dark-mid uses `var(--anchor-on-dark)` rather than `--mocha-mousse`
+
+### Italic Anchor Colors
+
+The italic anchor color depends on surface:
+
+- **Light surface (cream)**: `--mocha-mousse` (`#A47864`) — the brand's signature accent
+- **Dark surface (`--mocha-deep` or `--mocha-mid`)**: `--anchor-on-dark` (`#E8C8B0`) — warm amber
+
+Do not hardcode `#E8C8B0` anywhere. The token exists for a reason.
+
+---
+
+## Kinetic Typography Systems
+
+There are **two distinct kinetic typography systems** in this codebase. They share no CSS and are NOT interchangeable:
+
+### `.jc-kinetic` — Static Dramatic Heading Primitive
+
+- Static, dramatic-heading CSS class (in `typography.css`)
+- Written directly as JSX: `<p className="jc-kinetic">Phrase with <em>anchor</em>.</p>`
+- Italic anchor handled by a child `<em>` element
+- Used for the *one dramatically scaled type moment per page* — the held-breath moment where stillness is the point
+- No motion of its own
+
+### `KineticHeading` Component — Animated Section Title
+
+- Animated section title with per-word reveal via `.kinetic-heading` / `.kinetic-word` / `.anchor-word` classes
+- Auto-handles `{{double-brace}}` interpolation (strips braces, wraps anchor in `<em>`)
+- Used for animated headings inside content sections
+- Per-word stagger is the right motion language for section titles, NOT for held-breath moments
+
+### `KineticMoment` Component — Scroll-Triggered Opacity Fade
+
+Wraps a `.jc-kinetic` block to add standard scroll-triggered opacity fade-in:
+
+```jsx
+<KineticMoment>
+  <p className="jc-kinetic">
+    Find your <em>medium</em>.
+  </p>
+</KineticMoment>
+```
+
+**Behavior:**
+- Opacity fades from 0 → 1 over 1200ms, ease-out
+- Triggered when wrapper enters viewport at ~70% from bottom (`rootMargin: '0px 0px -30% 0px'`)
+- `prefers-reduced-motion: reduce` skips observer entirely; phrase renders visible from initial mount
+- Generous internal `padding-block` for the held-breath whitespace (mobile 7.5rem / sm 10rem / lg 15rem)
+- Opacity is the only animated property — no transform, no scale, no blur
+
+**Important:** Do not extend `KineticMoment` to support per-word reveal, color animation, or transform-based motion. The component's value is its *constraint* — adding motion options dilutes the convention and makes future kinetic moments feel inconsistent. If a future page needs a different motion treatment for a kinetic moment, that's a design decision worth surfacing in claude.ai before introducing a second motion variant. The default answer should be "use `KineticMoment` as-is" until proven otherwise.
+
+---
+
+## Page Rhythm Convention
+
+A typical content page on Jonchalant is mostly cream. Pages introduce hierarchy through:
+
+1. **One deepest-dark moment** (the chromatic climax) — typically the Method section or equivalent
+2. **One dramatic kinetic moment** (the typographic climax) — ideally the same gesture, with the kinetic phrase living inside or adjacent to the dark section
+
+When implementing changes that affect surface color or section weight, consider the whole page's rhythm, not just the section being changed. Adding a second dark moment, or a second kinetic moment, requires deliberate justification — uniform section weight is the design flatness the system explicitly fights against.
+
+---
+
 ## Architecture
 
 ### Route Groups

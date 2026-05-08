@@ -391,8 +391,16 @@ hr {
   color: var(--text-white);
 }
 
+.jc-section--dark-mid .jc-kinetic {
+  color: var(--text-white);
+}
+
 .jc-section--dark .jc-kinetic em {
-  color: #E8C8B0;
+  color: var(--anchor-on-dark);
+}
+
+.jc-section--dark-mid .jc-kinetic em {
+  color: var(--anchor-on-dark);
 }
 
 .jc-kinetic-frame {

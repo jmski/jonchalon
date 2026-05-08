@@ -83,19 +83,31 @@ export default function Navbar() {
       </div>
 
       <div className={`jc-nav-mobile${mobileOpen ? ' is-open' : ''}`}>
-        {MOBILE_LINKS.map((link) => (
+        <div className="jc-nav-mobile-links">
+          {MOBILE_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="jc-nav-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              {link.emphasis ? <em>{link.label}</em> : link.label}
+            </Link>
+          ))}
+          <div className="jc-nav-mobile-footer">
+            <Link href="/login" className="jc-nav-mobile-link" onClick={() => setMobileOpen(false)}>
+              Sign In
+            </Link>
+          </div>
+        </div>
+
+        <div className="jc-nav-mobile-cta-bar">
           <Link
-            key={link.href}
-            href={link.href}
-            className="jc-nav-mobile-link"
+            href="/ikigai"
+            className="jc-btn jc-btn--primary jc-nav-mobile-cta"
             onClick={() => setMobileOpen(false)}
           >
-            {link.emphasis ? <em>{link.label}</em> : link.label}
-          </Link>
-        ))}
-        <div className="jc-nav-mobile-footer">
-          <Link href="/login" className="jc-nav-mobile-link" onClick={() => setMobileOpen(false)}>
-            Sign In
+            Discover Your Ikigai
           </Link>
         </div>
       </div>

@@ -125,7 +125,7 @@ export default async function Home() {
 
         {/* 3. FOUR PILLARS */}
         {pageHome?.pillarSet?.pillars?.length > 0 && (
-          <SectionWrapper variant="primary">
+          <SectionWrapper variant="primary" className="four-pillars-wrapper">
             <SectionContent>
               <ScrollFade>
                 <FourPillars
@@ -154,7 +154,7 @@ export default async function Home() {
 
         {/* 5. TESTIMONIALS */}
         {testimonials.length > 0 && (
-          <SectionWrapper variant="dark">
+          <SectionWrapper variant="dark-mid">
             <SectionContent>
               <ScrollFade>
                 <Testimonials
@@ -183,7 +183,7 @@ export default async function Home() {
         )}
 
         {/* 7. NEWSLETTER */}
-        <SectionWrapper variant="dark" className="section-wrapper--flush">
+        <SectionWrapper variant="dark-mid" className="section-wrapper--flush">
           <EmailCapture
             newsletter={pageHome?.newsletter}
             successMessage={newsletterSuccess}

@@ -415,6 +415,7 @@
    · .section-wrapper        — base layout: full-bleed mechanics (negative
                                margin + calc width), padding, overflow clip
    · .section-wrapper-dark   — background color modifier only (--mocha-deep)
+  · .section-wrapper-dark-mid — background color modifier only (--mocha-mid)
    · .jc-section--dark       — content styling: text colors, heading colors,
                                link colors, child element overrides, typography
                                tweaks; lives in sections.css and typography.css
@@ -482,6 +483,10 @@
 
 .section-wrapper-dark {
   background-color: var(--mocha-deep);
+}
+
+.section-wrapper-dark-mid {
+  background-color: var(--mocha-mid);
 }
 
 .section-wrapper--moss {

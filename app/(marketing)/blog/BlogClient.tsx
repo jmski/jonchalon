@@ -23,10 +23,9 @@ interface BlogPost {
 
 const FILTERS = [
   { id: 'all', label: 'All' },
-  { id: 'the-lab', label: 'The Lab' },
-  { id: 'movement-body', label: 'Movement & Body' },
-  { id: 'presence-confidence', label: 'Presence & Confidence' },
-  { id: 'leadership-career', label: 'Leadership & Career' },
+  { id: 'movement-body', label: 'Movement' },
+  { id: 'presence-confidence', label: 'Presence' },
+  { id: 'leadership-career', label: 'Leadership' },
 ] as const
 
 type FilterId = (typeof FILTERS)[number]['id']

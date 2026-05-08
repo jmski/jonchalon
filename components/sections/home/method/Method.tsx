@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { KineticMoment } from '@/components/shared/kinetic-moment';
 import SectionHeader from '@/components/ui/SectionHeader/SectionHeader';
 import { renderHeadline } from '@/lib/render-headline';
 import type { MethodStep, SectionHeader as SectionHeaderType } from '@/lib/types';
@@ -85,6 +86,11 @@ export function Method({ header, steps }: MethodProps) {
           ))}
         </div>
       </div>
+      <KineticMoment>
+        <p className="jc-kinetic">
+          Find your <em>medium</em>.
+        </p>
+      </KineticMoment>
     </section>
   );
 }
