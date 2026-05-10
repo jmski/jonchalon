@@ -70,7 +70,19 @@ npm run sanity:deploy # Deploy Sanity Studio
 
 Config: `reactCompiler: true` (no manual useMemo/useCallback), `turbopack` enabled.
 
-**Lint baseline:** 1 (Workstream 4 Layer 5 cleanup complete; was 152 at Workstream 4 start). The remaining violation is `@typescript-eslint/no-require-imports` in `.migration/inspect.cjs`, an ESM-incompatible one-off CJS migration script — accepted as deliberate per the lint inventory's config-vs-conversion judgment. Non-cleanup work must keep this number flat — delta-0 is the regression signal.
+**Lint baseline.** `npm run lint` reports 7 violations against the current codebase. These are pre-existing and are not the responsibility of in-progress audits to fix:
+
+- `.migration/inspect.cjs` — `@typescript-eslint/no-require-imports` (deliberate, accepted)
+- `app/(marketing)/ikigai/IkigaiClient.tsx` — `react-hooks/set-state-in-effect`
+- `app/(marketing)/mfa/MfaClient.tsx` — `react-hooks/immutability`
+- `app/(marketing)/mfa/MfaClient.tsx` — `react-hooks/set-state-in-effect`
+- `app/(portal)/portal/settings/SettingsClient.tsx` — `react-hooks/set-state-in-effect`
+- `app/(portal)/portal/tonality/TonalityClient.tsx` — `react-hooks/set-state-in-effect`
+- `components/portal/PresenceCoach.tsx` — `react-hooks/preserve-manual-memoization`
+
+The 6 React-hooks violations surfaced when React 19 / React Compiler ESLint rules became active after Workstream 4 closed. They are tracked for a dedicated remediation workstream. Audit prompts continue to verify the file:rule list at start and end of each prompt — delta of 0 = no new violations introduced.
+
+**Lint command.** Use `npm run lint`. The `package.json` lint script invokes ESLint directly. Earlier workstream documentation referenced `pnpm lint`; the working environment standardized on `npm` during Workstream 5.2. The pnpm-vs-npm tooling question is tracked as a Layer 5 tail item — until it resolves, `npm` is canonical.
 
 ---
 
@@ -175,6 +187,8 @@ Editable-but-stable content lives in typed `lib/` modules, not Sanity, and not h
 
 Page-specific stable copy. Stable page-argument copy that doesn't need CMS editorial workflow lives in a typed `lib/` module. Foundation uses `lib/foundationCopy.ts` for its kinetic line as the working example. The pattern is the same as `lib/navData.ts` and `lib/footerData.ts`: typed export, no surrounding object unless multiple values share scope, sourced from `canonical-copy.md`. Don't reach for Sanity for content of this kind unless an active CMS-editing benefit is named.
 
+**Italic-anchor markup in `lib/{page}Copy.ts`:** Page-stable copy strings that contain an italic anchor word use `{{double-braces}}` around the anchor (example: `'Three doors. One {{practice}}.'`). The `renderHeadline()` helper interprets the markup and renders the anchor as `<em>` with the correct surface-aware color token. This convention was established by Foundation (Workstream 5.1) and is now used by both Foundation and Programs.
+
 ### Auth
 - **Never import `lib/supabase.ts`** (deleted). Use SSR-safe helpers:
   - Server: `import { createClient } from "@/utils/supabase/server"`
@@ -265,6 +279,8 @@ Wraps a `.jc-kinetic` block to add standard scroll-triggered opacity fade-in:
 - Generous internal `padding-block` for the held-breath whitespace (mobile 7.5rem / sm 10rem / lg 15rem)
 - Opacity is the only animated property — no transform, no scale, no blur
 
+`KineticHeading` and `KineticMoment` may co-occur on the same page. Foundation and Programs both use a `KineticHeading` on the Curriculum Bento headline (per-word stagger, animated section title) and a `KineticMoment` on the page's singular dark kinetic frame (opsz 144 held-breath fade-in, the page's argument line). These are different gestures and do not compete *if* the dark frame's `SectionWrapper` provides adequate top whitespace so the bento's animation completes before the dark frame enters the viewport. Verify visually on any long product page that uses both.
+
 Singular opsz 144 per page. When a page has a kinetic frame, italic anchors elsewhere on the page use formatting-only italics — no explicit `font-variation-settings` `opsz` override. The opsz 144 climax is singular; italics outside the kinetic frame are formatting choices, not type-scale events. The Foundation hero's italic-anchor rule (`.foundation-hero-headline em` in `pages-foundation.css`) is the working example: `font-style: italic` and a color, no opsz declaration.
 
 ---
@@ -277,6 +293,8 @@ A typical content page on Jonchalant is mostly cream. Pages introduce hierarchy 
 2. **One dramatic kinetic moment** (the typographic climax) — ideally the same gesture, with the kinetic phrase living inside or adjacent to the dark section
 
 Kinetic frame placement (long product pages). On pages with substantial content above the commercial ask, the kinetic frame sits after the page has earned the reader's investment but before its operations or pricing — roughly 40–50% scroll depth. Foundation places it between Curriculum (the what) and How It Works (the how). The frame is a dark `SectionWrapper` containing only a `KineticMoment`-wrapped `<p className="jc-kinetic">`; no eyebrow, no subhead, no other content shares the surface. Surface tier rhythm around it: warm cream into deepest dark into warm cream — the dark moment is singular, neighboring sections never repeat dark.
+
+Pricing-card hierarchy on multi-offer pages. When a page presents three commercial offers where one is meaningfully different in tier (e.g., a high-touch 1-on-1 at a different price scale than two structurally similar courses), do not render the three cards as a flat row with a badge marking the "recommended" middle card. Instead, render the two structurally similar cards as a 2-up grid (the binary decision), and render the third as a lower-chrome horizontal off-ramp panel below (the alternative). The Programs page is the precedent. Class hooks: `.programs-tracks-grid` for the 2-up, `.programs-tracks-offramp` wrapping a `.program-track-card--offramp` modifier for the horizontal panel.
 
 When implementing changes that affect surface color or section weight, consider the whole page's rhythm, not just the section being changed. Adding a second dark moment, or a second kinetic moment, requires deliberate justification — uniform section weight is the design flatness the system explicitly fights against.
 
