@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { PageTransition, SectionWrapper, SectionContent } from '@/components/layout'
 import { ScrollFade } from '@/components/animations'
+import { KineticMoment } from '@/components/shared/kinetic-moment'
 import { Button } from '@/components/ui/Button'
 import EnrollButton from '@/components/foundation/EnrollButton'
 import FAQ from '@/components/shared/faq/FAQ'
 import { StarterGuideForm } from '@/components/forms/StarterGuideForm'
+import { foundationKineticLine } from '@/lib/foundationCopy'
 import { getPageFoundation, getSiteConfig } from '@/lib/sanity'
 import { CourseSchema } from '@/lib/schema'
 import { renderHeadline } from '@/lib/render-headline'
@@ -159,7 +161,7 @@ export default async function FoundationPage() {
 
         {/* ── Curriculum ────────────────────────────────────────────────────── */}
         {content?.curriculumModules?.length ? (
-          <SectionWrapper variant="secondary">
+          <SectionWrapper variant="primary">
             <SectionContent>
               <ScrollFade>
                 <section className="foundation-inside" id="curriculum">
@@ -194,6 +196,17 @@ export default async function FoundationPage() {
           </SectionWrapper>
         ) : null}
 
+        {/* ── Kinetic frame ────────────────────────────────────────────────── */}
+        <SectionWrapper variant="dark">
+          <SectionContent>
+            <KineticMoment>
+              <p className="jc-kinetic foundation-kinetic">
+                {renderHeadline(foundationKineticLine)}
+              </p>
+            </KineticMoment>
+          </SectionContent>
+        </SectionWrapper>
+
         {/* ── How It Works ─────────────────────────────────────────────────── */}
         {content?.howItWorksColumns?.length ? (
           <SectionWrapper variant="secondary">
@@ -225,7 +238,7 @@ export default async function FoundationPage() {
 
         {/* ── Enrollment ───────────────────────────────────────────────────── */}
         {enrollmentCards.length > 0 && (
-          <SectionWrapper variant="tertiary">
+          <SectionWrapper variant="primary">
             <SectionContent>
               <section className="foundation-pricing" id="enrollment">
                 <div className="foundation-section-header">
@@ -274,7 +287,7 @@ export default async function FoundationPage() {
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
         {faqItems.length > 0 && (
-          <SectionWrapper variant="primary">
+          <SectionWrapper variant="secondary">
             <SectionContent>
               <section className="foundation-faq">
                 <div className="foundation-section-header">

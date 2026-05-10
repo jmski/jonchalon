@@ -173,6 +173,8 @@ Use `overflow: clip` / `overflow-x: clip` (not `overflow: hidden` / `overflow-x:
 
 Editable-but-stable content lives in typed `lib/` modules, not Sanity, and not hardcoded in JSX. Sanity is reserved for content with active CMS-editing benefit — content that changes frequently, requires non-developer editing, or is part of an editorial workflow (page hero copy, blog posts, testimonials, course lessons). Stable cross-page content — navigation links, footer structure, microcopy, error messages, fallback strings — lives in typed `lib/` modules (`lib/navData.ts`, `lib/footerData.ts`, `lib/auditData.ts`, etc.) and is imported directly by the components that consume it. The default when adding new content is the typed module; promoting content to Sanity requires a real editing-workflow justification. See [Authoritative Sources Hierarchy](#authoritative-sources-hierarchy) for which file owns content shape (`sanity/schemas/index.ts`) versus stable content (the `lib/` module itself).
 
+Page-specific stable copy. Stable page-argument copy that doesn't need CMS editorial workflow lives in a typed `lib/` module. Foundation uses `lib/foundationCopy.ts` for its kinetic line as the working example. The pattern is the same as `lib/navData.ts` and `lib/footerData.ts`: typed export, no surrounding object unless multiple values share scope, sourced from `canonical-copy.md`. Don't reach for Sanity for content of this kind unless an active CMS-editing benefit is named.
+
 ### Auth
 - **Never import `lib/supabase.ts`** (deleted). Use SSR-safe helpers:
   - Server: `import { createClient } from "@/utils/supabase/server"`
@@ -263,6 +265,8 @@ Wraps a `.jc-kinetic` block to add standard scroll-triggered opacity fade-in:
 - Generous internal `padding-block` for the held-breath whitespace (mobile 7.5rem / sm 10rem / lg 15rem)
 - Opacity is the only animated property — no transform, no scale, no blur
 
+Singular opsz 144 per page. When a page has a kinetic frame, italic anchors elsewhere on the page use formatting-only italics — no explicit `font-variation-settings` `opsz` override. The opsz 144 climax is singular; italics outside the kinetic frame are formatting choices, not type-scale events. The Foundation hero's italic-anchor rule (`.foundation-hero-headline em` in `pages-foundation.css`) is the working example: `font-style: italic` and a color, no opsz declaration.
+
 ---
 
 ## Page Rhythm Convention
@@ -271,6 +275,8 @@ A typical content page on Jonchalant is mostly cream. Pages introduce hierarchy 
 
 1. **One deepest-dark moment** (the chromatic climax) — typically the Method section or equivalent
 2. **One dramatic kinetic moment** (the typographic climax) — ideally the same gesture, with the kinetic phrase living inside or adjacent to the dark section
+
+Kinetic frame placement (long product pages). On pages with substantial content above the commercial ask, the kinetic frame sits after the page has earned the reader's investment but before its operations or pricing — roughly 40–50% scroll depth. Foundation places it between Curriculum (the what) and How It Works (the how). The frame is a dark `SectionWrapper` containing only a `KineticMoment`-wrapped `<p className="jc-kinetic">`; no eyebrow, no subhead, no other content shares the surface. Surface tier rhythm around it: warm cream into deepest dark into warm cream — the dark moment is singular, neighboring sections never repeat dark.
 
 When implementing changes that affect surface color or section weight, consider the whole page's rhythm, not just the section being changed. Adding a second dark moment, or a second kinetic moment, requires deliberate justification — uniform section weight is the design flatness the system explicitly fights against.
 
