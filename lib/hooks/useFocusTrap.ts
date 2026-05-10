@@ -25,13 +25,15 @@ export function useFocusTrap(
   useEffect(() => {
     if (!isActive || !ref.current) return;
 
+    // Capture the trapped element so cleanup operates on the same node
+    // even if ref.current changes by the time the effect cleans up.
+    const trappedElement = ref.current;
+
     // Store the element that had focus before the trap
     previousActiveElement.current = document.activeElement as HTMLElement;
 
     // Get all focusable elements within the trapped element
     const getFocusableElements = (): HTMLElement[] => {
-      if (!ref.current) return [];
-
       const focusableSelectors = [
         'button:not([disabled])',
         'input:not([disabled])',
@@ -41,7 +43,7 @@ export function useFocusTrap(
         '[tabindex]:not([tabindex="-1"])',
       ].join(',');
 
-      return Array.from(ref.current.querySelectorAll(focusableSelectors));
+      return Array.from(trappedElement.querySelectorAll(focusableSelectors));
     };
 
     // Handle keyboard navigation
@@ -69,7 +71,7 @@ export function useFocusTrap(
       focusableElements[nextIndex]?.focus();
     };
 
-    ref.current.addEventListener('keydown', handleKeyDown);
+    trappedElement.addEventListener('keydown', handleKeyDown);
 
     // Set initial focus to the first focusable element
     const focusableElements = getFocusableElements();
@@ -78,12 +80,12 @@ export function useFocusTrap(
     }
 
     return () => {
-      ref.current?.removeEventListener('keydown', handleKeyDown);
+      trappedElement.removeEventListener('keydown', handleKeyDown);
 
       // Restore focus to the element that opened the modal
       if (previousActiveElement.current && previousActiveElement.current.focus) {
         previousActiveElement.current.focus();
       }
     };
-  }, [isActive, onEscape]);
+  }, [isActive, onEscape, ref]);
 }

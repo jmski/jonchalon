@@ -10,7 +10,7 @@ interface TocLesson {
   slug: { current: string }
   title: string
   access: 'free' | 'enrolled'
-  estimatedDuration?: number
+  duration?: number
   order: number
 }
 
@@ -129,9 +129,9 @@ export function CourseTOC({
                         </span>
                         <span className="course-toc-lesson-body">
                           <span className="course-toc-lesson-title">{lesson.title}</span>
-                          {lesson.estimatedDuration ? (
+                          {lesson.duration ? (
                             <span className="course-toc-lesson-duration">
-                              {formatDuration(lesson.estimatedDuration)}
+                              {formatDuration(lesson.duration)}
                             </span>
                           ) : null}
                         </span>

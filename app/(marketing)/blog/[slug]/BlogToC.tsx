@@ -24,8 +24,15 @@ export function BlogToC({ headings }: BlogToCProps) {
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // run on mount
-    return () => window.removeEventListener('scroll', onScroll);
+    // Defer the initial computation off the synchronous effect body so it
+    // doesn't trigger a cascading render. The first scroll handler will fire
+    // either from this rAF or from the user's first scroll, whichever comes
+    // first.
+    const raf = requestAnimationFrame(onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, [onScroll]);
 
   if (headings.length === 0) return null;

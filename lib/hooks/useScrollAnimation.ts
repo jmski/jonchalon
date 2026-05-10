@@ -17,7 +17,6 @@
  */
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { DESIGN_TOKENS } from '@/lib/design-tokens';
 
 export type AnimationVariant = 
   | 'fadeIn'
@@ -54,31 +53,28 @@ interface ScrollAnimationState {
  * Manages scroll-triggered animations with IntersectionObserver
  */
 export function useScrollAnimation({
-  variant = 'fadeIn',
   delay = 0,
   threshold = 0.1,
   rootMargin = '0px',
   repeat = false,
-  duration,
-  easing = 'ease-out',
   triggerOnce = true,
 }: UseScrollAnimationOptions = {}): ScrollAnimationState {
   const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>(undefined);
-
-  // Get animation duration from design tokens if not provided
-  const animationDuration = duration || DESIGN_TOKENS.TIMING.DURATION_BASE;
+  const isAnimatingRef = useRef(false);
 
   const trigger = useCallback(() => {
     setIsVisible(true);
     timeoutRef.current = setTimeout(() => {
+      isAnimatingRef.current = true;
       setIsAnimating(true);
     }, delay);
   }, [delay]);
 
   const reset = useCallback(() => {
+    isAnimatingRef.current = false;
     setIsAnimating(false);
     setIsVisible(false);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -89,7 +85,7 @@ export function useScrollAnimation({
       ([entry]) => {
         if (entry.isIntersecting) {
           // Element entered viewport
-          if (!triggerOnce || !isAnimating) {
+          if (!triggerOnce || !isAnimatingRef.current) {
             trigger();
           }
         } else if (!triggerOnce && repeat) {
@@ -108,7 +104,7 @@ export function useScrollAnimation({
       observer.disconnect();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [delay, threshold, rootMargin, repeat, triggerOnce, trigger, reset]);
+  }, [threshold, rootMargin, repeat, triggerOnce, trigger, reset]);
 
   return {
     ref: ref as React.RefObject<HTMLElement>,

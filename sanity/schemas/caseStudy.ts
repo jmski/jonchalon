@@ -1,5 +1,5 @@
 import { defineType, defineField } from 'sanity'
-import type { StringRule, SlugRule } from 'sanity'
+import type { StringRule } from 'sanity'
 
 export default defineType({
   name: 'caseStudy',

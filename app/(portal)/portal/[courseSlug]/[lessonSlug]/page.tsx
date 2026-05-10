@@ -6,6 +6,7 @@ import { getLesson, getCourse } from '@/lib/sanity'
 import { getCourseProgress } from '@/lib/portal-progress'
 import LessonActions from './LessonActions'
 import LessonKeyboard from './LessonKeyboard'
+import type { Module, Lesson, TechnicalNote } from '@/lib/types'
 
 interface Props {
   params: Promise<{ courseSlug: string; lessonSlug: string }>
@@ -39,25 +40,25 @@ export default async function LessonPage({ params }: Props) {
   }
 
   const modules = (course.modules ?? []).sort(
-    (a: any, b: any) => (a.order ?? 0) - (b.order ?? 0)
+    (a: Module, b: Module) => (a.order ?? 0) - (b.order ?? 0)
   )
 
   // Build ordered flat lesson list for prev/next navigation
-  const allLessons = modules.flatMap((m: any) =>
-    (m.lessons ?? []).sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
+  const allLessons = modules.flatMap((m: Module) =>
+    (m.lessons ?? []).slice().sort((a: Lesson, b: Lesson) => (a.order ?? 0) - (b.order ?? 0))
   )
 
   const currentIdx = allLessons.findIndex(
-    (l: any) => (l.slug?.current ?? l.slug) === lessonSlug
+    (l: Lesson) => l.slug?.current === lessonSlug
   )
   const prevLesson = currentIdx > 0 ? allLessons[currentIdx - 1] : null
   const nextLesson = currentIdx < allLessons.length - 1 ? allLessons[currentIdx + 1] : null
 
   const prevHref = prevLesson
-    ? `/portal/${courseSlug}/${prevLesson.slug?.current ?? prevLesson.slug}`
+    ? `/portal/${courseSlug}/${prevLesson.slug?.current ?? ''}`
     : null
   const nextHref = nextLesson
-    ? `/portal/${courseSlug}/${nextLesson.slug?.current ?? nextLesson.slug}`
+    ? `/portal/${courseSlug}/${nextLesson.slug?.current ?? ''}`
     : null
 
   const isComplete = completedSlugs.includes(lessonSlug)
@@ -147,7 +148,7 @@ export default async function LessonPage({ params }: Props) {
             <section className="portal-lesson-notes">
               <h2 className="portal-lesson-section-title">Technical Notes</h2>
               <div className="portal-lesson-notes-grid">
-                {technicalNotes.map((note: any, idx: number) => (
+                {technicalNotes.map((note: TechnicalNote, idx: number) => (
                   <div key={note._key ?? idx} className="portal-lesson-note-card">
                     <h3 className="portal-lesson-note-label">{note.label}</h3>
                     <p className="portal-lesson-note-content">{note.content}</p>
@@ -184,16 +185,16 @@ export default async function LessonPage({ params }: Props) {
         {/* ── Course outline sidebar (sticky on desktop) ── */}
         <aside className="portal-lesson-outline">
           <span className="portal-lesson-outline-label">Course Outline</span>
-          {modules.map((mod: any) => {
-            const sortedLessons = (mod.lessons ?? []).sort(
-              (a: any, b: any) => (a.order ?? 0) - (b.order ?? 0)
+          {modules.map((mod: Module) => {
+            const sortedLessons = (mod.lessons ?? []).slice().sort(
+              (a: Lesson, b: Lesson) => (a.order ?? 0) - (b.order ?? 0)
             )
             return (
               <div key={mod._id} className="portal-lesson-outline-module">
                 <p className="portal-lesson-outline-module-title">{mod.title}</p>
                 <ul className="portal-lesson-outline-list">
-                  {sortedLessons.map((l: any) => {
-                    const slug = l.slug?.current ?? l.slug
+                  {sortedLessons.map((l: Lesson) => {
+                    const slug = l.slug?.current ?? ''
                     const isCurrent = slug === lessonSlug
                     const isDone = completedSlugs.includes(slug)
                     let cls = 'portal-lesson-outline-item'

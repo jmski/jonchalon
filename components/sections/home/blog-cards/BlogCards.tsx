@@ -14,10 +14,9 @@ interface BlogCardsProps {
   posts: BlogPost[];
   heading?: string;
   description?: string;
-  showFeatured?: boolean;
 }
 
-export function BlogCards({ posts, heading, description, showFeatured }: BlogCardsProps) {
+export function BlogCards({ posts, heading, description }: BlogCardsProps) {
   return (
     <section className="blog-cards-section">
       {heading && (
@@ -27,7 +26,6 @@ export function BlogCards({ posts, heading, description, showFeatured }: BlogCar
         {posts.map((post, index) => (
           <div key={post._id} className={index === 0 ? 'blog-card-featured' : 'blog-card-secondary'}>
             <BlogCard
-              _id={post._id}
               title={post.title}
               slug={post.slug}
               excerpt={post.excerpt}

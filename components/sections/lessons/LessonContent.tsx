@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 import type { PortableTextBlock } from '@portabletext/types'
 import { markLessonComplete } from '@/lib/portal-progress'
-import { VideoEmbed } from '@/components/shared/VideoEmbed'
+
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -20,9 +20,9 @@ export interface LessonContentProps {
     title: string
     description?: string
     body?: PortableTextBlock[]
-    videoUrl?: string
+    videoId?: string
     access: 'free' | 'enrolled'
-    estimatedDuration?: number
+    duration?: number
     slug: { current: string }
   }
   courseSlug: string
@@ -51,26 +51,26 @@ function formatDuration(minutes: number): string {
 
 const lessonBodyComponents = {
   block: {
-    normal: ({ children }: any) => <p className="lesson-body-p">{children}</p>,
-    h2: ({ children }: any) => <h2 className="lesson-body-h2">{children}</h2>,
-    h3: ({ children }: any) => <h3 className="lesson-body-h3">{children}</h3>,
-    blockquote: ({ children }: any) => (
+    normal: ({ children }: { children?: ReactNode }) => <p className="lesson-body-p">{children}</p>,
+    h2: ({ children }: { children?: ReactNode }) => <h2 className="lesson-body-h2">{children}</h2>,
+    h3: ({ children }: { children?: ReactNode }) => <h3 className="lesson-body-h3">{children}</h3>,
+    blockquote: ({ children }: { children?: ReactNode }) => (
       <blockquote className="lesson-body-blockquote">{children}</blockquote>
     ),
   },
   list: {
-    bullet: ({ children }: any) => <ul className="lesson-body-ul">{children}</ul>,
-    number: ({ children }: any) => <ol className="lesson-body-ol">{children}</ol>,
+    bullet: ({ children }: { children?: ReactNode }) => <ul className="lesson-body-ul">{children}</ul>,
+    number: ({ children }: { children?: ReactNode }) => <ol className="lesson-body-ol">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }: any) => <li className="lesson-body-li">{children}</li>,
-    number: ({ children }: any) => <li className="lesson-body-li">{children}</li>,
+    bullet: ({ children }: { children?: ReactNode }) => <li className="lesson-body-li">{children}</li>,
+    number: ({ children }: { children?: ReactNode }) => <li className="lesson-body-li">{children}</li>,
   },
   marks: {
-    strong: ({ children }: any) => <strong className="font-semibold">{children}</strong>,
-    em: ({ children }: any) => <em>{children}</em>,
-    code: ({ children }: any) => <code className="lesson-body-code">{children}</code>,
-    link: ({ value, children }: any) => (
+    strong: ({ children }: { children?: ReactNode }) => <strong className="font-semibold">{children}</strong>,
+    em: ({ children }: { children?: ReactNode }) => <em>{children}</em>,
+    code: ({ children }: { children?: ReactNode }) => <code className="lesson-body-code">{children}</code>,
+    link: ({ value, children }: { value?: { href?: string }; children?: ReactNode }) => (
       <a href={value?.href} className="lesson-body-a" target="_blank" rel="noopener noreferrer">
         {children}
       </a>
@@ -118,16 +118,26 @@ export function LessonContent({
           <span className="lesson-content-preview-badge">Free Preview</span>
         )}
         <h1 className="lesson-content-title">{lesson.title}</h1>
-        {lesson.estimatedDuration ? (
+        {lesson.duration ? (
           <p className="lesson-content-duration">
             {/* COPYWRITER: duration label prefix */}
-            {formatDuration(lesson.estimatedDuration)} lesson
+            {formatDuration(lesson.duration)} lesson
           </p>
         ) : null}
       </header>
 
       {/* ── Video embed ── */}
-      {lesson.videoUrl && <VideoEmbed url={lesson.videoUrl} />}
+      {lesson.videoId && (
+        <div className="video-embed-wrapper">
+          <iframe
+            src={`https://www.youtube.com/embed/${lesson.videoId}?rel=0`}
+            className="video-embed-iframe"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={lesson.title}
+          />
+        </div>
+      )}
 
       {/* ── Body — locked or full ── */}
       {isLocked ? (

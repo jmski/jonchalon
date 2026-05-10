@@ -31,11 +31,11 @@ function flattenLessons(modules: Module[]): Lesson[] {
 export async function generateStaticParams() {
   const courses: Course[] = await getCourses().catch(() => [])
   return courses
-    .flatMap((course: any) =>
-      (course.modules ?? []).flatMap((mod: any) =>
+    .flatMap((course: Course) =>
+      (course.modules ?? []).flatMap((mod: Module) =>
         (mod.lessons ?? [])
-          .filter((lesson: any) => lesson.access === 'free')
-          .map((lesson: any) => ({
+          .filter((lesson: Lesson) => lesson.access === 'free')
+          .map((lesson: Lesson) => ({
             courseSlug: course.slug?.current ?? '',
             lessonSlug: lesson.slug?.current ?? '',
           }))

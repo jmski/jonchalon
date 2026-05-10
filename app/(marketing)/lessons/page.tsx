@@ -7,7 +7,7 @@ import { PageTransition, SectionWrapper, SectionContent } from '@/components/lay
 import { CourseCard } from '@/components/utilities/cards'
 import type { CourseProgress } from '@/components/utilities/cards'
 import { CTA } from '@/components/shared/cta'
-import type { Course } from '@/lib/types'
+import type { Course, Module, Lesson } from '@/lib/types'
 
 export const metadata: Metadata = {
   title: "The Blueprint | Jonchalant",
@@ -49,7 +49,7 @@ export default async function LessonsPage() {
 
   // ── Progress: fetch per-course data only when logged in ────────────────────
   type ProgressMap = Record<string, CourseProgress>
-  let progressMap: ProgressMap = {}
+  const progressMap: ProgressMap = {}
   let lastActive: { lessonSlug: string; courseSlug: string } | null = null
 
   if (user) {
@@ -118,22 +118,22 @@ export default async function LessonsPage() {
             <div className="lessons-courses-grid">
               {courses.map((course) => {
                 const total: number = (course.modules ?? []).reduce(
-                  (sum: number, m: any) => sum + (m.lessons?.length ?? 0),
+                  (sum: number, m: Module) => sum + (m.lessons?.length ?? 0),
                   0
                 )
                 const estimatedMinutes: number = (course.modules ?? []).reduce(
-                  (sum: number, m: any) =>
+                  (sum: number, m: Module) =>
                     sum +
                     (m.lessons ?? []).reduce(
-                      (s: number, l: any) => s + (l.estimatedDuration ?? 0),
+                      (s: number, l: Lesson) => s + (l.duration ?? 0),
                       0
                     ),
                   0
                 )
                 const progress = progressMap[course.slug?.current ?? ''] ?? null
 
-                const hasPreview = (course.modules ?? []).some((m: any) =>
-                  (m.lessons ?? []).some((l: any) => l.access === 'free')
+                const hasPreview = (course.modules ?? []).some((m: Module) =>
+                  (m.lessons ?? []).some((l: Lesson) => l.access === 'free')
                 )
 
                 return (

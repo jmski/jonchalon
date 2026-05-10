@@ -4,12 +4,6 @@ import { BODY_DESCRIPTION, HEADLINE_DESCRIPTION } from '../../lib/fieldDescripti
 const SHARED_REF_DESC = (name: string) =>
   `References the singleton ${name}. Edit content there, not here.`
 
-const FILTER_PILLS_NOTE =
-  'Filter pill labels are derived from post tags. To change a pill label, rename the corresponding tag on posts.'
-
-const POSTS_LIST_NOTE =
-  'Blog posts come from the post document type. To add or edit posts, use the Posts section in the sidebar.'
-
 const FEATURED_SERIES_DESC =
   'Optional featured series banner shown above the post list on the blog index. Leave fields empty to hide the banner.'
 
@@ -23,18 +17,6 @@ export default defineType({
       name: 'featuredSeries',
       title: 'Featured series banner',
       description: FEATURED_SERIES_DESC,
-      options: { collapsible: true, collapsed: false },
-    },
-    {
-      name: 'filterPillsNote',
-      title: 'Filter pills (managed via tags)',
-      description: FILTER_PILLS_NOTE,
-      options: { collapsible: true, collapsed: false },
-    },
-    {
-      name: 'postsListNote',
-      title: 'Posts list (managed via Posts)',
-      description: POSTS_LIST_NOTE,
       options: { collapsible: true, collapsed: false },
     },
     { name: 'newsletter', title: 'Newsletter', options: { collapsible: true, collapsed: false } },
@@ -95,26 +77,6 @@ export default defineType({
       type: 'string',
       fieldset: 'featuredSeries',
       description: 'e.g. Follow the Series →',
-    }),
-
-    defineField({
-      name: 'filterPillsNote',
-      title: 'Filter pills (read-only note)',
-      type: 'text',
-      fieldset: 'filterPillsNote',
-      readOnly: true,
-      initialValue: FILTER_PILLS_NOTE,
-      description: FILTER_PILLS_NOTE,
-    }),
-
-    defineField({
-      name: 'postsListNote',
-      title: 'Posts list (read-only note)',
-      type: 'text',
-      fieldset: 'postsListNote',
-      readOnly: true,
-      initialValue: POSTS_LIST_NOTE,
-      description: POSTS_LIST_NOTE,
     }),
 
     defineField({

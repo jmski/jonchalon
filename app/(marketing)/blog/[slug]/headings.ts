@@ -1,3 +1,5 @@
+import type { PortableTextBlock, PortableTextSpan } from '@portabletext/types';
+
 /** Converts a heading string to a URL-safe anchor id. */
 export function toAnchorId(text: string): string {
   return text
@@ -14,14 +16,17 @@ export interface ToCHeading {
 }
 
 /** Derives the heading list from Sanity portable text blocks. Safe to call on the server. */
-export function extractHeadings(content: any[]): ToCHeading[] {
+export function extractHeadings(content: PortableTextBlock[] | undefined): ToCHeading[] {
   if (!Array.isArray(content)) return [];
   const headings: ToCHeading[] = [];
 
   for (const block of content) {
     if (block._type !== 'block') continue;
     if (block.style !== 'h2' && block.style !== 'h3') continue;
-    const text: string = block.children?.map((c: any) => c.text ?? '').join('') ?? '';
+    const text: string =
+      (block.children as PortableTextSpan[] | undefined)
+        ?.map((c) => c.text ?? '')
+        .join('') ?? '';
     if (!text.trim()) continue;
     headings.push({ id: toAnchorId(text), text, level: block.style === 'h2' ? 2 : 3 });
   }

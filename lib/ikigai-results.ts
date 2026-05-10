@@ -55,7 +55,19 @@ function getClient(client?: SupabaseClient): SupabaseClient {
   return client ?? createClient()
 }
 
-function rowToResult(row: any): IkigaiResult {
+interface IkigaiRow {
+  id: string
+  user_id: string
+  passion_score: number
+  mission_score: number
+  vocation_score: number
+  profession_score: number
+  strongest_quadrant: string
+  pattern: string | null
+  created_at: string
+}
+
+function rowToResult(row: IkigaiRow): IkigaiResult {
   return {
     id: row.id,
     userId: row.user_id,

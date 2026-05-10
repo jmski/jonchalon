@@ -61,7 +61,7 @@ function parseArgs(): CliArgs {
 // LOGGER
 // ============================================================================
 
-function createLogger(dryRun: boolean): Logger {
+function createLogger(): Logger {
   return {
     note(msg: string, source?: string) {
       const line = source ? `${msg} ← ${source}` : msg
@@ -146,7 +146,7 @@ async function buildSiteConfig(
   log: Logger,
   applyMode: boolean
 ): Promise<SanityDoc> {
-  let contactEmail = 'hello@jonchalant.com'
+  const contactEmail = 'hello@jonchalant.com'
   const socialLinks: Array<{ platform: string; url: string; label?: string }> = []
 
   if (applyMode) {
@@ -179,57 +179,7 @@ async function buildSiteConfig(
     _id: 'siteConfig',
     _type: 'siteConfig',
     contactEmail,
-    wordmark: 'JONCHALANT',
-    desktopLinks: [
-      { label: 'Start Here', href: '/' },
-      { label: 'Programs', href: '/programs' },
-      { label: 'Lessons', href: '/lessons' },
-      { label: 'About', href: '/about' },
-    ],
-    rightSideLinks: [{ label: 'Sign In', href: '/sign-in' }],
-    mobileLinks: [
-      { label: 'Start Here', href: '/' },
-      { label: 'Programs', href: '/programs' },
-      { label: 'Lessons', href: '/lessons' },
-      { label: 'About', href: '/about' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Sign In', href: '/sign-in' },
-    ],
-    mobilePersistentCta: {
-      label: 'Discover Your Ikigai',
-      href: '/ikigai',
-    },
     brandLine: 'Find the work you were meant for — then learn to inhabit it.',
-    columns: [
-      {
-        header: 'ESSENTIALS',
-        links: [
-          { label: 'Home', href: '/' },
-          { label: 'About', href: '/about' },
-          { label: 'Contact', href: '/contact' },
-        ],
-      },
-      {
-        header: 'COACHING',
-        links: [
-          { label: 'Programs', href: '/programs' },
-          { label: 'The Foundation', href: '/foundation' },
-          { label: 'Ikigai', href: '/ikigai' },
-        ],
-      },
-      {
-        header: 'LEARN',
-        links: [
-          { label: 'The Blueprint', href: '/lessons' },
-          { label: 'The Archives', href: '/blog' },
-          { label: 'Presence Audit', href: '/audit' },
-        ],
-      },
-    ],
-    accountSection: {
-      header: 'Account',
-      links: [{ label: 'Sign In', href: '/sign-in' }],
-    },
     copyright: '© 2026 Jonchalant. All rights reserved.',
     privacyLink: { label: 'Privacy', href: '/privacy' },
     socialLinks,
@@ -239,42 +189,11 @@ async function buildSiteConfig(
       { key: 'starterGuide', message: 'Sent. Check your inbox in the next minute.' },
       { key: 'contact', message: "Got it. I'll be in touch within 2–3 business days." },
     ],
-    submitError: 'Something went sideways. Try again, or email me directly: hello@jonchalant.com',
-    validation: {
-      required: 'Required.',
-      invalidEmail: "That doesn't look like an email.",
-      tooShort: 'A bit more.',
-      tooLong: 'Less, please.',
-    },
-    loadingLabel: 'Sending...',
-    notFoundHeadline: "That page doesn't exist.",
-    notFoundBody:
-      "Either the link's broken, or you typed something I haven't built yet. Either way — here are the places you probably wanted.",
-    notFoundLinks: [
-      { label: 'Home', href: '/' },
-      { label: 'About', href: '/about' },
-      { label: 'The Archives', href: '/blog' },
-    ],
-    notFoundMicrocopy:
-      'If you got here from a link on this site, let me know — hello@jonchalant.com.',
-    signIn: {
-      headline: 'Welcome back.',
-      subhead: 'Pick up where you left off.',
-      primaryLabel: 'Sign in',
-      magicLinkLabel: 'Email me a sign-in link',
-      forgotPasswordLabel: 'Forgot password?',
-    },
-    signUp: {
-      headline: 'Make a free account.',
-      subhead:
-        'Saves your audit results, lesson progress, and starter guide. No marketing emails — you control what you get.',
-      submitLabel: 'Create account',
-    },
   }
 
   log.note(`contactEmail: "${contactEmail}"`, applyMode ? 'legacy contactInfo' : 'fallback (dry-run)')
   log.note(`socialLinks: ${socialLinks.length} entries`, applyMode ? 'legacy contactInfo' : 'empty (dry-run)')
-  log.note(`wordmark, nav, footer, microcopy`, 'canonical Globals (L1156–L1287)')
+  log.note(`brandLine, copyright, privacyLink, successStates`, 'canonical Globals (L1156–L1287)')
 
   return doc
 }
@@ -459,8 +378,6 @@ async function buildPageHome(
       subhead:
         'Practical writing on presence, movement, and what it actually takes to stop disappearing in rooms. New essays as I figure things out. Some of them will probably be wrong.',
     },
-    blogPreviewPerCardCtaLabel: 'Read the essay →',
-    blogPreviewSectionCta: { label: 'See all essays', href: '/blog' },
     newsletter: { _type: 'reference', _ref: 'newsletterCapture' },
     auditCta: { _type: 'reference', _ref: 'auditCta' },
     starterGuide: { _type: 'reference', _ref: 'starterGuideCapture' },
@@ -888,7 +805,7 @@ async function buildPageLessons(
   log: Logger,
   applyMode: boolean
 ): Promise<SanityDoc> {
-  let courses: Array<{ _type: 'reference'; _ref: string; _key: string }> = []
+  const courses: Array<{ _type: 'reference'; _ref: string; _key: string }> = []
 
   if (applyMode) {
     try {
@@ -1004,10 +921,6 @@ async function buildPageBlog(
     seriesDescription: seriesInfo.seriesDescription,
     seriesCurrentPhase: seriesInfo.seriesCurrentPhase ?? null,
     seriesCtaLabel: seriesInfo.seriesCtaLabel,
-    filterPillsNote:
-      'Filter pill labels are derived from post tags. To change a pill label, rename the corresponding tag on posts.',
-    postsListNote:
-      'Blog posts come from the post document type. To add or edit posts, use the Posts section in the sidebar.',
     newsletter: { _type: 'reference', _ref: 'newsletterCapture' },
     auditCta: { _type: 'reference', _ref: 'auditCta' },
     emptyState: {
@@ -1207,7 +1120,7 @@ async function main() {
     useCdn: false,
   })
 
-  const log = createLogger(args.dryRun)
+  const log = createLogger()
   const docs: SanityDoc[] = []
   let written = 0
 

@@ -1,15 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
 export default function AuthCallbackContent() {
   const router = useRouter();
-  const supabase = createClient();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
+    // Construct the client inside the effect so its `auth` reference doesn't
+    // become an unstable dependency that re-runs the auth callback every render.
+    const supabase = createClient();
+
     const handleAuthCallback = async () => {
       try {
         // Supabase sends tokens in URL hash
@@ -78,7 +80,7 @@ export default function AuthCallbackContent() {
         // If we have an access token in URL, use it to establish session
         if (token && hashParams.get('refresh_token')) {
           const refreshToken = hashParams.get('refresh_token');
-          const { data, error } = await supabase.auth.setSession({
+          const { data } = await supabase.auth.setSession({
             access_token: token,
             refresh_token: refreshToken || '',
           });

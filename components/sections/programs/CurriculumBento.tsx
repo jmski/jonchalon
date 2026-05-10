@@ -32,7 +32,6 @@ export function CurriculumBento({ headline, weeks }: CurriculumBentoProps) {
           >
             {week.illustrationSlug && (
               <div className="curriculum-bento-illustration" aria-hidden="true">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <object
                   type="image/svg+xml"
                   data={`/illustrations/${week.illustrationSlug}.svg`}

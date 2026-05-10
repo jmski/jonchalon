@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import type { StringRule } from 'sanity'
 
 export default defineType({
   name: 'testimonial',
@@ -9,7 +10,7 @@ export default defineType({
       name: 'clientName',
       title: 'Client Name',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: StringRule) => Rule.required(),
     }),
     defineField({
       name: 'role',
@@ -26,7 +27,7 @@ export default defineType({
       name: 'quote',
       title: 'Testimonial Quote',
       type: 'text',
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: StringRule) => Rule.required(),
     }),
     defineField({
       name: 'result',

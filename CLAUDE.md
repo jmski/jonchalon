@@ -1,18 +1,22 @@
 # CLAUDE.md — Jonchalant Codebase Rules
 
-Rules and conventions for jonchalant.com. For detailed reference (component trees, page breakdowns, Sanity schemas, data fetching), see `.github/copilot-instructions.md`.
+Rules and conventions for jonchalant.com. CLAUDE.md is a *summary* — see [Authoritative Sources Hierarchy](#authoritative-sources-hierarchy) for which files own which truths and how summary updates work.
 
 ---
 
-## Current positioning (read this first)
+## Project Purpose
 
 Jonchalant helps professionals find the work they were meant for — then learn to inhabit it. Ikigai is the entry point. Embodiment is the practice. Dance is Jon's personal medium, used as the demonstration and the teaching vehicle, but the philosophy is medium-agnostic.
+
+**Target audience:** corporate professionals who are quietly misaligned — usually well-paid, competent, in-demand, and missing one of the four ikigai circles (most often Mission or Passion).
 
 **Funnel:**
 1. Ikigai Assessment (free, ungated) — identifies which of the four circles are strong/missing
 2. The Four Circles (free, gated behind account creation) — 12-lesson course explaining what the results mean
 3. The Foundation (paid, $197 or $497) — embodiment training through dance, transfers to any medium
 4. 1-on-1 coaching ($3,500+) — custom work on specific situations
+
+The ikigai quiz (on `/ikigai`) and the Four Circles course are tightly coupled: quiz results always save to the user's portal (if authed) and unlock personalized lesson recommendations. Never treat them as separate products in code or copy.
 
 **Voice and tone:** Casual, direct, unpretentious. Specific over general. No coaching jargon. Jon speaks like someone who's honest about tradeoffs and doesn't need to impress you.
 
@@ -28,7 +32,27 @@ Jonchalant helps professionals find the work they were meant for — then learn 
 - Not a generic executive coaching program
 - Not a self-help product
 
-See `design-notes/jonchalant-positioning.md` for full copy blocks and page-by-page direction.
+**Design philosophy:** Japanese Zen-inspired (burnt indigo, muted moss, warm amber palette; editorial typography via Fraunces; generous whitespace). The brand is warm and honest, not polished and aspirational. Light mode only.
+
+See `design/canonical-copy.md` for full copy blocks (source of truth for all marketing copy).
+
+---
+
+## Authoritative Sources Hierarchy
+
+CLAUDE.md is a summary. When CLAUDE.md disagrees with the file that actually owns a truth, the truth wins and CLAUDE.md is corrected.
+
+| Domain | Authoritative source |
+|---|---|
+| Visual tokens (colors, spacing, surface tiers) | `app/css/variables.css` |
+| Typography (font stacks, font tokens) | `design-notes/fonts.css`, `design-notes/tokens.css` |
+| Visual design system (rendered components, tokens, type scale) | `design-notes/design-system.html` / `design-notes/design-system.png` |
+| Marketing copy (headlines, CTAs, body blocks) | `design/canonical-copy.md` |
+| Content shape (Sanity schemas, document types, fields) | `sanity/schemas/index.ts` and the schema files it registers |
+| Implementation (what components exist, how they render, what fetchers return) | The actual files in the repo |
+| Conventions and cross-environment context | CLAUDE.md (this file) |
+
+**Summary-update contract:** when a truth changes, CLAUDE.md is updated in the same workstream as the change. CLAUDE.md is never permitted to lag the underlying file. If a workstream changes a token, a schema, a fetcher name, or a component-organization rule, that workstream owns the corresponding CLAUDE.md edit.
 
 ---
 
@@ -46,13 +70,7 @@ npm run sanity:deploy # Deploy Sanity Studio
 
 Config: `reactCompiler: true` (no manual useMemo/useCallback), `turbopack` enabled.
 
----
-
-## Project Purpose
-
-Jonchalant is a professional platform helping people find their purpose (using the ikigai framework) and learn to embody it (through a dance-taught, medium-agnostic embodiment practice). Target audience: corporate professionals who are quietly misaligned — usually well-paid, competent, in-demand, and missing one of the four ikigai circles (most often Mission or Passion).
-
-Design philosophy: Japanese Zen-inspired (burnt indigo, muted moss, warm amber palette; editorial typography via Fraunces; generous whitespace). The brand is warm and honest, not polished and aspirational. Light mode only.
+**Lint baseline:** 1 (Workstream 4 Layer 5 cleanup complete; was 152 at Workstream 4 start). The remaining violation is `@typescript-eslint/no-require-imports` in `.migration/inspect.cjs`, an ESM-incompatible one-off CJS migration script — accepted as deliberate per the lint inventory's config-vs-conversion judgment. Non-cleanup work must keep this number flat — delta-0 is the regression signal.
 
 ---
 
@@ -65,7 +83,7 @@ When editing copy or generating new content:
 3. **No coaching jargon.** Avoid: unlock, transform, journey, empowered, authentic self, limiting beliefs, inner game.
 4. **Specificity wins.** Prefer concrete numbers, named situations, sensory detail over abstract claims.
 5. **Honest about tradeoffs.** When describing a program or course, name what it isn't as clearly as what it is.
-6. **Kinetic typography moments.** One per page maximum. Must carry the page's argument, not decorate it. See `design-notes/jonchalant-positioning.md` for the approved phrase library.
+6. **Kinetic typography moments.** One per page maximum. Must carry the page's argument, not decorate it. See `design/canonical-copy.md` for the approved phrase library.
 
 ---
 
@@ -88,17 +106,13 @@ through `renderHeadline()`:
 ```
 
 For sections built using `<SectionHeader>` or `<KineticHeading>`, the wrapping
-happens automatically - those components run `renderHeadline` internally on
+happens automatically — those components run `renderHeadline` internally on
 string input. For raw `<h1>`/`<h2>`/etc. interpolations in page routes or
-shared components, the wrap must be explicit.
+shared components, the wrap must be explicit. This includes route files under
+`app/(marketing)/*/page.tsx` — `renderHeadline()` applies to direct
+interpolation everywhere it occurs, not only inside section components.
 
-**ESLint enforcement:** The `jonchalant/headline-needs-render` rule (in
-`eslint-plugin-jonchalant/`) enforces this automatically. It flags any `.headline`
-member expression used directly in JSX that is not wrapped in `renderHeadline()`
-and not passed as a prop to an allowlisted safe-consumer component.
-
-**Safe-consumer allowlist** (components that call `renderHeadline` internally —
-passing `.headline` to these as any prop is fine):
+**Safe-consumer pattern:** components that call `renderHeadline` internally are on an allowlist; passing `.headline` to one of them as any prop is fine. The current allowlist:
 
 ```text
 Hero, GenericHero, PageHero, CTA, SectionHeader, KineticHeading,
@@ -106,53 +120,67 @@ BlogOptIn, StarterGuideForm, EmailCapture, FourPillars, MeetJon,
 Method, WhoFor, StoryScroll, CurriculumBento, Testimonials, BlogCards
 ```
 
+The `jonchalant/headline-needs-render` ESLint rule flags any `.headline` member expression used directly in JSX that is not wrapped in `renderHeadline()` and not passed to a safe-consumer component. The rule does **not** flag boolean guards (`{x?.headline && <jsx>}`) or values inside `JSON.stringify()` (schema data). It only catches direct renders like `<h2>{x.headline}</h2>` and passing to non-allowlisted components.
+
+### Maintaining the safe-consumer allowlist
+
 When you add a new component that accepts a headline string and calls
 `renderHeadline()` internally, add its JSX element name to both:
+
 1. `DEFAULT_SAFE_CONSUMERS` in `eslint-plugin-jonchalant/rules/headline-needs-render.js`
 2. The `safeConsumers` list in `eslint.config.mjs` (if you ever override the default there)
-
-The rule does **not** flag boolean guards (`{x?.headline && <jsx>}`) or values
-inside `JSON.stringify()` (schema data). It only catches direct renders like
-`<h2>{x.headline}</h2>` and passing to non-allowlisted components.
 
 ---
 
 ## Strict Rules
 
-**CSS:**
-- **No `!important`** — fix specificity/cascade instead. Only exception: `@media (prefers-reduced-motion: reduce)` overrides in `interactions.css`
-- **No new CSS files** — 18 files exist (9 system + 9 page-scoped). Add styles to the relevant one
-- **No inline styles** except truly dynamic values (progress widths, transform offsets, CSS custom properties set per render)
-- **No Tailwind in component JSX** — only `text-*`, `font-*`, `leading-*`, responsive breakpoint prefixes
-- **BEM-inspired kebab-case naming**: `.section-name`, `.section-name-header`, `.section-name-title`
-- **Light mode only** — no dark mode
-- **Always use CSS variables for colors** — never hardcode hex in page-scoped CSS files
-- **Use `overflow: clip` / `overflow-x: clip` (not `overflow: hidden` / `overflow-x: hidden`) on layout-establishing elements** (`html`, `body`, `main`, `section`, `article`, `.container`, `.section-wrapper`) unless they are intentionally scroll containers — hidden overflow can establish a scroll context that breaks descendant `position: sticky`
-- **Standard breakpoints only**: 640px (sm), 768px (md), 1024px (lg) — no 480px, 560px, 960px
+### CSS
+
+**Architecture and cascade**
+- **No new CSS files.** 18 files exist (9 system + 9 page-scoped). Add styles to the relevant one.
+- **BEM-inspired kebab-case naming**: `.section-name`, `.section-name-header`, `.section-name-title`.
+- **Standard breakpoints only**: 640px (sm), 768px (md), 1024px (lg) — no 480px, 560px, 960px.
+
+**Style restrictions**
+- **No `!important`** — fix specificity/cascade instead. Only exception: `@media (prefers-reduced-motion: reduce)` overrides in `interactions.css`.
+- **No inline styles** except truly dynamic values (progress widths, transform offsets, CSS custom properties set per render).
+- **Light mode only** — no dark mode.
+- **Always use CSS variables for colors** — never hardcode hex in page-scoped CSS files.
+- **Tailwind utilities permitted in component JSX**: typography (`text-*`, `font-*`, `leading-*`, `tracking-*`), responsive prefixes (`sm:`, `md:`, `lg:`), and layout primitives in page route files (`max-w-*`, `mx-auto`, `px-*`, `py-*`, `grid`, `gap-*`, `flex`). Anything beyond these — colors, custom backgrounds, decorative effects, component-level styling — belongs in CSS files.
 - **OpenGraph image exception**: `app/**/opengraph-image.tsx` files render server-side to PNG via `next/og` and may use inline styles + hardcoded hex. Nowhere else.
 
-**Components:**
+**Engineering constraints**
+
+Use `overflow: clip` / `overflow-x: clip` (not `overflow: hidden` / `overflow-x: hidden`) on layout-establishing elements: `html`, `body`, `main`, `section`, `article`, `.container`, `.section-wrapper` — unless they are intentionally scroll containers.
+
+`overflow: hidden` establishes a scroll context that silently breaks descendant `position: sticky`. The page renders, the sticky element doesn't stick, and there is no error to trace. `overflow: clip` clips the visual overflow without establishing a scroll context, so descendants further down the tree can still use `position: sticky` against an outer ancestor. This rule is non-negotiable on layout primitives; treat any `overflow: hidden` you find on `html`, `body`, `main`, `section`, `article`, `.container`, or `.section-wrapper` as a bug to fix on sight unless that element is genuinely a scroll container.
+
+### Components
 - **No "Section" suffix** on component names (`Hero` not `HeroSection`)
 - **Server components by default** — only `'use client'` for interactive state (`useState`, `useEffect`, event handlers, refs to interactive APIs)
-- **Animation-only components must stay server components**. Wrap in `<ScrollFade>` / `<ScrollReveal>` / `<ScrollStagger>` (which are already client) instead of marking the section itself `'use client'` and running an internal `IntersectionObserver`
+- **Prefer wrapping over marking sections client.** When a section needs scroll-triggered reveals, wrap it (or its children) in `<ScrollFade>` / `<ScrollReveal>` / `<ScrollStagger>` rather than marking the section itself `'use client'` and running an internal `IntersectionObserver`. Section components may still be `'use client'` when section-level animation state is genuinely unavoidable (e.g., `Method.tsx`'s scroll-driven timeline) — that's a legitimate exception, not a violation, but the wrapper-based pattern is the default. The same wrapper-first preference applies in route files: `<ScrollFade>` may wrap content blocks directly inside `app/(marketing)/*/page.tsx` rather than pushing animation state down into a client section component
 - **Import alias `@/` always** — never relative paths from deep files
 - **All sections exported from `components/sections/index.ts`** with descriptive aliases
 
-**Data:**
+### Data
 - **Sanity fallback pattern**: `try { fetch } catch { use fallback }`
 - **No hardcoded page copy** — all marketing text from Sanity or lib data files
 - **Audit quiz data** stays in `lib/auditData.ts` (not Sanity) — scoring coupled to question structure
 - **Shared TypeScript types** live in `lib/types.ts` — import from there, don't re-declare inline
+- **Server env vars go through `lib/env.ts`** — never `process.env` directly. The exported `env` object validates the full server environment with zod at startup, so missing or malformed variables fail loudly rather than producing `undefined` at runtime, and consumers get typed access instead of `string | undefined`.
 
-**Auth:**
+#### Content source: typed lib modules vs Sanity
+
+Editable-but-stable content lives in typed `lib/` modules, not Sanity, and not hardcoded in JSX. Sanity is reserved for content with active CMS-editing benefit — content that changes frequently, requires non-developer editing, or is part of an editorial workflow (page hero copy, blog posts, testimonials, course lessons). Stable cross-page content — navigation links, footer structure, microcopy, error messages, fallback strings — lives in typed `lib/` modules (`lib/navData.ts`, `lib/footerData.ts`, `lib/auditData.ts`, etc.) and is imported directly by the components that consume it. The default when adding new content is the typed module; promoting content to Sanity requires a real editing-workflow justification. See [Authoritative Sources Hierarchy](#authoritative-sources-hierarchy) for which file owns content shape (`sanity/schemas/index.ts`) versus stable content (the `lib/` module itself).
+
+### Auth
 - **Never import `lib/supabase.ts`** (deleted). Use SSR-safe helpers:
   - Server: `import { createClient } from "@/utils/supabase/server"`
   - Client: `import { createClient } from "@/utils/supabase/client"`
 - **Auth-gate logic lives client-side** in the `useAuth` hook (`lib/auth-context.tsx`)
 
-**Positioning & Copy:**
-- **Positioning consistency**: All new copy must align with `design-notes/jonchalant-positioning.md`. If a section of the codebase has copy that contradicts the ikigai-front-door positioning, flag it rather than preserving it.
-- **Ikigai + Four Circles integration**: The ikigai quiz (on `/ikigai`) and the Four Circles course are tightly coupled. Quiz results always save to the user's portal (if authed) and unlock personalized lesson recommendations. Never treat them as separate products in code or copy.
+### Positioning & Copy
+- **Positioning consistency**: All new copy must align with `design/canonical-copy.md`. If a section of the codebase has copy that contradicts the ikigai-front-door positioning, flag it rather than preserving it.
 
 ---
 
@@ -174,6 +202,7 @@ The legacy `--bg-dark` (`#0a0a0a`) token exists in `variables.css` but is not us
 
 - **`variant="primary"`** — `--bg-primary` (cream)
 - **`variant="secondary"`** — `--bg-secondary` (warmer cream)
+- **`variant="tertiary"`** — `--bg-tertiary` (deepest cream tier; warm sand accent)
 - **`variant="dark"`** — emits `.jc-section--dark`, surface `--mocha-deep` (page climax)
 - **`variant="dark-mid"`** — emits `.jc-section--dark-mid`, surface `--mocha-mid` (subordinate warm-dark)
 
@@ -215,6 +244,8 @@ There are **two distinct kinetic typography systems** in this codebase. They sha
 
 ### `KineticMoment` Component — Scroll-Triggered Opacity Fade
 
+> **Constraint (read first).** Do not extend `KineticMoment` to support per-word reveal, color animation, or transform-based motion. The component's value is its *constraint* — adding motion options dilutes the convention and makes future kinetic moments feel inconsistent. If a future page needs a different motion treatment for a kinetic moment, that's a design decision worth surfacing in claude.ai before introducing a second motion variant. The default answer should be "use `KineticMoment` as-is" until proven otherwise.
+
 Wraps a `.jc-kinetic` block to add standard scroll-triggered opacity fade-in:
 
 ```jsx
@@ -232,8 +263,6 @@ Wraps a `.jc-kinetic` block to add standard scroll-triggered opacity fade-in:
 - Generous internal `padding-block` for the held-breath whitespace (mobile 7.5rem / sm 10rem / lg 15rem)
 - Opacity is the only animated property — no transform, no scale, no blur
 
-**Important:** Do not extend `KineticMoment` to support per-word reveal, color animation, or transform-based motion. The component's value is its *constraint* — adding motion options dilutes the convention and makes future kinetic moments feel inconsistent. If a future page needs a different motion treatment for a kinetic moment, that's a design decision worth surfacing in claude.ai before introducing a second motion variant. The default answer should be "use `KineticMoment` as-is" until proven otherwise.
-
 ---
 
 ## Page Rhythm Convention
@@ -247,9 +276,8 @@ When implementing changes that affect surface color or section weight, consider 
 
 ---
 
-## Architecture
+## Route Groups
 
-### Route Groups
 ```text
 app/
 ├── (marketing)/    ← Navbar + Footer layout (public pages)
@@ -267,11 +295,18 @@ app/
 │       ├── [courseSlug]/[lessonSlug]/page.tsx
 │       └── movement-plan/, presence-score/, tonality/
 ├── admin/          ← Admin dashboard (separate auth)
-└── api/            ← 9 routes: admin, checkout, inquiries, movement-plan,
-                       presence-coach, presence-score, subscribe, tonality-analysis, webhooks
+└── api/            ← 15 routes: account, admin, auth, billing-portal, checkout,
+                       health, inquiries, movement-plan, presence-coach, presence-score,
+                       sentry-example-api, starter-guide, subscribe, tonality-analysis, webhooks
 ```
 
-### CSS Layer Order
+Portal subroutes (under `(portal)/portal/`): `four-circles/`, `[courseSlug]/`, `movement-plan/`, `presence-score/`, `tonality/`, `settings/`.
+
+---
+
+## CSS System
+
+### Layer Order
 
 Defined in `globals.css`:
 
@@ -294,22 +329,51 @@ Defined in `globals.css`:
 | `interactions.css` | Hover states, transitions, animations |
 
 ### 9 Page-Scoped CSS Files
+
 `pages-forms.css` | `pages-portal.css` | `pages-blog.css` | `pages-audit.css` | `pages-ikigai.css` | `pages-lessons.css` | `pages-portal-tools.css` | `pages-contact.css` | `pages-foundation.css`
 
-### Key Colors
-- `--accent-primary: #6b8e63` (Muted Moss — primary CTA)
-- `--color-burnt-indigo: #4a3a5c` (depth/contemplation)
-- `--bg-primary: #f8f8f5` (rice paper), `--text-primary: #1a1a1a`
+---
+
+## Design Tokens
+
+`app/css/variables.css` is the authoritative source for every visual token. The list below documents the most-used tokens for orientation; consult `variables.css` for the complete set.
+
+The Mocha Mousse system is the canonical palette; the prior Muted Moss / Burnt Indigo palette has been retired.
+
+- `--mocha-mousse: #A47864` — the brand anchor (PANTONE 17-1230)
+- `--mocha-deep: #6B4F3F` — chromatic climax (deepest dark)
+- `--mocha-mid: #8C7264` — subordinate warm-dark surface
+- `--mocha-soft: #D4B8A3` — warm hairline
+- `--anchor-on-dark: #E8C8B0` — italic anchor color on dark surfaces
+- `--sage-whisper: #8A9A85` — single cool accent, used sparingly
+- `--bg-primary: #F4EBE0` (cream), `--bg-secondary: #EFE4D6`, `--bg-tertiary: #E8D9C7`
+- `--text-primary: #2A1F1A` (espresso), `--text-secondary: #5C4A3F`, `--text-tertiary: #8A7668`
+- `--border-color: #D4B8A3`
+
+Semantic aliases: `--accent-primary` resolves to `var(--mocha-mousse)`; `--accent-hover` to `var(--mocha-deep)`; `--accent-tertiary` to `var(--sage-whisper)`. The `--bg-dark: #0a0a0a` legacy token still exists but is unused — see Surface Tier System.
 
 ---
 
 ## Component Organization
 
 ### Placement Rules
+- **Shared primitives** → `components/ui/` (Button, FormField, FormMessage, SectionHeader, SectionIntro, FeatureList — the small, generic building blocks reused across sections and pages)
+- **Cross-page composite sections** → `components/shared/{name}/` (e.g., `shared/cta/`, `shared/testimonials/`, `shared/bento/`) — composites that combine primitives into a reusable section pattern
 - **Page-specific sections** → `components/sections/{page}/` (e.g., `sections/home/hero/`)
-- **Reusable sections** → `components/shared/{name}/` (e.g., `shared/cta/`, `shared/testimonials/`)
 - **Utility components** (cards, badges, grids) → `components/utilities/{category}/`
 - Each component gets its own folder with `ComponentName.tsx` + `index.ts`
+- **Props-driven children.** Reusable components (utilities, shared sections) accept their data as props and do not depend on context, route state, or other external state. Pages compose them; they do not reach upward.
+
+### Standard Primitives
+
+- **`Button`** (`@/components/ui/Button`) — the standard interactive primitive. Replaces direct `<button>` and `<a>` for CTAs and navigation actions.
+- **`SectionHeader`** (`@/components/ui/SectionHeader`) — the standard component for section eyebrow / headline / subhead triplets. On the headline safe-consumer allowlist; pass `.headline` strings to it directly.
+- **`Bento` / `BentoCell`** (`@/components/shared/bento`) — layout primitive for grid-based content displays (e.g., `CurriculumBento`).
+- **`StarterGuideForm`** (`@/components/forms/StarterGuideForm`) — cross-page shared form used on home, ikigai, audit, foundation, and programs.
+
+### Global Layout
+
+`CookieConsent`, `MochaSweep`, and `MochaCursor` are mounted in the root `app/layout.tsx` as global UI elements; they are not composed by individual pages.
 
 ### Page Wrapper Pattern
 ```tsx
@@ -325,25 +389,26 @@ Defined in `globals.css`:
 ### Style Placement Guide
 New card → `cards.css` | New section → `sections.css` | Page-specific → `pages-*.css` | Utility → `components.css` | Forms → `pages-forms.css`
 
+### Documented class-name retention: `home-why-works-*`
+
+The `Method` component (`components/sections/home/method/Method.tsx`) was renamed from a prior `WhyItWorks` component, but its CSS class names retain the `home-why-works-*` prefix in both the JSX and `app/css/sections.css`. This is documented intent, not drift: the classes are stable, internal, and not exposed to users, and a coordinated rename across CSS and JSX exceeds the semantic-clarity benefit at this scale. References are confined to `Method.tsx` and `sections.css` — no other consumers. Future component-renames that would orphan CSS class names should follow the same calculus: rename only when a consumer outside the component's own scope would otherwise be misled, or when the class names are part of a public/shared selector surface.
+
 ---
 
 ## Design Notes (`design-notes/`)
 
-A folder of design reference assets. Do not delete or move these — they are used for visual regression checks and design system reference during Phase 1 refactoring.
+A folder of design reference assets. These files are authoritative references for the design system and for visual regression checks; do not delete or move them.
 
 | File / Folder | Purpose |
 |---|---|
 | `design-system.html` | Live HTML render of the full design system (tokens, typography, components) |
 | `design-system.png` | Static screenshot of the design system render |
-| `baseline/desktop/` | Pre-Phase-1 desktop screenshots (1280px) for 9 marketing pages |
-| `baseline/mobile/` | Pre-Phase-1 mobile screenshots (375px) for 9 marketing pages |
-| `phase-1-change-list.md` | Planned Phase 1 UI changes |
 | `tokens.css` | Design token reference (mirrors `variables.css`) |
 | `fonts.css` | Font stack reference |
 | `SKILL.md` | Design-system skill file for Copilot |
 | `README.md` | Design notes overview |
 
-Baseline screenshots cover: `home`, `about`, `blog`, `contact`, `dance`, `foundation`, `ikigai`, `lessons`, `programs` — at both 1280px and 375px.
+Marketing copy lives in `design/canonical-copy.md` (source of truth, not in `design-notes/`).
 
 ---
 
@@ -357,7 +422,11 @@ Baseline screenshots cover: `home`, `about`, `blog`, `contact`, `dance`, `founda
 | `lib/auth-context.tsx` | React auth context (useAuth hook) |
 | `lib/portal-progress.ts` | Portal lesson progress tracking |
 | `lib/schema.ts` | JSON-LD structured data |
-| `lib/hooks/` | 9 custom hooks (scroll, form, keyboard, focus, swipe) |
+| `lib/env.ts` | Zod-validated typed access to server environment variables |
+| `lib/navData.ts` | `NAV_LINKS`, `MOBILE_LINKS`, `MOBILE_CTA` — consumed by `Navbar.tsx` |
+| `lib/footerData.ts` | `FOOTER_NAV`, `FALLBACK_SOCIAL` — consumed by `SiteFooter.tsx` |
+| `lib/typography.tsx` | `withAnchorWords()` presentational helper — wraps matched words in `<AnchorWord>` for headline/pull-quote rendering |
+| `lib/hooks/` | 9 custom hooks: `useFocusTrap`, `useFormSubmission` (standard form submission hook), `useFormValidation`, `useKeyboardNavigation`, `useMultiStep`, `usePointerPosition`, `useScrollAnimation`, `useScrollTrigger`, `useSwipeGesture` |
 | `components/sections/index.ts` | Central export hub for all sections |
 | `components/portal/PortalShell.tsx` | Portal sidebar + course tree layout |
 | `components/portal/PresenceCoachWidget.tsx` | Floating AI coach (all portal pages) |
@@ -375,13 +444,26 @@ Baseline screenshots cover: `home`, `about`, `blog`, `contact`, `dance`, `founda
 
 ## Sanity CMS
 
-23 schema types in `sanity/schemas/`. Key ones: `blogPost`, `service`, `course`, `courseLesson`, `module`, `lesson`, `testimonial`, `caseStudy`, `homePageContent`, `aboutPage`, `contactPage`, `foundationPage`, `programsPageContent`, `ikigaiQuiz`.
+Schemas live in `sanity/schemas/` and are registered in `sanity/schemas/index.ts`. They fall into four buckets:
 
-All data fetching lives in `lib/sanity.ts` — functions follow pattern `get{ContentType}()`.
+- **Page singletons** (`sanity/schemas/documents/pages/`): `pageHome`, `pageAbout`, `pageContact`, `pageFoundation`, `pagePrograms`, `pageBlog`, `pageLessons`, `pageAudit`, `pageIkigai`
+- **Shared singletons** (`sanity/schemas/documents/shared/`): `siteConfig`, `auditCta`, `newsletterCapture`, `starterGuideCapture`, `pillarSet`, `fourCirclesSet`
+- **Content list documents** (`sanity/schemas/`): `blogPost`, `caseStudy`, `testimonial`, `course`, `courseLesson`, `module`, `lesson`
+- **Object types** (`sanity/schemas/objects/`): inline composition primitives used by the documents above
+
+All data fetching lives in `lib/sanity.ts`. The current naming conventions are:
+
+- **Page singletons** → `getPage{Name}()` — e.g., `getPageHome()`, `getPageAbout()`, `getPageFoundation()`, `getPageIkigai()`
+- **Shared singletons** → `get{Name}()` — e.g., `getSiteConfig()`, `getAuditCta()`, `getNewsletterCapture()`, `getStarterGuideCapture()`, `getPillarSet()`, `getFourCirclesSet()`
+- **Content lists** → `get{Plural}()` / `get{Singular}(slug)` — e.g., `getTestimonials()`, `getCaseStudies()`, `getCaseStudy(slug)`, `getLessons()`, `getCourses()`, `getCourse(slug)`, `getRecentBlogPosts()`
+
+The legacy `get{ContentType}()` page-content fetchers (`getHomePageContent`, `getAboutPageContent`, etc.) were removed during the Phase 2 schema migration and no longer exist.
 
 ---
 
 ## Environment Variables
+
+Server-side access goes through the typed `env` export from `lib/env.ts` (zod-validated at startup), not `process.env` directly — see Strict Rules > Data.
 
 ```bash
 NEXT_PUBLIC_SANITY_PROJECT_ID=

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { TextLink } from '@/components/typography';
 
 interface BlogCardProps {
-  _id: string;
   title: string;
   slug: { current: string } | string;
   excerpt?: string;
@@ -29,7 +28,6 @@ function getBlogPlaceholderSymbol(pillar?: string): string {
 }
 
 export function BlogCard({
-  _id,
   title,
   slug,
   excerpt,

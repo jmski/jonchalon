@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
 export default function ResetPassword() {
   const router = useRouter();
-  const supabase = createClient();
+  // Memoize the Supabase client so its reference is stable across renders.
+  const supabase = useMemo(() => createClient(), []);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -23,13 +24,13 @@ export default function ResetPassword() {
           return;
         }
         setAuthorized(true);
-      } catch (err) {
+      } catch {
         router.push('/admin/login');
       }
     };
 
     checkAuth();
-  }, [router]);
+  }, [router, supabase]);
 
   const handleSetPassword = async (e: React.FormEvent) => {
     e.preventDefault();

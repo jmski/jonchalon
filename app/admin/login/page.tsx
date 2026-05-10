@@ -4,13 +4,33 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
+// Parse the URL error param into a user-facing message. Pure helper —
+// invoked from a lazy state initializer so the error banner renders on
+// first paint without a setState-in-effect cascade.
+function getInitialUrlError(): string {
+  if (typeof window === 'undefined') return '';
+  const params = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  const errorMsg = params.get('error') || hashParams.get('error_description');
+  if (!errorMsg) return '';
+  if (errorMsg === 'invalid_token') {
+    return 'Reset link expired or invalid. Please request a new one.';
+  }
+  if (errorMsg === 'invalid_email_verification') {
+    return 'Email verification link expired. Please check your email for a new link.';
+  }
+  if (errorMsg === 'auth_failed') {
+    return 'Authentication failed. Please try again.';
+  }
+  return decodeURIComponent(errorMsg);
+}
+
 export default function AdminLogin() {
   const router = useRouter();
-  const supabase = createClient();
   const [email, setEmail] = useState('');
 
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(getInitialUrlError);
   const [loading, setLoading] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
@@ -18,6 +38,10 @@ export default function AdminLogin() {
   const [forgotSuccess, setForgotSuccess] = useState(false);
 
   useEffect(() => {
+    // Construct the client inside the effect so its `auth` reference doesn't
+    // become an unstable dependency that re-runs the redirect check every render.
+    const supabase = createClient();
+
     // Check if user is already logged in
     const checkAuth = async () => {
       const { data: { user } } = await supabase.auth.getUser();
@@ -32,22 +56,6 @@ export default function AdminLogin() {
     };
 
     checkAuth();
-
-    // Check for error messages in URL
-    const params = new URLSearchParams(window.location.search);
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    
-    const errorMsg = params.get('error') || hashParams.get('error_description');
-    
-    if (errorMsg === 'invalid_token') {
-      setError('Reset link expired or invalid. Please request a new one.');
-    } else if (errorMsg === 'invalid_email_verification') {
-      setError('Email verification link expired. Please check your email for a new link.');
-    } else if (errorMsg === 'auth_failed') {
-      setError('Authentication failed. Please try again.');
-    } else if (errorMsg) {
-      setError(decodeURIComponent(errorMsg));
-    }
   }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -56,6 +64,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
+      const supabase = createClient();
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -83,6 +92,7 @@ export default function AdminLogin() {
     setForgotLoading(true);
 
     try {
+      const supabase = createClient();
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(forgotEmail, {
         redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/admin/auth/callback`,
       });
@@ -237,7 +247,7 @@ export default function AdminLogin() {
               </button>
 
               <p className="text-center text-slate-600 text-sm mt-6">
-                Don't have an account? Contact support.
+                Don&apos;t have an account? Contact support.
               </p>
             </>
           )}

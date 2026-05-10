@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import { KineticHeading } from '@/components/typography/KineticHeading';
 
@@ -17,6 +17,23 @@ interface OriginPhase {
 }
 
 const ANCHOR_WORDS = ['presence', 'stillness', 'nonchalant', 'grounded', 'movement', 'path'];
+
+// Subscribe to the prefers-reduced-motion media query as external state.
+// useSyncExternalStore avoids reading the value during render via a ref
+// (which is what react-hooks/refs flags) and keeps the component reactive
+// if the user toggles the preference at the OS level.
+function subscribeReducedMotion(callback: () => void) {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return () => {};
+  }
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mq.addEventListener('change', callback);
+  return () => mq.removeEventListener('change', callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 interface OriginProps {
   // Legacy flat-field props (still used as fallback)
@@ -72,13 +89,11 @@ function OriginScrollytelling({
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const sceneRefs = useRef<(HTMLElement | null)[]>([]);
-  const prefersReducedMotion = useRef(false);
-
-  useEffect(() => {
-    prefersReducedMotion.current =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }, []);
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    () => false,
+  );
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -113,7 +128,7 @@ function OriginScrollytelling({
             <div
               key={phase._key}
               className={`origin-scrolly-image${i === activeIndex ? ' is-active' : ''}`}
-              style={prefersReducedMotion.current ? { transition: 'none' } : undefined}
+              style={prefersReducedMotion ? { transition: 'none' } : undefined}
             >
               <Image
                 src={imageUrl}

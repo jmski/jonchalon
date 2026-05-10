@@ -5,6 +5,7 @@ import { getCourses } from '@/lib/sanity';
 import { getCourseProgress } from '@/lib/portal-progress';
 import PortalShell from '@/components/portal/PortalShell';
 import type { SidebarCourse } from '@/components/portal/PortalShell';
+import type { Course, Module, Lesson } from '@/lib/types';
 
 // Auth-gated portal: prevent search engines from indexing lesson content
 export const metadata: Metadata = {
@@ -35,23 +36,23 @@ export default async function PortalGroupLayout({
       const courses = await getCourses();
       if (courses?.length) {
         sidebarCourses = await Promise.all(
-          courses.map(async (course: any) => {
+          courses.map(async (course: Course) => {
             const modules = (course.modules ?? [])
-              .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
-              .map((m: any) => ({
+              .sort((a: Module, b: Module) => (a.order ?? 0) - (b.order ?? 0))
+              .map((m: Module) => ({
                 _id: m._id,
                 title: m.title,
                 order: m.order ?? 0,
                 lessons: (m.lessons ?? [])
-                  .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
-                  .map((l: any) => ({
-                    slug: l.slug?.current ?? l.slug,
+                  .sort((a: Lesson, b: Lesson) => (a.order ?? 0) - (b.order ?? 0))
+                  .map((l: Lesson) => ({
+                    slug: l.slug?.current ?? '',
                     title: l.title,
                   })),
               }));
 
-            const allLessonSlugs = modules.flatMap((m: any) =>
-              m.lessons.map((l: any) => l.slug)
+            const allLessonSlugs = modules.flatMap((m: { lessons: { slug: string }[] }) =>
+              m.lessons.map((l) => l.slug)
             );
             const { completedSlugs } = await getCourseProgress(
               supabase,

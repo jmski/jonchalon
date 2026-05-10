@@ -42,9 +42,10 @@ export function useScrollTrigger<T extends HTMLElement = HTMLElement>(
       observer.observe(ref.current);
     }
 
+    const observedNode = ref.current;
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (observedNode) {
+        observer.unobserve(observedNode);
       }
       observer.disconnect();
     };

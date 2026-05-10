@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { client } from '@/lib/sanity';
 import { PortableText } from '@portabletext/react';
+import type { PortableTextBlock } from '@portabletext/types';
 import { BlogRelated } from '@/components/sections';
 import { portableTextComponents } from '@/lib/blog/portableTextComponents';
 import { BlogToC } from './BlogToC';
@@ -18,7 +19,7 @@ interface BlogPostDocument {
   excerpt?: string;
   metaDescription?: string;
   pillar: string;
-  content: any[];
+  content: PortableTextBlock[];
   readingTime?: number;
   publishedAt?: string;
   _updatedAt?: string;
@@ -87,7 +88,7 @@ export async function generateStaticParams() {
 
   try {
     const posts = await client.fetch(query);
-    return posts.map((post: any) => ({
+    return posts.map((post: { slug: { current: string } }) => ({
       slug: post.slug.current,
     }));
   } catch (error) {

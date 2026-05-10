@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 
 const STORAGE_KEY = 'jc-cookie-consent-v1'
@@ -23,6 +23,25 @@ function applyConsent(choice: Choice) {
   })
 }
 
+// External-store subscription for the consent choice. Storage is the
+// authoritative source; using useSyncExternalStore avoids a setState-in-effect
+// cascade on mount and stays in sync if another tab updates the choice.
+function subscribeStorage(callback: () => void) {
+  if (typeof window === 'undefined') return () => {}
+  window.addEventListener('storage', callback)
+  return () => window.removeEventListener('storage', callback)
+}
+
+function getStoredChoice(): Choice | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw === 'granted' || raw === 'denied') return raw
+  } catch {
+    // localStorage blocked — banner shows each visit, don't crash.
+  }
+  return null
+}
+
 /**
  * Lightweight Consent Mode v2 banner.
  *
@@ -32,23 +51,14 @@ function applyConsent(choice: Choice) {
  * (their stored value is re-applied on mount).
  */
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(false)
+  const stored = useSyncExternalStore(subscribeStorage, getStoredChoice, () => null)
+  const [dismissed, setDismissed] = useState(false)
+  const visible = stored === null && !dismissed
 
+  // Re-apply persisted choice to the analytics consent API on every change.
   useEffect(() => {
-    let stored: Choice | null = null
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (raw === 'granted' || raw === 'denied') stored = raw
-    } catch {
-      // localStorage blocked — show banner each visit, don't crash.
-    }
-
-    if (stored) {
-      applyConsent(stored)
-      return
-    }
-    setVisible(true)
-  }, [])
+    if (stored) applyConsent(stored)
+  }, [stored])
 
   const choose = (choice: Choice) => {
     try {
@@ -57,7 +67,7 @@ export default function CookieConsent() {
       /* ignore */
     }
     applyConsent(choice)
-    setVisible(false)
+    setDismissed(true)
   }
 
   if (!visible) return null

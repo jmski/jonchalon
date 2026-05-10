@@ -9,6 +9,7 @@
 
 import { createClient } from '@sanity/client'
 import { createImageUrlBuilder } from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url'
 
 import type {
   AuditCta,
@@ -53,7 +54,7 @@ export const client = createClient({
 
 const builder = createImageUrlBuilder(client)
 
-export function urlFor(source: any) {
+export function urlFor(source: SanityImageSource) {
   return builder.image(source)
 }
 
@@ -77,8 +78,6 @@ async function fetchOne(type: string, fields: string, filter: string) {
 // ============================================================================
 
 const CTA_FIELDS = `label, href, ariaLabel`
-
-const LINK_FIELDS = `label, href`
 
 const HERO_FIELDS = `
   eyebrow,
@@ -427,33 +426,11 @@ export async function getFourCirclesSet(): Promise<FourCirclesSet | null> {
 export async function getSiteConfig(): Promise<SiteConfig | null> {
   const query = `*[_type == "siteConfig"][0] {
     contactEmail,
-    wordmark,
-    desktopLinks[] { ${LINK_FIELDS} },
-    rightSideLinks[] { ${LINK_FIELDS} },
-    mobileLinks[] { ${LINK_FIELDS} },
-    mobilePersistentCta { ${CTA_FIELDS} },
     brandLine,
-    columns[] {
-      header,
-      links[] { ${LINK_FIELDS} }
-    },
-    accountSection {
-      header,
-      links[] { ${LINK_FIELDS} }
-    },
     copyright,
     privacyLink { ${CTA_FIELDS} },
     socialLinks[] { platform, url, label },
-    successStates[] { key, message },
-    submitError,
-    validation { required, invalidEmail, tooShort, tooLong },
-    loadingLabel,
-    notFoundHeadline,
-    notFoundBody,
-    notFoundLinks[] { ${LINK_FIELDS} },
-    notFoundMicrocopy,
-    signIn { headline, subhead, primaryLabel, magicLinkLabel, forgotPasswordLabel },
-    signUp { headline, subhead, submitLabel }
+    successStates[] { key, message }
   }`
   return await client.fetch(query)
 }
@@ -476,8 +453,6 @@ export async function getPageHome(): Promise<PageHome | null> {
     meetJonSecondaryLink { ${CTA_FIELDS} },
     testimonialsHeader { ${SECTION_HEADER_FIELDS} },
     blogPreviewHeader { ${SECTION_HEADER_FIELDS} },
-    blogPreviewPerCardCtaLabel,
-    blogPreviewSectionCta { ${CTA_FIELDS} },
     newsletter-> { ${NEWSLETTER_CAPTURE_FIELDS} },
     auditCta-> { ${AUDIT_CTA_FIELDS} },
     starterGuide-> { ${STARTER_GUIDE_FIELDS} }

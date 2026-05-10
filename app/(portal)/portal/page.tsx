@@ -5,6 +5,7 @@ import { isEnrolled, getEnrollmentDate } from '@/utils/supabase/enrollments'
 import { getCourses } from '@/lib/sanity'
 import { getCourseProgressPercent, getLastActiveLesson } from '@/lib/portal-progress'
 import PortalCourseCard from './PortalCourseCard'
+import type { Course, Module, Lesson } from '@/lib/types'
 
 // ── Tool card definitions ─────────────────────────────────────────────────────
 
@@ -74,9 +75,9 @@ export default async function PortalDashboard({
             <p className="portal-welcome-subtitle">
               Your payment was received. We&rsquo;re setting up your access — this usually takes a few seconds.
             </p>
-            <a href="/portal?enrolled=true" className="btn btn-primary portal-welcome-refresh">
+            <Link href="/portal?enrolled=true" className="btn btn-primary portal-welcome-refresh">
               Refresh ↻
-            </a>
+            </Link>
           </section>
         </div>
       )
@@ -101,9 +102,9 @@ export default async function PortalDashboard({
 
   // Progress for each course
   const progressList = await Promise.all(
-    courseList.map((course: any) => {
+    courseList.map((course: Course) => {
       const totalLessons = (course.modules ?? []).flatMap(
-        (m: any) => m.lessons ?? [],
+        (m: Module) => m.lessons ?? [],
       ).length
       return getCourseProgressPercent(user.id, course.slug.current, totalLessons, supabase)
     }),
@@ -119,12 +120,12 @@ export default async function PortalDashboard({
   let continueLesson: ContinueLesson | null = null
   if (lastActive && courseList.length > 0) {
     const course = courseList.find(
-      (c: any) => c.slug.current === lastActive.courseSlug
+      (c: Course) => c.slug.current === lastActive.courseSlug
     )
     if (course) {
-      const allLessons = (course.modules ?? []).flatMap((m: any) => m.lessons ?? [])
+      const allLessons = (course.modules ?? []).flatMap((m: Module) => m.lessons ?? [])
       const lesson = allLessons.find(
-        (l: any) => (l.slug?.current ?? l.slug) === lastActive.lessonSlug
+        (l: Lesson) => l.slug?.current === lastActive.lessonSlug
       )
       if (lesson) {
         continueLesson = {
@@ -146,13 +147,19 @@ export default async function PortalDashboard({
   let weekFocus: WeekFocus | null = null
   if (enrolledAt && courseList.length > 0) {
     const course =
-      courseList.find((c: any) => c.slug.current === 'the-foundation') ??
+      courseList.find((c: Course) => c.slug.current === 'the-foundation') ??
       courseList[0]
-    const modules = (course.modules ?? []).sort(
-      (a: any, b: any) => (a.order ?? 0) - (b.order ?? 0)
+    const modules = (course.modules ?? []).slice().sort(
+      (a: Module, b: Module) => (a.order ?? 0) - (b.order ?? 0)
     )
     if (modules.length > 0) {
+      // This is an async Server Component — its body runs once per request,
+      // not on every client render. Date.now() here is request-time, not
+      // render-time, so the react-hooks/purity rule's concern about unstable
+      // re-render results does not apply. The lint rule does not distinguish
+      // Server Components from client components.
       const daysDiff = Math.floor(
+        // eslint-disable-next-line react-hooks/purity
         (Date.now() - new Date(enrolledAt as string).getTime()) / 86400000
       )
       const weekNum = Math.min(Math.floor(daysDiff / 7) + 1, modules.length)
@@ -228,9 +235,9 @@ export default async function PortalDashboard({
         <h2 className="portal-section-label">My Courses</h2>
         {courseList.length > 0 ? (
           <div className="portal-courses-grid">
-            {courseList.map((course: any, i: number) => {
+            {courseList.map((course: Course, i: number) => {
               const totalLessons = (course.modules ?? []).flatMap(
-                (m: any) => m.lessons ?? [],
+                (m: Module) => m.lessons ?? [],
               ).length
               return (
                 <PortalCourseCard

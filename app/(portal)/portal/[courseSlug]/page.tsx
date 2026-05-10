@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { isEnrolled } from '@/utils/supabase/enrollments'
 import { getCourse } from '@/lib/sanity'
 import { getCourseProgress } from '@/lib/portal-progress'
+import type { Module, Lesson } from '@/lib/types'
 
 interface Props {
   params: Promise<{ courseSlug: string }>
@@ -32,10 +33,10 @@ export default async function CourseOverviewPage({ params }: Props) {
   const { completedSlugs } = await getCourseProgress(supabase, user.id, courseSlug)
 
   const modules = (course.modules ?? []).sort(
-    (a: any, b: any) => (a.order ?? 0) - (b.order ?? 0)
+    (a: Module, b: Module) => (a.order ?? 0) - (b.order ?? 0)
   )
 
-  const totalLessons = modules.flatMap((m: any) => m.lessons ?? []).length
+  const totalLessons = modules.flatMap((m: Module) => m.lessons ?? []).length
   const completedCount = completedSlugs.length
   const progressPct = totalLessons > 0 ? Math.floor((completedCount / totalLessons) * 100) : 0
 
@@ -78,12 +79,12 @@ export default async function CourseOverviewPage({ params }: Props) {
             </p>
           </div>
         )}
-        {modules.map((module: any, moduleIdx: number) => {
+        {modules.map((module: Module, moduleIdx: number) => {
           const lessons = (module.lessons ?? []).sort(
-            (a: any, b: any) => (a.order ?? 0) - (b.order ?? 0)
+            (a: Lesson, b: Lesson) => (a.order ?? 0) - (b.order ?? 0)
           )
           const moduleCompleted = lessons.filter(
-            (l: any) => completedSlugs.includes(l.slug?.current ?? l.slug)
+            (l: Lesson) => completedSlugs.includes(l.slug?.current ?? '')
           ).length
 
           return (
@@ -99,8 +100,8 @@ export default async function CourseOverviewPage({ params }: Props) {
                 <p className="portal-module-description">{module.description}</p>
               )}
               <ol className="portal-lesson-list">
-                {lessons.map((lesson: any, lessonIdx: number) => {
-                  const slug = lesson.slug?.current ?? lesson.slug
+                {lessons.map((lesson: Lesson, lessonIdx: number) => {
+                  const slug = lesson.slug?.current ?? ''
                   const done = completedSlugs.includes(slug)
                   return (
                     <li key={lesson._id ?? slug} className={`portal-lesson-row${done ? ' portal-lesson-row--done' : ''}`}>

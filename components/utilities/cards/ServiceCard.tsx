@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { FeatureList } from '@/components/ui/FeatureList';
 
 interface ServiceCardProps {
-  _id: string;
   title: string;
   description: string;
   icon?: string;
@@ -11,7 +10,7 @@ interface ServiceCardProps {
   ctaLabel: string;
 }
 
-export function ServiceCard({ _id, title, description, icon, features, isPrimary, ctaLabel }: ServiceCardProps) {
+export function ServiceCard({ title, description, icon, features, isPrimary, ctaLabel }: ServiceCardProps) {
   return (
     <div className={`service-card${isPrimary ? ' service-card--primary' : ''}`}>
       {/* Icon */}

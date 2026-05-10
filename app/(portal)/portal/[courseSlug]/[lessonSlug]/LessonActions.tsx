@@ -33,8 +33,8 @@ export default function LessonActions({
         await markLessonComplete(userId, lessonSlug, courseSlug)
         setCompleted(true)
       }
-    } catch (err: any) {
-      console.error('Error toggling lesson completion:', err.message)
+    } catch (err: unknown) {
+      console.error('Error toggling lesson completion:', err instanceof Error ? err.message : err)
     } finally {
       setIsMarking(false)
     }
