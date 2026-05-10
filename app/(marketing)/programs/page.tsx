@@ -3,12 +3,14 @@ import Script from 'next/script'
 import { PageHero } from '@/components/sections'
 import { PageTransition, SectionWrapper, SectionContent } from '@/components/layout'
 import { ScrollFade } from '@/components/animations'
+import { KineticMoment } from '@/components/shared/kinetic-moment'
 import { Button } from '@/components/ui/Button'
 import FAQ from '@/components/shared/faq/FAQ'
 import { CurriculumBento } from '@/components/sections/programs/CurriculumBento'
 import { CaseStudyCard } from '@/components/utilities/cards'
 import { StarterGuideForm } from '@/components/forms/StarterGuideForm'
 import { renderHeadline } from '@/lib/render-headline'
+import { programsKineticLine, curriculumBentoHeadline } from '@/lib/programsCopy'
 import { getPagePrograms, getCaseStudies, getCurriculumWeeks, getSiteConfig } from '@/lib/sanity'
 import { CourseSchema } from '@/lib/schema'
 import type { CurriculumWeek, CaseStudy, ProgramCard } from '@/lib/types'
@@ -146,13 +148,24 @@ export default async function Programs() {
             <SectionContent>
               <ScrollFade>
                 <CurriculumBento
-                  headline="8 weeks. One transformation."
+                  headline={curriculumBentoHeadline}
                   weeks={curriculumWeeks}
                 />
               </ScrollFade>
             </SectionContent>
           </SectionWrapper>
         )}
+
+        {/* ── Kinetic Frame ────────────────────────────────────────────────── */}
+        <SectionWrapper variant="dark">
+          <SectionContent>
+            <KineticMoment>
+              <p className="jc-kinetic">
+                {renderHeadline(programsKineticLine)}
+              </p>
+            </KineticMoment>
+          </SectionContent>
+        </SectionWrapper>
 
         {/* ── Program Cards ────────────────────────────────────────────────── */}
         {page?.programCards?.length ? (
