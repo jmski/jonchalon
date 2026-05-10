@@ -11,7 +11,7 @@ import { StarterGuideForm } from '@/components/forms/StarterGuideForm'
 import { renderHeadline } from '@/lib/render-headline'
 import { getPagePrograms, getCaseStudies, getCurriculumWeeks, getSiteConfig } from '@/lib/sanity'
 import { CourseSchema } from '@/lib/schema'
-import type { CurriculumWeek, CaseStudy } from '@/lib/types'
+import type { CurriculumWeek, CaseStudy, ProgramCard } from '@/lib/types'
 import type { FAQItem } from '@/components/shared/faq/FAQ'
 
 export const metadata: Metadata = {
@@ -34,6 +34,14 @@ export const metadata: Metadata = {
   },
 }
 
+function isOffRampProgramCard(card: ProgramCard) {
+  const eyebrow = card.eyebrow?.toUpperCase() ?? ''
+  const priceLine = card.priceLine.toLowerCase()
+
+  // Use the stable custom 1-on-1 identifiers so the off-ramp stays isolated if card order changes.
+  return eyebrow.includes('1-ON-1') || eyebrow.includes('INTENSIVE') || priceLine.includes('starting')
+}
+
 export default async function Programs() {
   const [page, caseStudies, curriculumWeeks, siteConfig] = await Promise.all([
     getPagePrograms().catch(() => null),
@@ -48,6 +56,10 @@ export default async function Programs() {
     question: item.question,
     answer: item.answer,
   }))
+
+  const programCards = page?.programCards ?? []
+  const primaryProgramCards = programCards.filter((card) => !isOffRampProgramCard(card))
+  const offRampCard = programCards.find((card) => isOffRampProgramCard(card))
 
   return (
     <>
@@ -66,27 +78,29 @@ export default async function Programs() {
         {/* ── Hero ─────────────────────────────────────────────────────────── */}
         <SectionWrapper variant="primary">
           <SectionContent>
-            <PageHero
-              eyebrow={page?.hero?.eyebrow ?? ''}
-              headline={page?.hero?.headline ?? ''}
-              subheading={page?.hero?.subhead ?? ''}
-              rightColumn={
-                page?.heroWhoForColumn ? (
-                  <div className="programs-hero-aside">
-                    {page.heroWhoForColumn.header && (
-                      <h2 className="programs-hero-aside-heading">{page.heroWhoForColumn.header}</h2>
-                    )}
-                    {page.heroWhoForColumn.bullets?.length > 0 && (
-                      <ul className="programs-hero-aside-list">
-                        {page.heroWhoForColumn.bullets.map((item, i) => (
-                          <li key={i} className="programs-hero-aside-list-item">{item}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ) : undefined
-              }
-            />
+            <div className="programs-hero">
+              <PageHero
+                eyebrow={page?.hero?.eyebrow ?? ''}
+                headline={page?.hero?.headline ?? ''}
+                subheading={page?.hero?.subhead ?? ''}
+                rightColumn={
+                  page?.heroWhoForColumn ? (
+                    <div className="programs-hero-aside">
+                      {page.heroWhoForColumn.header && (
+                        <h2 className="programs-hero-aside-heading">{page.heroWhoForColumn.header}</h2>
+                      )}
+                      {page.heroWhoForColumn.bullets?.length > 0 && (
+                        <ul className="programs-hero-aside-list">
+                          {page.heroWhoForColumn.bullets.map((item, i) => (
+                            <li key={i} className="programs-hero-aside-list-item">{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ) : undefined
+                }
+              />
+            </div>
           </SectionContent>
         </SectionWrapper>
 
@@ -160,7 +174,7 @@ export default async function Programs() {
                 </ScrollFade>
               )}
               <div className="programs-tracks-grid">
-                {page.programCards.map((card, idx) => (
+                {primaryProgramCards.map((card, idx) => (
                   <ScrollFade key={idx} delay={idx * 80}>
                     <article className={`program-track-card${card.badge ? ' program-track-card--featured' : ''}`}>
                       <div className="program-track-card-header">
@@ -197,6 +211,44 @@ export default async function Programs() {
                   </ScrollFade>
                 ))}
               </div>
+              {offRampCard && (
+                <div className="programs-tracks-offramp">
+                  <ScrollFade delay={primaryProgramCards.length * 80}>
+                    <article className="program-track-card program-track-card--offramp">
+                      <div className="program-track-card-header">
+                        {offRampCard.badge && <span className="program-track-card-badge">{offRampCard.badge}</span>}
+                        {!offRampCard.badge && offRampCard.eyebrow && (
+                          <p className="program-track-card-eyebrow">{offRampCard.eyebrow}</p>
+                        )}
+                      </div>
+                      <div className="program-track-card-body">
+                        {offRampCard.badge && offRampCard.eyebrow && (
+                          <p className="program-track-card-eyebrow">{offRampCard.eyebrow}</p>
+                        )}
+                        <h3 className="program-track-card-title">{offRampCard.title}</h3>
+                        <p className="program-track-card-price">{offRampCard.priceLine}</p>
+                        <p className="program-track-card-description">{offRampCard.description}</p>
+                        <ul className="program-track-card-includes">
+                          {offRampCard.inclusions.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="program-track-card-cta">
+                        {offRampCard.primaryCta.href.startsWith('http') ? (
+                          <Button as="a" href={offRampCard.primaryCta.href} target="_blank" rel="noopener noreferrer">
+                            {offRampCard.primaryCta.label}
+                          </Button>
+                        ) : (
+                          <Button as="link" href={offRampCard.primaryCta.href}>
+                            {offRampCard.primaryCta.label}
+                          </Button>
+                        )}
+                      </div>
+                    </article>
+                  </ScrollFade>
+                </div>
+              )}
             </SectionContent>
           </SectionWrapper>
         ) : null}
@@ -212,32 +264,6 @@ export default async function Programs() {
                 </div>
                 <FAQ items={faqItems} />
               </section>
-            </SectionContent>
-          </SectionWrapper>
-        )}
-
-        {/* ── Closing CTA ──────────────────────────────────────────────────── */}
-        {page?.closingCta && (
-          <SectionWrapper variant="tertiary">
-            <SectionContent>
-              <ScrollFade>
-                <div className="cta-section">
-                  <div className="cta-section-left">
-                    <h2 className="cta-section-title">{renderHeadline(page.closingCta.headline)}</h2>
-                    {page.closingCta.primaryCta && (
-                      <Button as="a" href={page.closingCta.primaryCta.href}>
-                        {page.closingCta.primaryCta.label}
-                      </Button>
-                    )}
-                    {page.closingCta.microcopy && (
-                      <p className="programs-cta-microcopy">{page.closingCta.microcopy}</p>
-                    )}
-                  </div>
-                  {page.closingCta.body && (
-                    <div className="cta-section-description">{page.closingCta.body}</div>
-                  )}
-                </div>
-              </ScrollFade>
             </SectionContent>
           </SectionWrapper>
         )}

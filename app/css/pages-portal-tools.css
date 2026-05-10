@@ -2000,23 +2000,32 @@
    ─────────────────────────────────────────────────────────────────────────────
 */
 
+/* ─────────────────────────────────────────────────────────────
+   Programs page (drifted from page-scoped file convention)
+   These rules belong in pages-programs.css per the 9-file
+   page-scoped CSS convention; extraction is a separate workstream.
+   ───────────────────────────────────────────────────────────── */
+
+.programs-hero .page-hero-headline {
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+}
+
 .programs-hero-aside {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  background: var(--bg-tertiary);
-  border-radius: 0.75rem;
-  border: 1px solid var(--border-subtle);
+  gap: 0.875rem;
+  padding: 0.5rem 0 0;
 }
 
 .programs-hero-aside-heading {
   font-family: var(--font-headline);
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--text-primary);
   margin: 0;
-  padding-bottom: 0.875rem;
+  padding-bottom: 0.625rem;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -2031,11 +2040,11 @@
 
 .programs-hero-aside-list-item {
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.875rem;
+  line-height: 1.55;
   color: var(--text-secondary);
   border-left: 2px solid var(--border-color);
-  padding-left: 0.875rem;
+  padding-left: 0.75rem;
   transition: border-color 200ms ease;
 }
 
@@ -2076,7 +2085,7 @@
 
 .programs-tracks-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
@@ -2085,23 +2094,107 @@
   flex-direction: column;
 }
 
+.programs-tracks-offramp {
+  margin-top: 3rem;
+}
+
+.program-track-card--offramp {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  transition: none;
+}
+
+.program-track-card--offramp:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.program-track-card--offramp .program-track-card-header,
+.program-track-card--offramp .program-track-card-body,
+.program-track-card--offramp .program-track-card-cta {
+  padding: 0;
+}
+
+.program-track-card--offramp .program-track-card-header {
+  min-height: 0;
+  align-self: start;
+}
+
+.program-track-card--offramp .program-track-card-body {
+  gap: 0.75rem;
+}
+
+.program-track-card--offramp .program-track-card-title {
+  font-size: 1.1875rem;
+}
+
+.program-track-card--offramp .program-track-card-price {
+  font-size: 1.5rem;
+}
+
+.program-track-card--offramp .program-track-card-description {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.program-track-card--offramp .program-track-card-includes {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.program-track-card--offramp .program-track-card-includes li {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .programs-tracks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .program-track-card--offramp {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr) auto;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .program-track-card--offramp .program-track-card-body {
+    min-width: 0;
+  }
+
+  .program-track-card--offramp .program-track-card-description {
+    max-width: 38ch;
+  }
+
+  .program-track-card--offramp .program-track-card-includes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .program-track-card--offramp .program-track-card-includes li {
+    white-space: nowrap;
+  }
+
+  .program-track-card--offramp .program-track-card-cta {
+    justify-self: end;
+    align-self: center;
+  }
+}
+
 .programs-cta-microcopy {
   font-size: 0.875rem;
   color: var(--text-tertiary);
   margin: 0.75rem 0 0;
 }
 
-@media (max-width: 1024px) {
-  .programs-tracks-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 640px) {
-  .programs-tracks-grid {
-    grid-template-columns: 1fr;
-  }
-
   .programs-offers-heading {
     font-size: 1.5rem;
   }
