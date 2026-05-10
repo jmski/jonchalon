@@ -20,11 +20,20 @@ export function InstagramEmbed({ reelUrl }: InstagramEmbedProps) {
   const [scriptReady, setScriptReady] = useState(false)
 
   useEffect(() => {
-    // Already loaded — just process
+    let cancelled = false
+    const markReady = () => {
+      if (!cancelled) setScriptReady(true)
+    }
+
+    // Already loaded — just process. Defer the state update to a microtask
+    // so it isn't a synchronous setState in the effect body (which would
+    // trigger an immediate cascade render).
     if (window.instgrm) {
       window.instgrm.Embeds.process()
-      setScriptReady(true)
-      return
+      queueMicrotask(markReady)
+      return () => {
+        cancelled = true
+      }
     }
 
     // Script tag already exists (another instance added it); poll until ready
@@ -32,11 +41,14 @@ export function InstagramEmbed({ reelUrl }: InstagramEmbedProps) {
       const interval = setInterval(() => {
         if (window.instgrm) {
           window.instgrm.Embeds.process()
-          setScriptReady(true)
+          markReady()
           clearInterval(interval)
         }
       }, 100)
-      return () => clearInterval(interval)
+      return () => {
+        cancelled = true
+        clearInterval(interval)
+      }
     }
 
     // First instance — inject the script
@@ -45,10 +57,13 @@ export function InstagramEmbed({ reelUrl }: InstagramEmbedProps) {
     script.async = true
     script.onload = () => {
       if (window.instgrm) window.instgrm.Embeds.process()
-      setScriptReady(true)
+      markReady()
     }
-    script.onerror = () => setScriptReady(true) // fail silently
+    script.onerror = () => markReady() // fail silently
     document.body.appendChild(script)
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   return (

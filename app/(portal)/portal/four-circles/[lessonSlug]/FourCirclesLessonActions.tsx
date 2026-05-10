@@ -28,8 +28,8 @@ export default function FourCirclesLessonActions({
         await markLessonComplete(userId, lessonSlug, 'four-circles')
         setCompleted(true)
       }
-    } catch (err: any) {
-      console.error('[FourCirclesLessonActions]', err.message)
+    } catch (err: unknown) {
+      console.error('[FourCirclesLessonActions]', err instanceof Error ? err.message : err)
     } finally {
       setIsMarking(false)
     }

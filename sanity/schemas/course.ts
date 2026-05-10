@@ -1,9 +1,10 @@
 import { defineType, defineField } from 'sanity'
+import type { StringRule, SlugRule, SlugValidationContext, ConditionalPropertyCallbackContext } from 'sanity'
 
-async function isUnique(slug: string, context: any) {
+async function isUnique(slug: string, context: SlugValidationContext) {
   const { document, getClient } = context
   const client = getClient({ apiVersion: '2024-01-01' })
-  const id = document._id.replace(/^drafts\./, '')
+  const id = document!._id.replace(/^drafts\./, '')
   const query = `!defined(*[_type == "course" && slug.current == $slug && !(_id in [$draft, $published])][0]._id)`
   return client.fetch(query, {
     slug,
@@ -21,7 +22,7 @@ export default defineType({
       name: 'title',
       title: 'Course Title',
       type: 'string',
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: StringRule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -32,13 +33,13 @@ export default defineType({
         maxLength: 96,
         isUnique,
       },
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: SlugRule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: StringRule) => Rule.required(),
     }),
     defineField({
       name: 'philosophy',
@@ -124,14 +125,14 @@ export default defineType({
         ],
         layout: 'radio',
       },
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: StringRule) => Rule.required(),
     }),
     defineField({
       name: 'estimatedDuration',
       title: 'Estimated Duration',
       type: 'string',
       description: 'e.g. "4 hours", "6–8 hours"',
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: StringRule) => Rule.required(),
     }),
     defineField({
       name: 'isFeatured',
@@ -211,7 +212,7 @@ export default defineType({
       name: 'pricing',
       title: 'Pricing',
       type: 'object',
-      hidden: ({ document }: any) => document?.courseType !== 'paid',
+      hidden: ({ document }: ConditionalPropertyCallbackContext) => (document as { courseType?: string } | undefined)?.courseType !== 'paid',
       fields: [
         defineField({ name: 'amount', title: 'Amount', type: 'number' }),
         defineField({

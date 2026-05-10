@@ -228,7 +228,7 @@ export default function SegmentedInquiryForm() {
       {/* Status Messages */}
       {state.submitted && (
         <FormMessage variant="success" title="✓ Inquiry submitted successfully!">
-          You'll receive a confirmation email shortly. I'll get back to you within 24 hours.
+          You&apos;ll receive a confirmation email shortly. I&apos;ll get back to you within 24 hours.
         </FormMessage>
       )}
 

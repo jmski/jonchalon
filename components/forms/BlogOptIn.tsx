@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import { Button } from '@/components/ui/Button'
 import { FormField } from '@/components/ui/FormField'
 import { FormMessage } from '@/components/ui/FormMessage'
@@ -9,6 +9,19 @@ import { renderHeadline } from '@/lib/render-headline'
 import type { NewsletterCapture } from '@/lib/types'
 
 const STORAGE_KEY = 'jonchalant_subscribed'
+
+// Subscribe to a storage key without re-running on every render.
+// useSyncExternalStore is the React-blessed pattern for reading
+// browser-only state without cascading renders in an effect.
+function subscribeToStorage(callback: () => void) {
+  if (typeof window === 'undefined') return () => {}
+  window.addEventListener('storage', callback)
+  return () => window.removeEventListener('storage', callback)
+}
+
+function getSubscribedSnapshot() {
+  return localStorage.getItem(STORAGE_KEY) === 'true'
+}
 
 interface BlogOptInProps {
   newsletter?: NewsletterCapture | null
@@ -19,7 +32,11 @@ interface BlogOptInProps {
 export function BlogOptIn({ newsletter, successMessage, variant = 'blog' }: BlogOptInProps) {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
-  const [alreadySubscribed, setAlreadySubscribed] = useState(false)
+  const alreadySubscribed = useSyncExternalStore(
+    subscribeToStorage,
+    getSubscribedSnapshot,
+    () => false,
+  )
 
   const { state, submit } = useFormSubmission({
     endpoint: '/api/subscribe',
@@ -27,12 +44,6 @@ export function BlogOptIn({ newsletter, successMessage, variant = 'blog' }: Blog
       localStorage.setItem(STORAGE_KEY, 'true')
     },
   })
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem(STORAGE_KEY) === 'true') {
-      setAlreadySubscribed(true)
-    }
-  }, [])
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()

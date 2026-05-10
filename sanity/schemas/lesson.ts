@@ -2,12 +2,12 @@
 // access: 'free' → publicly visible on /program/preview
 // access: 'enrolled' → only accessible inside /portal after payment
 import { defineType, defineField } from 'sanity'
-import type { StringRule, NumberRule, SlugRule } from 'sanity'
+import type { StringRule, NumberRule, SlugRule, ReferenceRule, SlugValidationContext } from 'sanity'
 
-async function isUnique(slug: string, context: any) {
+async function isUnique(slug: string, context: SlugValidationContext) {
   const { document, getClient } = context
   const client = getClient({ apiVersion: '2024-01-01' })
-  const id = document._id.replace(/^drafts\./, '')
+  const id = document!._id.replace(/^drafts\./, '')
   const query = `!defined(*[_type == "lesson" && slug.current == $slug && !(_id in [$draft, $published])][0]._id)`
   return client.fetch(query, {
     slug,
@@ -222,7 +222,7 @@ export default defineType({
       title: 'Parent Module',
       type: 'reference',
       to: [{ type: 'module' }],
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: ReferenceRule) => Rule.required(),
       description: 'The module this lesson belongs to.',
     }),
     defineField({

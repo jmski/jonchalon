@@ -1,10 +1,10 @@
 import { defineType, defineField } from 'sanity'
-import type { StringRule, NumberRule, SlugRule } from 'sanity'
+import type { StringRule, NumberRule, SlugRule, SlugValidationContext } from 'sanity'
 
-async function isUnique(slug: string, context: any) {
+async function isUnique(slug: string, context: SlugValidationContext) {
   const { document, getClient } = context
   const client = getClient({ apiVersion: '2024-01-01' })
-  const id = document._id.replace(/^drafts\./, '')
+  const id = document!._id.replace(/^drafts\./, '')
   const query = `!defined(*[_type == "courseLesson" && slug.current == $slug && !(_id in [$draft, $published])][0]._id)`
   return client.fetch(query, {
     slug,
@@ -135,7 +135,7 @@ export default defineType({
       lessonNumber: 'lessonNumber',
       difficultyTier: 'difficultyTier',
     },
-    prepare(selection: any) {
+    prepare(selection: { title?: string; lessonNumber?: number; difficultyTier?: string }) {
       const { title, lessonNumber, difficultyTier } = selection
       return {
         title: `${lessonNumber ? `${lessonNumber}. ` : ''}${title}`,

@@ -6,10 +6,12 @@ import { createClient } from '@/utils/supabase/client';
 
 export default function AdminInquiriesPage() {
   const router = useRouter();
-  const supabase = createClient();
 
   useEffect(() => {
     const checkAuth = async () => {
+      // Construct the client inside the effect so it isn't recreated on
+      // every render (which would make supabase.auth an unstable dependency).
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push('/admin/login');

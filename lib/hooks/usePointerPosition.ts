@@ -4,7 +4,7 @@
  * Used for interactive effects like spotlights, glow effects, etc.
  */
 
-import { useState, useEffect, useRef, RefObject } from 'react';
+import { useState, useEffect, RefObject } from 'react';
 
 export interface PointerPosition {
   x: number;
@@ -22,11 +22,8 @@ export function usePointerPosition<T extends HTMLElement = HTMLElement>(
   trackGlobal: boolean = false
 ): PointerPosition {
   const [position, setPosition] = useState<PointerPosition>({ x: 0, y: 0 });
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-
     const handleMouseMove = (e: Event) => {
       const mouseEvent = e as MouseEvent;
       if (trackGlobal) {
@@ -72,11 +69,7 @@ export function usePointerPosition<T extends HTMLElement = HTMLElement>(
         target.removeEventListener('touchmove', handleTouchMove);
       };
     }
-  }, [trackGlobal]);
-
-  if (!isClient) {
-    return { x: 0, y: 0 };
-  }
+  }, [trackGlobal, containerRef]);
 
   return position;
 }

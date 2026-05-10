@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import SignOutButton from './SignOutButton'
@@ -66,11 +66,15 @@ function CourseTree({
 }) {
   const isActiveCourse = course.slug === activeCourseSlug
   const [expanded, setExpanded] = useState(isActiveCourse)
+  const [prevActiveCourse, setPrevActiveCourse] = useState(isActiveCourse)
 
-  // Auto-expand when navigating into this course
-  useEffect(() => {
+  // Auto-expand when navigating into this course.
+  // Pattern: store previous value during render to detect prop changes
+  // without an effect (https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes).
+  if (isActiveCourse !== prevActiveCourse) {
+    setPrevActiveCourse(isActiveCourse)
     if (isActiveCourse) setExpanded(true)
-  }, [isActiveCourse])
+  }
 
   return (
     <div className="portal-sidebar-course">
@@ -131,11 +135,14 @@ function CourseTree({
 export default function PortalShell({ courses, children, userId, firstName }: PortalShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
+  const [prevPathname, setPrevPathname] = useState(pathname)
 
-  // Close sidebar on route change (mobile UX)
-  useEffect(() => {
+  // Close sidebar on route change (mobile UX). Pattern: derive during render
+  // (https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes).
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname)
     setSidebarOpen(false)
-  }, [pathname])
+  }
 
   // Derive active course + lesson from pathname: /portal/[courseSlug]/[lessonSlug]
   const pathParts = pathname.split('/').filter(Boolean)

@@ -108,7 +108,7 @@ export function PresenceAuditFlow() {
         <div className="presence-audit-panel">
           <span className="presence-audit-panel-context">Step 1 of 2 — Honest recognition</span>
           <h2 className="presence-audit-panel-title">
-            What's your biggest challenge right now?
+            What&apos;s your biggest challenge right now?
           </h2>
           <p className="presence-audit-panel-subtitle">
             Choose the one that hits closest to home.
@@ -223,7 +223,7 @@ export function PresenceAuditFlow() {
       {currentStep === 'confirmation' && (
         <div className="presence-audit-confirmation">
           <div className="presence-audit-confirm-icon" aria-hidden="true">✓</div>
-          <h2 className="presence-audit-confirm-title">You're in. Audit incoming.</h2>
+          <h2 className="presence-audit-confirm-title">You&apos;re in. Audit incoming.</h2>
           <p className="presence-audit-confirm-body">
             Jon will review your challenge and send a personalized presence
             audit to <strong>{fields.email}</strong> within 48 hours.

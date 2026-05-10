@@ -204,7 +204,7 @@ export function getOptimizedImageProps(
   return {
     ...getImageDimensions(context),
     quality: getImageQuality('DEFAULT'),
-    sizes: getImageSizes(context as any),
-    priority: !shouldLazyLoad(context as any),
+    sizes: getImageSizes(context as unknown as Parameters<typeof getImageSizes>[0]),
+    priority: !shouldLazyLoad(context as unknown as Parameters<typeof shouldLazyLoad>[0]),
   };
 }

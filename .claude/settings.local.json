@@ -94,7 +94,14 @@
       "Bash(grep \"!important\" app/css/*.css)",
       "Bash(grep -E '#[0-9a-f]{3,6}|rgba?|hsla?' app/css/*.css)",
       "Bash(grep -oE '#[0-9a-fA-F]{3,6}|rgba?\\\\\\([^\\)]*\\\\\\)' app/css/*.css)",
-      "Bash(grep -oE '@media[^{]+' app/css/*.css)"
+      "Bash(grep -oE '@media[^{]+' app/css/*.css)",
+      "Bash(supabase:*)",
+      "Bash(scoop bucket:*)",
+      "Bash(scoop install:*)"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
 }

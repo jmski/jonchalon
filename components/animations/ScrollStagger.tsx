@@ -84,20 +84,22 @@ export default function ScrollStagger({
     // Calculate delay for this child
     const childDelay = staggerDelay * index;
 
+    const childProps = child.props as { className?: string; style?: React.CSSProperties };
+
     // Clone child with scroll animation props
-    return cloneElement(child, {
+    return cloneElement(child as React.ReactElement<{ className?: string; style?: React.CSSProperties }>, {
       'data-stagger-index': index,
       'data-stagger-delay': childDelay,
-      className: `${(child.props as any).className || ''} ${
+      className: `${childProps.className || ''} ${
         isAnimating ? getStaggerAnimationClass(variant) : 'opacity-0'
       }`,
       style: {
-        ...(child.props as any).style,
+        ...childProps.style,
         transition: isAnimating
           ? `all ${duration || 500}ms ${easing} ${childDelay}ms`
           : 'none',
       },
-    } as any);
+    } as Partial<{ className?: string; style?: React.CSSProperties }> & Record<string, unknown>);
   });
 
   return (
@@ -141,11 +143,9 @@ function getStaggerAnimationClass(variant: AnimationVariant): string {
 export function ScrollStaggerItem({
   children,
   className = '',
-  index = 0,
 }: {
   children: ReactNode;
   className?: string;
-  index?: number;
 }) {
   return <div className={className}>{children}</div>;
 }

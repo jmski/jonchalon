@@ -20,7 +20,7 @@
 import { useState, useCallback, useRef } from 'react';
 
 export type ValidationRule<T = string> = (value: T) => string; // Returns error message or empty string
-export type FormValues = Record<string, any>;
+export type FormValues = Record<string, unknown>;
 
 type FormErrors = Record<string, string>;
 type FormTouched = Record<string, boolean>;
@@ -54,8 +54,8 @@ export function useFormValidation<T extends FormValues>({
    * Validate a single field
    */
   const validateField = useCallback(
-    (fieldName: keyof T, value: any): string => {
-      const rules = validationRules[fieldName] || [];
+    (fieldName: keyof T, value: unknown): string => {
+      const rules = (validationRules[fieldName] || []) as ValidationRule<unknown>[];
       
       for (const rule of rules) {
         const error = rule(value);
@@ -277,8 +277,8 @@ export const ValidationRules = {
   /**
    * Custom validation function
    */
-  custom: (validator: (value: any) => boolean, message: string): ValidationRule => {
-    return (value: any) => {
+  custom: (validator: (value: unknown) => boolean, message: string): ValidationRule => {
+    return (value: unknown) => {
       if (value && !validator(value)) {
         return message;
       }

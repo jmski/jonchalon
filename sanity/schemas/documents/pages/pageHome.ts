@@ -131,19 +131,6 @@ export default defineType({
       type: 'sectionHeader',
       fieldset: 'blogPreview',
     }),
-    defineField({
-      name: 'blogPreviewPerCardCtaLabel',
-      title: 'Per-card CTA label',
-      type: 'string',
-      fieldset: 'blogPreview',
-      validation: (R) => R.required(),
-    }),
-    defineField({
-      name: 'blogPreviewSectionCta',
-      title: 'Section CTA',
-      type: 'cta',
-      fieldset: 'blogPreview',
-    }),
 
     // newsletter
     defineField({

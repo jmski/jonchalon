@@ -3,28 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-interface NavLink {
-  label: string;
-  href: string;
-}
-
-const NAV_LINKS: NavLink[] = [
-  { label: 'Start Here', href: '/ikigai' },
-  { label: 'Programs', href: '/programs' },
-  { label: 'Lessons', href: '/lessons' },
-  { label: 'About', href: '/about' },
-];
-
-const MOBILE_LINKS: Array<{ label: string; href: string; emphasis?: boolean }> = [
-  { label: 'Start Here', href: '/ikigai', emphasis: true },
-  { label: 'Programs', href: '/programs' },
-  { label: 'The Foundation', href: '/foundation' },
-  { label: 'Lessons', href: '/lessons' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-];
+import { NAV_LINKS, MOBILE_LINKS, MOBILE_CTA } from '@/lib/navData';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -103,11 +82,11 @@ export default function Navbar() {
 
         <div className="jc-nav-mobile-cta-bar">
           <Link
-            href="/ikigai"
+            href={MOBILE_CTA.href}
             className="jc-btn jc-btn--primary jc-nav-mobile-cta"
             onClick={() => setMobileOpen(false)}
           >
-            Discover Your Ikigai
+            {MOBILE_CTA.label}
           </Link>
         </div>
       </div>

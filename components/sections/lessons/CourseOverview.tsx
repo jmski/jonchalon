@@ -6,7 +6,7 @@ interface OverviewLesson {
   slug: { current: string }
   title: string
   access: 'free' | 'enrolled'
-  estimatedDuration?: number
+  duration?: number
 }
 
 interface OverviewModule {
@@ -33,7 +33,7 @@ export interface CourseOverviewProps {
 function totalMinutes(modules: OverviewModule[]): number {
   return modules
     .flatMap((m) => m.lessons ?? [])
-    .reduce((sum, l) => sum + (l.estimatedDuration ?? 0), 0)
+    .reduce((sum, l) => sum + (l.duration ?? 0), 0)
 }
 
 function formatDuration(minutes: number): string {

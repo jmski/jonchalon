@@ -19,7 +19,7 @@ import { pageDocumentTypes } from '../sanity/schemas/documents/pages/index'
 import { sharedDocumentTypes } from '../sanity/schemas/documents/shared/index'
 import { objectTypes } from '../sanity/schemas/objects/index'
 
-import { MIGRATIONS, createLogger, type SanityDoc, type Logger } from './migrate-content'
+import { MIGRATIONS, type SanityDoc, type Logger } from './migrate-content'
 
 // ===========================================================================
 // SCHEMA WALKER

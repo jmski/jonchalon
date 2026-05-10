@@ -59,9 +59,14 @@ export async function POST(req: NextRequest) {
       success_url: `${origin}/portal?enrolled=true`,
       cancel_url: `${origin}/foundation?checkout=cancelled`,
     })
-  } catch (err: any) {
-    console.error('[checkout] stripe error:', err.message)
-    return NextResponse.json({ error: err.message }, { status: 500 })
+  } catch (err: unknown) {
+    const message = err instanceof Stripe.errors.StripeError
+      ? err.message
+      : err instanceof Error
+        ? err.message
+        : 'Checkout failed'
+    console.error('[checkout] stripe error:', message)
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 
   return NextResponse.json({ url: session.url })

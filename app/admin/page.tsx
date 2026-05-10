@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { AdminNavbar } from '@/components/navigation';
@@ -21,32 +21,16 @@ interface Inquiry {
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const supabase = createClient();
+  // Memoize the Supabase client so its reference is stable across renders;
+  // otherwise effect/callback dependency arrays that include it would re-run
+  // on every render.
+  const supabase = useMemo(() => createClient(), []);
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
-  const [user, setUser] = useState<{ email?: string } | null>(null);
   const [modalInquiry, setModalInquiry] = useState<Inquiry | null>(null);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        router.push('/admin/login');
-        return;
-      }
-
-      setUser(user);
-      fetchInquiries();
-    };
-
-    checkAuth();
-  }, [router]);
-
-  const fetchInquiries = async () => {
+  const fetchInquiries = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -61,7 +45,24 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [supabase]);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        router.push('/admin/login');
+        return;
+      }
+
+      fetchInquiries();
+    };
+
+    checkAuth();
+  }, [router, supabase, fetchInquiries]);
 
   const updateStatus = async (id: string, newStatus: string) => {
     try {
@@ -85,10 +86,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/admin/login');
-  };
 
   if (loading) {
     return (
@@ -107,9 +104,6 @@ export default function AdminDashboard() {
 
   // Calculate conversion rate
   const conversionRate = totalInquiries > 0 ? Math.round((closedCount / totalInquiries) * 100) : 0;
-
-  // Get recent inquiries (last 5)
-  const recentInquiries = inquiries.slice(0, 5);
 
   // Get inquiry types distribution
   const typeCounts = inquiries.reduce(

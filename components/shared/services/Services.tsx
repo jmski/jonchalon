@@ -33,7 +33,6 @@ export function Services({ services, heading, description, eyebrow }: ServicesPr
         {services.map((service) => (
           <ServiceCard
             key={service._id}
-            _id={service._id}
             title={service.title}
             description={service.description}
             icon={service.icon}

@@ -157,71 +157,18 @@ export interface SocialLink {
   label?: string
 }
 
-export interface FooterColumn {
-  header: string
-  links: Link[]
-}
-
-export interface AccountSection {
-  header?: string
-  links?: Link[]
-}
-
 export interface SuccessState {
   key: 'general' | 'newsletter' | 'starterGuide' | 'contact'
   message: string
 }
 
-export interface ValidationMicrocopy {
-  required: string
-  invalidEmail: string
-  tooShort: string
-  tooLong: string
-}
-
-export interface SignInContent {
-  headline: string
-  subhead: string
-  primaryLabel: string
-  magicLinkLabel: string
-  forgotPasswordLabel: string
-}
-
-export interface SignUpContent {
-  headline: string
-  subhead: string
-  submitLabel: string
-}
-
 export interface SiteConfig {
   contactEmail: string
-  // nav
-  wordmark: string
-  desktopLinks: Link[]
-  rightSideLinks?: Link[]
-  mobileLinks: Link[]
-  mobilePersistentCta: Cta
-  // footer
   brandLine: string
-  columns: FooterColumn[]
-  accountSection?: AccountSection
   copyright: string
   privacyLink: Cta
-  // socials
   socialLinks?: SocialLink[]
-  // formMicrocopy
   successStates: SuccessState[]
-  submitError: string
-  validation: ValidationMicrocopy
-  loadingLabel: string
-  // notFoundPage
-  notFoundHeadline: string
-  notFoundBody: string
-  notFoundLinks: Link[]
-  notFoundMicrocopy: string
-  // authPages
-  signIn: SignInContent
-  signUp: SignUpContent
 }
 
 // ── Page singletons ───────────────────────────────────────────────────────────
@@ -244,8 +191,6 @@ export interface PageHome {
   meetJonSecondaryLink?: Cta
   testimonialsHeader: SectionHeader
   blogPreviewHeader: SectionHeader
-  blogPreviewPerCardCtaLabel: string
-  blogPreviewSectionCta?: Cta
   newsletter: NewsletterCapture
   auditCta: AuditCta
   starterGuide: StarterGuideCapture

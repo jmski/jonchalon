@@ -5,6 +5,7 @@ import course from './course'
 import courseLesson from './courseLesson'
 import blogPost from './blogPost'
 import module from './module'
+import curriculumWeek from './curriculumWeek'
 
 import { objectTypes } from './objects'
 import { sharedDocumentTypes } from './documents/shared'
@@ -28,4 +29,5 @@ export const schemaTypes = [
   courseLesson,
   blogPost,
   module,
+  curriculumWeek,
 ]
