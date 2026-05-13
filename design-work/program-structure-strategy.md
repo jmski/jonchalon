@@ -20,26 +20,34 @@ These two decisions together complete the repositioning that began with "find yo
 
 ## The three-stage structure
 
-### Working names
+### Stage names (locked)
 
-- **Stage 1 — Inventory**
-- **Stage 2 — Petals**
-- **Stage 3 — Integration**
+- **Stage 1 — The Climb**
+- **Stage 2 — The Vantage**
+- **Stage 3 — The Leap**
 
-Only *Petals* feels like brand voice. *Inventory* and *Integration* are placeholders pending a naming pass. Final names should be verb-energy (the brand promises *doing* something embodied, not understanding something cognitive) and parallel in structure. Naming is a separate task.
+The names follow a climb–vantage–leap shape: effortful ascent to a viewpoint, an inhabited place from which you can finally see clearly, and the committed move from height into the change you've identified. Each name is body-anchored, parallel in form (definite article + monosyllable), and metaphorically coherent — the climb earns the vantage, the vantage prepares the leap, the leap completes the work the climb began.
+
+*The Climb* is the inventory work. Effortful, deliberate, trust-based — you don't yet know what you'll see when you reach the top, but the work of getting there is the point.
+
+*The Vantage* is the active integration work. Not a moment of seeing but a place you inhabit while you do the daily practice — designing rituals, building petals, having hard conversations. You can see more than you could on the ground; that visibility is what makes the Vantage work possible.
+
+*The Leap* is the structural change — the load-bearing conversation, the move, the becoming. The metaphor is honest: you commit before you can see the landing. The Leap is exactly that.
+
+**Origin note (internal only):** the naming arose from the Assassin's Creed synchronization sequence — climb the structure, survey the area, leap of faith. The reference is the spark, not the source. The climb-vantage-leap shape is universal (mountaineering traditions, Tibetan parables, hero's-journey scholarship, Tarot's Fool all have the same structure) and the brand inherits the structure without claiming any single tradition. **The AC reference must never appear in public copy.** It dates the brand and undercuts the universality.
 
 ### What each stage is for
 
-**Stage 1 — Inventory.**
-Honest cataloguing of what you already do, sorted into the four circles. The work is not discovery — it's inventory. The hard part is being honest about what doesn't fit and what falsely claims to fit. Time-bounded: a Stage 1 buyer can complete the module's defined work in roughly 4-6 weeks of weekly practice.
+**Stage 1 — The Climb.**
+Honest cataloguing of what you already do, sorted into the four circles. The work is not discovery — it's inventory. The hard part is being honest about what doesn't fit and what falsely claims to fit. Time-bounded: a Climb buyer can complete the module's defined work in roughly 4-6 weeks of weekly practice.
 
-**Stage 2 — Petals.**
-Finding where two circles overlap (outer petals) and building daily practice around the overlaps. Action-heavy. Time-bounded but longer than Stage 1: most buyers complete the defined work in 12-16 weeks. The "outer petals" terminology has light precedent in the wider ikigai conversation (one Times Higher Education article from 2024 uses similar language) but the metaphor is clarifying enough to keep.
+**Stage 2 — The Vantage.**
+Finding where two circles overlap (outer petals) and building daily practice around the overlaps. Action-heavy. Time-bounded but longer than the Climb: most buyers complete the defined work in 12-16 weeks. The "outer petals" terminology has light precedent in the wider ikigai conversation (one Times Higher Education article from 2024 uses similar language) but the metaphor is clarifying enough to keep.
 
-**Stage 3 — Integration.**
+**Stage 3 — The Leap.**
 Growing the structurally missing circle. The work that's too big, too individual, or too long-horizon for a structured module. Coaching is structurally essential, not adjacent. Open-ended: 6-18 months of real work depending on the gap and the user's life context.
 
-### Stage 1 lesson sketch (7 lessons)
+### Stage 1 lesson sketch (The Climb — 7 lessons)
 
 1. **The cost of not knowing.** Naming what continued misalignment costs. Body scan to surface what tenses up at the thought of "five more years of this."
 2. **Honest self-assessment.** The three separations (love vs told-yourself-you-love; good-at vs well-compensated-for; world-needs vs assume-it-needs). Body opens/contracts pre-cognitively.
@@ -51,7 +59,7 @@ Growing the structurally missing circle. The work that's too big, too individual
 
 **Completion criteria:** populated inventory, named probable missing circle, chosen physical medium and started practicing it, named what's being let go of.
 
-### Stage 2 lesson sketch (10 lessons)
+### Stage 2 lesson sketch (The Vantage — 10 lessons)
 
 1. **Reading the overlaps you already have.** Map existing outer petals.
 2. **Daily ritual design.** The mechanism for incorporating overlap into life. Designed and tested physical ritual.
@@ -66,9 +74,9 @@ Growing the structurally missing circle. The work that's too big, too individual
 
 **Completion criteria:** identified outer petals, at least one daily ritual held for four weeks, at least one hard conversation about role or relationships, at least one obligation dropped that wasn't growing a circle.
 
-### Stage 3 lesson sketch (11 lessons; 8 effective per user)
+### Stage 3 lesson sketch (The Leap — 11 lessons; 8 effective per user)
 
-1. **The missing circle, named in full.** Deeper diagnosis after Stage 2 has produced real data.
+1. **The missing circle, named in full.** Deeper diagnosis after the Vantage has produced real data.
 2. **The cost of staying as you are.** Naming the structural feature in current life that's in the way.
 3. **Mission as a missing circle.** *(Conditional)* The work of building a Mission you own rather than borrow.
 4. **Passion as a missing circle.** *(Conditional)* Sustained engagement, not searching. 12-week deliberate practice commitment.
@@ -78,7 +86,7 @@ Growing the structurally missing circle. The work that's too big, too individual
 8. **Walking away.** Leaving as discipline, not failure. Distinguishing walking from running. Multi-session coaching.
 9. **Confidence as evidence.** Late-program — confidence as byproduct of evidence accumulated.
 10. **Trust and dependability as patterns.** 90-day commitment to visible reliability.
-11. **Re-reading the ikigai.** Annual re-read as ongoing practice. Same body scan as Stage 1 Lesson 1 — note what's changed.
+11. **Re-reading the ikigai.** Annual re-read as ongoing practice. Same body scan as the Climb's first lesson — note what's changed.
 
 Lessons 3-6 are conditional — most users do one of the four depending on their gap. All four must exist as content, even though most users only consume one.
 
@@ -92,7 +100,7 @@ The Foundation is not an 8-week program. The current copy promise "Eight weeks. 
 
 The truth, which is also the marketing message:
 
-> Stage 1 takes 4-6 weeks. Stage 2 takes 12-16 weeks. Stage 3 takes 6-18 months. **The Foundation is a 6-month coached engagement** that gets users through Stage 1 and 2 and into Stage 3. Stage 3 work continues beyond the formal engagement, supported by the Ongoing subscription for those who want it.
+> The Climb takes 4-6 weeks. The Vantage takes 12-16 weeks. The Leap takes 6-18 months. **The Foundation is a 6-month coached engagement** that gets users through the Climb and the Vantage and into the Leap. Leap work continues beyond the formal engagement, supported by the Ongoing subscription for those who want it.
 
 "As long as it takes" is the brand voice expression of this. It's directly Register A and it's the most defensible position any program in this space can take: competitors sell speed, Jonchalant sells honesty about pace.
 
@@ -104,17 +112,17 @@ The truth, which is also the marketing message:
 
 | Product | Price | What's included |
 |---|---|---|
-| **Module 1 — Inventory** (standalone) | $500 | 7 lessons, lifetime access, AI tools (3 uses/month) |
-| **Module 2 — Petals** (standalone) | $750 | 10 lessons, lifetime access, AI tools (3 uses/month) |
+| **Module 1 — The Climb** (standalone) | $500 | 7 lessons, lifetime access, AI tools (3 uses/month) |
+| **Module 2 — The Vantage** (standalone) | $750 | 10 lessons, lifetime access, AI tools (3 uses/month) |
 | **Modules 1 + 2 bundle** | $1,100 | Both modules, $150 saving |
-| **The Foundation** | $5,000 list · $4,500 founding cohort | All 3 modules + 16 1:1 sessions + monthly group call + weekly check-ins + unlimited AI tools, 6-month engagement |
+| **The Foundation** | $5,000 list · $4,500 founding cohort | All 3 modules (Climb + Vantage + Leap) + 16 1:1 sessions + monthly group call + weekly check-ins + unlimited AI tools, 6-month engagement |
 | **Top-up sessions** | $350 each · 4-pack $1,200 | Active Foundation clients only |
 | **Ongoing subscription** | $300/month | Foundation graduates only. 1 session/month + monthly group call + AI tools. Capped at 40 subscribers. |
 | **Coach Training Program** | $12,000 | *Year 2 launch.* Foundation graduates only. 12-18 month engagement. |
 
 ### What's not purchasable
 
-- **Stage 3 standalone is not offered.** Stage 3 work requires deep coaching and full prerequisite work. Available only inside the Foundation.
+- **The Leap standalone is not offered.** Leap work requires deep coaching and full prerequisite work. Available only inside the Foundation.
 - **No payment-plan tier** is being introduced at launch. May revisit later if a meaningful number of qualified buyers are constrained by lump sum.
 
 ### Pricing principles
@@ -176,20 +184,20 @@ The Foundation uses a session pool rather than a fixed coaching cadence. 16 sess
 
 ### Why pool, not cadence
 
-The brand voice — *"while we're being intentional, we're also doing it at our own pace"* — argues against a fixed weekly cadence. Some clients need most of their support in Stage 1 (the inventory and mourning work is hardest for them). Others breeze through Stage 1 and need all their sessions in Stage 3. Forcing one cadence on everyone serves the coach, not the client.
+The brand voice — *"while we're being intentional, we're also doing it at our own pace"* — argues against a fixed weekly cadence. Some clients need most of their support during the Climb (the inventory and mourning work is hardest for them). Others move quickly through the Climb and need all their sessions in the Leap. Forcing one cadence on everyone serves the coach, not the client.
 
 ### Pacing rules
 
 The pool model has two failure modes that need structural prevention:
 
 1. **Clients hoard.** Save sessions for a "real problem" that never comes. Finish the program having used half their pool.
-2. **Clients dump everything early.** Use all sessions in the first two months, then disappear when Stage 3 work begins — exactly when coaching is most essential.
+2. **Clients dump everything early.** Use all sessions in the first two months, then disappear when the Leap begins — exactly when coaching is most essential.
 
 Both are prevented by rules built into the program:
 
 - **Maximum 4 sessions per month** (prevents front-loading collapse)
 - **Maximum 90 days between sessions during active engagement** (prevents disappearing)
-- **At least 2 sessions reserved for Stage 3 work**, unless the client explicitly opts out in writing (forces awareness)
+- **At least 2 sessions reserved for Leap work**, unless the client explicitly opts out in writing (forces awareness)
 
 ### Anti-hoarding nudges
 
@@ -206,7 +214,7 @@ This is the most strategically important long-term decision in the business. Sca
 
 ### Why this fits the brand
 
-The strongest coaches in any modality are the people who've done the work themselves. A Foundation graduate who went through Stage 3 work, found their missing circle, integrated it, and built a life around it is exactly the kind of person who has authority to coach someone else through the same work.
+The strongest coaches in any modality are the people who've done the work themselves. A Foundation graduate who went through the Leap, found their missing circle, integrated it, and built a life around it is exactly the kind of person who has authority to coach someone else through the same work.
 
 For corporate professionals with a Mission gap specifically — the most common gap in the target audience — becoming a coach in the methodology that helped them find their own answer is a genuinely viable Mission. **This is the structural insight that justifies the program existing:** it's an honest answer to a real problem for a specific subset of graduates, not a revenue trick.
 
@@ -222,7 +230,7 @@ Most coaching certifications are priced cynically — high because the program i
 ### Implications for current decisions
 
 - **Foundation must produce coach-grade graduates by design.** Not every graduate. Enough that the pipeline produces 1-2 candidates per year by Year 2.
-- **Stage 3 work in particular must produce articulable practice**, not just personal change. A graduate who can't articulate how they integrated their missing circle can't coach someone else through the same work.
+- **The Leap in particular must produce articulable practice**, not just personal change. A graduate who can't articulate how they integrated their missing circle can't coach someone else through the same work.
 - **The pathway should be visible at enrollment**, not as a hook (most won't want it) but for the 5-15% of graduates who will. Plants the seed early.
 - **Brand naming.** "Jonchalant" is Jon-centric. Once other coaches enter the picture, this needs thought — likely positioning as *"the Jonchalant method, taught by Jon-trained coaches"* with Jon remaining the central voice and framework owner.
 
@@ -236,7 +244,7 @@ This section exists so nothing slips through during the rebuild. Every item list
 
 - **The four pillars** (Grounding, Energy, Flow, Command) as a named framework. Retired entirely.
 - **The dancer/leader/writer triptych** as a proof point. Retired. Replaced by worked examples inside the methodology section of the Foundation page.
-- **The kinetic line on Ikigai page** *"The medium changes — the fundamentals don't"*. Retired. New line TBD — see below.
+- **The kinetic line on Ikigai page** *"The medium changes — the fundamentals don't"*. Retired. **Replaced by** *"The view from the top is just the start."* (italic anchor on `start`).
 
 ### Page-level
 
@@ -254,7 +262,7 @@ This section exists so nothing slips through during the rebuild. Every item list
 ### Sanity schema
 
 - **`program` schema.** Restructured for the three-module + flagship + subscription product set.
-- **`lesson` schema.** The `pillar` field becomes meaningless; replaced with a `stage` field (and possibly a `gap` field for Stage 3 conditional lessons).
+- **`lesson` schema.** The `pillar` field becomes meaningless; replaced with a `stage` field (values: `climb`, `vantage`, `leap`) and a `gap` field for Leap conditional lessons (values: `mission`, `passion`, `vocation`, `profession`).
 - **`programFocus` schema.** Re-evaluated — may not be needed in the new structure.
 - **Foundation page Sanity content.** Effectively a full rewrite, not a migration.
 
@@ -262,14 +270,15 @@ This section exists so nothing slips through during the rebuild. Every item list
 
 - **`design-notes/canonical-copy.md`** — the single source of truth locked in Workstream 1 — needs updating across every surface that references pillars, eight weeks, or the four-pillar methodology. This is the largest content task in the rebuild.
 
-### New kinetic line for Ikigai page (TBD)
+### New kinetic line for Ikigai page (locked)
 
-Candidates worth testing:
-- *"Reading your ikigai is the easy part. Living it is the work."*
-- *"Your ikigai isn't hidden. It's just unlived."*
-- *"Four circles to find. The rest of your life to inhabit."*
+**"The view from the top is just the start."**
 
-The last two read most brand-voice. Final choice deferred to the Ikigai page rewrite task.
+Italic anchor: *The view from the top is just the* {{start}}.
+
+This is the brand argument compressed into nine words. It tells the corporate-professional reader — who probably has climbed in the metaphorical sense (career ladder, field, credentials) — that none of that was the work. It validates effort without flattering it. From here, the rest of the page can introduce The Climb · The Vantage · The Leap, and readers will retroactively understand what *top* and *start* meant.
+
+The line pairs structurally with the program: the *top* is the Vantage; the *start* is the practice work that begins once the Climb is done.
 
 ---
 
@@ -277,13 +286,16 @@ The last two read most brand-voice. Final choice deferred to the Ikigai page rew
 
 These need decisions before or during Workstream 2. Roughly in order of urgency:
 
-1. **Final names for the three stages.** *Inventory* and *Integration* are placeholders. Naming pass needed.
-2. **The new Ikigai page kinetic line.** Candidates listed above.
-3. **Full Stage 3 lesson writing.** The four conditional lessons (Mission/Passion/Vocation/Profession gap) don't exist as drafts.
-4. **Coach Training Program detailed design.** Mapped, not built. Revisit by end of Year 1.
-5. **Revenue-share arrangement for trained coaches.** Year 3 decision. Mentioned here so it's not forgotten.
-6. **Brand naming when other coaches enter the picture.** Year 3-4 decision. Flagged for awareness.
-7. **Whether the standalone module bundle ($1,100) should include any AI tool boost** — currently same limits as individual modules. Possibly a differentiator if the conversion rate from standalone to Foundation is too low.
+1. **Full Leap content writing.** The four conditional lessons (Mission/Passion/Vocation/Profession gap) don't exist as drafts.
+2. **Coach Training Program detailed design.** Mapped, not built. Revisit by end of Year 1.
+3. **Revenue-share arrangement for trained coaches.** Year 3 decision. Mentioned here so it's not forgotten.
+4. **Brand naming when other coaches enter the picture.** Year 3-4 decision. Flagged for awareness.
+5. **Whether the standalone module bundle ($1,100) should include any AI tool boost** — currently same limits as individual modules. Possibly a differentiator if the conversion rate from standalone to Foundation is too low.
+
+### Resolved (date-stamped for history)
+
+- **Stage names** — locked May 2026 as *The Climb · The Vantage · The Leap*.
+- **Ikigai page kinetic line** — locked May 2026 as *"The view from the top is just the start."* with italic anchor on `start`.
 
 ---
 
@@ -291,14 +303,14 @@ These need decisions before or during Workstream 2. Roughly in order of urgency:
 
 This document is the input to the implementation phase, not implementation itself. The actual rebuild work should follow this order:
 
-1. **Update `design-notes/canonical-copy.md`** to reflect the new three-stage structure. This propagates to every page that's CMS-driven.
-2. **Sanity schema redesign** (Workstream 2 as already scoped) — incorporating the new `program`, `lesson`, and Foundation content shapes.
-3. **Foundation page rewrite** — full rebuild around three stages + session pool model + new pricing.
-4. **Ikigai page update** — new kinetic line, integration with three-stage flow.
+1. **Update `design-work/canonical-copy.md`** (or wherever the canonical copy doc now lives after the design-folder reorganization) to reflect the new three-stage structure, locked stage names, and new pricing. This propagates to every page that's CMS-driven.
+2. **Sanity schema redesign** (Workstream 2 as already scoped) — incorporating the new `program`, `lesson` (with `stage` and `gap` fields), and Foundation content shapes.
+3. **Foundation page rewrite** — full rebuild around The Climb · The Vantage · The Leap + session pool model + new pricing.
+4. **Ikigai page update** — new kinetic line *"The view from the top is just the start"* + integration with the three-stage flow.
 5. **Home page pillar grid removal/replacement.**
 6. **Portal session pool feature** — new components, new schema, new flows.
-7. **Stage 1 and Stage 2 lesson content production** — full writing and recording.
-8. **Stage 3 content production** including the four conditional lessons.
+7. **The Climb and The Vantage lesson content production** — full writing and recording.
+8. **The Leap content production** including the four conditional lessons.
 9. **Coach Training Program design** — late Year 1.
 
 Each implementation step should be a separately scoped prompt in Claude Code, not a single mega-prompt. Risk and impact ordering applies — schema first (low risk, foundational), then pages (medium risk, brand-visible), then portal features (higher risk, auth-coupled).
@@ -317,4 +329,4 @@ Lifting these out so they don't get lost in implementation prompts:
 
 ---
 
-*Document version 1.0 — drafted at the end of the strategy session. Update freely as decisions get refined; mark significant changes with dates so the history is traceable.*
+*Document version 1.1 — May 2026. v1.0 drafted at end of initial strategy session. v1.1 locks stage names (The Climb · The Vantage · The Leap) and Ikigai kinetic line ("The view from the top is just the start"). Update freely; date-stamp significant changes so history stays traceable.*
