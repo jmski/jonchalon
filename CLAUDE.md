@@ -34,7 +34,7 @@ The ikigai quiz (on `/ikigai`) and the Four Circles course are tightly coupled: 
 
 **Design philosophy:** Japanese Zen-inspired (burnt indigo, muted moss, warm amber palette; editorial typography via Fraunces; generous whitespace). The brand is warm and honest, not polished and aspirational. Light mode only.
 
-See `design/canonical-copy.md` for full copy blocks (source of truth for all marketing copy).
+See `design-system/canonical-copy.md` for full copy blocks (source of truth for all marketing copy).
 
 ---
 
@@ -45,9 +45,9 @@ CLAUDE.md is a summary. When CLAUDE.md disagrees with the file that actually own
 | Domain | Authoritative source |
 |---|---|
 | Visual tokens (colors, spacing, surface tiers) | `app/css/variables.css` |
-| Typography (font stacks, font tokens) | `design-notes/fonts.css`, `design-notes/tokens.css` |
-| Visual design system (rendered components, tokens, type scale) | `design-notes/design-system.html` / `design-notes/design-system.png` |
-| Marketing copy (headlines, CTAs, body blocks) | `design/canonical-copy.md` |
+| Typography (font stacks, font tokens) | `design-system/fonts.css`, `design-system/tokens.css` |
+| Visual design system (rendered components, tokens, type scale) | `design-system/design-system.html` / `design-system/design-system.png` |
+| Marketing copy (headlines, CTAs, body blocks) | `design-system/canonical-copy.md` |
 | Content shape (Sanity schemas, document types, fields) | `sanity/schemas/index.ts` and the schema files it registers |
 | Implementation (what components exist, how they render, what fetchers return) | The actual files in the repo |
 | Conventions and cross-environment context | CLAUDE.md (this file) |
@@ -95,7 +95,7 @@ When editing copy or generating new content:
 3. **No coaching jargon.** Avoid: unlock, transform, journey, empowered, authentic self, limiting beliefs, inner game.
 4. **Specificity wins.** Prefer concrete numbers, named situations, sensory detail over abstract claims.
 5. **Honest about tradeoffs.** When describing a program or course, name what it isn't as clearly as what it is.
-6. **Kinetic typography moments.** One per page maximum. Must carry the page's argument, not decorate it. See `design/canonical-copy.md` for the approved phrase library.
+6. **Kinetic typography moments.** One per page maximum. Must carry the page's argument, not decorate it. See `design-system/canonical-copy.md` for the approved phrase library.
 
 ---
 
@@ -196,7 +196,7 @@ Page-specific stable copy. Stable page-argument copy that doesn't need CMS edito
 - **Auth-gate logic lives client-side** in the `useAuth` hook (`lib/auth-context.tsx`)
 
 ### Positioning & Copy
-- **Positioning consistency**: All new copy must align with `design/canonical-copy.md`. If a section of the codebase has copy that contradicts the ikigai-front-door positioning, flag it rather than preserving it.
+- **Positioning consistency**: All new copy must align with `design-system/canonical-copy.md`. If a section of the codebase has copy that contradicts the ikigai-front-door positioning, flag it rather than preserving it.
 
 ---
 
@@ -419,20 +419,27 @@ The `Method` component (`components/sections/home/method/Method.tsx`) was rename
 
 ---
 
-## Design Notes (`design-notes/`)
+## Design System (`design-system/`)
 
-A folder of design reference assets. These files are authoritative references for the design system and for visual regression checks; do not delete or move them.
+Authoritative sources for design system truths and reference assets. These files are source-of-truth for design tokens, typography, and visual regression checks; do not delete or move them without updating CLAUDE.md.
 
 | File / Folder | Purpose |
 |---|---|
+| `canonical-copy.md` | Marketing copy source of truth (headlines, CTAs, body blocks, approved kinetic phrases) |
 | `design-system.html` | Live HTML render of the full design system (tokens, typography, components) |
 | `design-system.png` | Static screenshot of the design system render |
-| `tokens.css` | Design token reference (mirrors `variables.css`) |
+| `tokens.css` | Design token reference (mirrors `app/css/variables.css`) |
 | `fonts.css` | Font stack reference |
 | `SKILL.md` | Design-system skill file for Copilot |
-| `README.md` | Design notes overview |
+| `README.md` | Design system overview |
 
-Marketing copy lives in `design/canonical-copy.md` (source of truth, not in `design-notes/`).
+## Design Work (`design-work/`)
+
+Working documents, plans, audits, diagnostics, and handoff notes. These files support the design process but are not authoritative sources of truth. Working documents may change frequently and should not be treated as canonical references for implementation.
+
+| File / Folder | Purpose |
+|---|---|
+| `*.md` | Active plans, workstream summaries, migration scripts, audits, diagnostics, and design-process notes |
 
 ---
 
