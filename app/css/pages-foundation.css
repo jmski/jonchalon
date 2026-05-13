@@ -82,7 +82,6 @@
 .foundation-hero-headline em {
   font-style: italic;
   color: var(--mocha-mousse);
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
 }
 
 .foundation-hero-subheadline {

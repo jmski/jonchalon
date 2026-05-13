@@ -64,7 +64,7 @@ export function PresenceCoach({ userId, firstName }: PresenceCoachProps) {
     }
   }
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async () => {
     const trimmed = input.trim()
     if (!trimmed || isStreaming || isLimited) return
 
@@ -186,7 +186,7 @@ export function PresenceCoach({ userId, firstName }: PresenceCoachProps) {
     } finally {
       setIsStreaming(false)
     }
-  }, [input, isStreaming, isLimited, messages, userId])
+  }
 
   return (
     <div className="presence-coach">

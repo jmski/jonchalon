@@ -144,15 +144,11 @@ export function TonalityClient({ userId }: TonalityClientProps) {
   const [textValue, setTextValue] = useState('')
   const [transcript, setTranscript] = useState('')
   const [isRecording, setIsRecording] = useState(false)
-  const [speechSupported, setSpeechSupported] = useState<boolean | null>(null)
+  const [speechSupported] = useState(() => getSpeechRecognitionCtor() !== null)
   const [isLoading, setIsLoading] = useState(false)
   const [report, setReport] = useState<TonalityReport | null>(null)
   const [errorMsg, setErrorMsg] = useState('')
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null)
-
-  useEffect(() => {
-    setSpeechSupported(getSpeechRecognitionCtor() !== null)
-  }, [])
 
   const activeText = tab === 'text' ? textValue : transcript
   const wc = wordCount(activeText)

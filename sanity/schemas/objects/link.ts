@@ -20,8 +20,8 @@ export default defineType({
       validation: (Rule) =>
         Rule.required().custom((value) => {
           if (!value) return 'Link is required.'
-          if (value.startsWith('/') || /^https?:\/\//.test(value)) return true
-          return 'Link must start with / (internal) or http(s):// (external).'
+          if (value.startsWith('/') || value.startsWith('#') || /^https?:\/\//.test(value)) return true
+          return 'Link must start with / (internal), # (in-page anchor), or http(s):// (external).'
         }),
     }),
   ],

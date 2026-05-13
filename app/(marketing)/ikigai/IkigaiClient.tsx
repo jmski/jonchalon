@@ -314,7 +314,10 @@ export default function IkigaiClient() {
   const [captureSubmitting, setCaptureSubmitting] = useState(false);
   const [captureSubmitted, setCaptureSubmitted] = useState(false);
   const [captureDismissed, setCaptureDismissed] = useState(false);
-  const [captureAlreadySubscribed, setCaptureAlreadySubscribed] = useState(false);
+  const [captureAlreadySubscribed] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('jonchalant_subscribed') === 'true';
+  });
 
   const quizRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -332,13 +335,6 @@ export default function IkigaiClient() {
       };
     }
   }, [showResults]);
-
-  // ── Check if already subscribed
-  useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem('jonchalant_subscribed') === 'true') {
-      setCaptureAlreadySubscribed(true);
-    }
-  }, []);
 
   // ── Scores
   const scores: Record<Quadrant, number> = {

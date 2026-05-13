@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -26,8 +26,27 @@ export default function MfaClient() {
   const [code, setCode] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isVerifying, setIsVerifying] = useState(false)
+  const supabase = useMemo(() => createClient(), [])
 
-  const supabase = createClient()
+  // Enroll a new TOTP factor
+  const startEnrollment = useCallback(async () => {
+    setError(null)
+    const { data, error: enrollError } = await supabase.auth.mfa.enroll({
+      factorType: 'totp',
+      friendlyName: 'Jonchalant Portal',
+    })
+
+    if (enrollError || !data) {
+      setError(enrollError?.message || 'Failed to start MFA enrollment.')
+      setStep('error')
+      return
+    }
+
+    setFactorId(data.id)
+    setQrCode(data.totp.qr_code)
+    setSecret(data.totp.secret)
+    setStep('enroll')
+  }, [supabase])
 
   // Determine MFA state on mount
   const checkMfaStatus = useCallback(async () => {
@@ -62,26 +81,7 @@ export default function MfaClient() {
       setError('Authentication error. Please sign in again.')
       setStep('error')
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const startEnrollment = async () => {
-    setError(null)
-    const { data, error: enrollError } = await supabase.auth.mfa.enroll({
-      factorType: 'totp',
-      friendlyName: 'Jonchalant Portal',
-    })
-
-    if (enrollError || !data) {
-      setError(enrollError?.message || 'Failed to start MFA enrollment.')
-      setStep('error')
-      return
-    }
-
-    setFactorId(data.id)
-    setQrCode(data.totp.qr_code)
-    setSecret(data.totp.secret)
-    setStep('enroll')
-  }
+  }, [supabase, startEnrollment, router, redirectTo])
 
   // Verify the TOTP code (works for both enroll and subsequent logins)
   const handleVerify = async (e: React.FormEvent) => {
@@ -125,7 +125,10 @@ export default function MfaClient() {
   }
 
   useEffect(() => {
-    checkMfaStatus()
+    const init = async () => {
+      await checkMfaStatus()
+    }
+    init()
   }, [checkMfaStatus])
 
   if (step === 'loading') {

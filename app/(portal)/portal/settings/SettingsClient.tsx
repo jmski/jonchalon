@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
@@ -41,7 +41,7 @@ function formatDate(iso: string | null) {
 
 export default function SettingsClient({ userEmail, profile }: SettingsClientProps) {
   const router = useRouter()
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   return (
     <div className="portal-settings">
@@ -256,7 +256,7 @@ function SecuritySection({ supabase }: { supabase: ReturnType<typeof createClien
   const [code, setCode] = useState('')
   const [verifying, setVerifying] = useState(false)
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     const [factorsRes, aalRes] = await Promise.all([
       supabase.auth.mfa.listFactors(),
       supabase.auth.mfa.getAuthenticatorAssuranceLevel(),
@@ -264,12 +264,14 @@ function SecuritySection({ supabase }: { supabase: ReturnType<typeof createClien
     const totp = factorsRes.data?.totp ?? []
     setFactors(totp as MfaFactor[])
     setAal((aalRes.data?.currentLevel as 'aal1' | 'aal2' | null) ?? null)
-  }
+  }, [supabase])
 
   useEffect(() => {
-    refresh()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const init = async () => {
+      await refresh()
+    }
+    init()
+  }, [refresh])
 
   const verifiedFactor = factors?.find((f) => f.status === 'verified')
 
