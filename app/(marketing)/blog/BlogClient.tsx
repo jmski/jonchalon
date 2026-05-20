@@ -14,21 +14,25 @@ interface BlogPost {
   title: string
   slug: { current: string }
   excerpt?: string
-  pillar?: string
+  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys'
   readingTime?: number
   publishedAt?: string
   featured?: boolean
   coverImage?: { asset?: { url?: string }; alt?: string }
 }
 
-const FILTERS = [
-  { id: 'all', label: 'All' },
-  { id: 'movement-body', label: 'Movement' },
-  { id: 'presence-confidence', label: 'Presence' },
-  { id: 'leadership-career', label: 'Leadership' },
+const MAIN_PILLS = [
+  { value: 'body', label: 'Movement & Body' },
+  { value: 'presence', label: 'Presence & Confidence' },
+  { value: 'work', label: 'Leadership & Career' },
+  { value: 'lab', label: 'The Lab' },
 ] as const
 
-type FilterId = (typeof FILTERS)[number]['id']
+const IKI_GUYS_PILL = { value: 'iki-guys', label: 'Iki-Guys' } as const
+
+const CATEGORY_PILLS = [...MAIN_PILLS, IKI_GUYS_PILL] as const
+
+type FilterId = 'all' | (typeof CATEGORY_PILLS)[number]['value']
 
 interface BlogClientProps {
   posts: BlogPost[]
@@ -36,7 +40,7 @@ interface BlogClientProps {
   newsletter?: NewsletterCapture | null
   newsletterSuccess?: string
   emptyState?: { headline: string; body: string } | null
-  initialPillar?: string | null
+  initialCategory?: string | null
   seriesBanner?: ReactNode
 }
 
@@ -46,13 +50,13 @@ export function BlogClient({
   newsletter,
   newsletterSuccess,
   emptyState,
-  initialPillar,
+  initialCategory,
   seriesBanner,
 }: BlogClientProps) {
   const [search, setSearch] = useState('')
   const [activeFilter, setActiveFilter] = useState<FilterId>(() => {
-    if (initialPillar && FILTERS.some((f) => f.id === initialPillar)) {
-      return initialPillar as FilterId
+    if (initialCategory && CATEGORY_PILLS.some((f) => f.value === initialCategory)) {
+      return initialCategory as FilterId
     }
     return 'all'
   })
@@ -62,7 +66,7 @@ export function BlogClient({
   const filtered = useMemo(() => {
     let result = posts
     if (activeFilter !== 'all') {
-      result = result.filter((p) => p.pillar === activeFilter)
+      result = result.filter((p) => p.category === activeFilter)
     }
     if (search.trim()) {
       const q = search.trim().toLowerCase()
@@ -70,7 +74,7 @@ export function BlogClient({
         (p) =>
           p.title.toLowerCase().includes(q) ||
           p.excerpt?.toLowerCase().includes(q) ||
-          p.pillar?.toLowerCase().includes(q),
+          p.category?.toLowerCase().includes(q),
       )
     }
     return result
@@ -135,17 +139,37 @@ export function BlogClient({
               role="tablist"
               aria-label="Filter articles by category"
             >
-              {FILTERS.map((f) => (
+              <button
+                role="tab"
+                aria-selected="true"
+                className={`blog-filter-tab${activeFilter === 'all' ? ' active' : ''}`}
+                onClick={() => setActiveFilter('all')}
+              >
+                All
+              </button>
+
+              {MAIN_PILLS.map((f) => (
                 <button
-                  key={f.id}
+                  key={f.value}
                   role="tab"
-                  aria-selected={activeFilter === f.id}
-                  className={`blog-filter-tab${activeFilter === f.id ? ' active' : ''}`}
-                  onClick={() => setActiveFilter(f.id)}
+                  aria-selected={activeFilter === f.value ? 'true' : undefined}
+                  className={`blog-filter-tab${activeFilter === f.value ? ' active' : ''}`}
+                  onClick={() => setActiveFilter(f.value)}
                 >
                   {f.label}
                 </button>
               ))}
+
+              <span className="ml-3">
+                <button
+                  role="tab"
+                  aria-selected={activeFilter === IKI_GUYS_PILL.value ? 'true' : undefined}
+                  className={`blog-filter-tab${activeFilter === IKI_GUYS_PILL.value ? ' active' : ''}`}
+                  onClick={() => setActiveFilter(IKI_GUYS_PILL.value)}
+                >
+                  {IKI_GUYS_PILL.label}
+                </button>
+              </span>
             </div>
           </div>
         </SectionContent>
@@ -175,7 +199,9 @@ export function BlogClient({
                 <div className="blog-posts-section-header">
                   <h2 className="blog-posts-section-title">
                     {filtered.length} {filtered.length === 1 ? 'Article' : 'Articles'}
-                    {activeFilter !== 'all' ? ` — ${FILTERS.find((f) => f.id === activeFilter)?.label}` : ''}
+                    {activeFilter !== 'all'
+                      ? ` — ${CATEGORY_PILLS.find((f) => f.value === activeFilter)?.label}`
+                      : ''}
                   </h2>
                 </div>
                 <ScrollStagger>

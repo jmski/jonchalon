@@ -226,6 +226,42 @@ export default defineType({
       description: 'The module this lesson belongs to.',
     }),
     defineField({
+      name: 'stage',
+      title: 'Stage',
+      type: 'reference',
+      to: [{ type: 'stage' }],
+      description:
+        'Which Foundation stage this lesson belongs to: The Climb, The Vantage, or The Leap. Independent of the curriculum-chapter "module" field above — a lesson has both a chapter and a stage. Required for all lessons in the Foundation curriculum.',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'gap',
+      title: 'Ikigai Gap',
+      type: 'string',
+      description:
+        'Which ikigai gap this lesson addresses. Only The Leap has four conditional lessons mapped to specific gaps (mission, passion, vocation, profession). Every other lesson — including all Climb and Vantage lessons, and the non-conditional Leap lessons — uses "none".',
+      options: {
+        list: [
+          { title: 'Mission', value: 'mission' },
+          { title: 'Passion', value: 'passion' },
+          { title: 'Vocation', value: 'vocation' },
+          { title: 'Profession', value: 'profession' },
+          { title: 'None (default)', value: 'none' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'none',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'positionInStage',
+      title: 'Position in Stage',
+      type: 'number',
+      description:
+        'Position within the stage. Climb: 1–7. Vantage: 1–10. Leap: 1–11. Numbering restarts within each stage. Independent of the existing "order" field, which orders lessons within a curriculum chapter.',
+      validation: (Rule) => Rule.required().integer().positive(),
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
@@ -246,4 +282,14 @@ export default defineType({
       }
     },
   },
+  orderings: [
+    {
+      title: 'Stage, then Position',
+      name: 'stagePositionAsc',
+      by: [
+        { field: 'stage.orderRank', direction: 'asc' },
+        { field: 'positionInStage', direction: 'asc' },
+      ],
+    },
+  ],
 })

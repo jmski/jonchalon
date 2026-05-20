@@ -441,6 +441,10 @@ Working documents, plans, audits, diagnostics, and handoff notes. These files su
 |---|---|
 | `*.md` | Active plans, workstream summaries, migration scripts, audits, diagnostics, and design-process notes |
 
+### Obsidian Knowledge Vault (`jonchalant-knowledge/`)
+
+The repository includes a scaffolded Obsidian vault folder at `jonchalant-knowledge/` (curriculum, book, podcast, lab, blog, newsletter, daily-notes, inbox, attachments). `design-work/` and `design-system/` at the repo root remain canonical and should be surfaced inside the vault via links/junctions to avoid duplicate-copy drift. Setup and operating instructions live in `design-work/obsidian-setup-guide.md`.
+
 ---
 
 ## Key Files
@@ -481,6 +485,8 @@ Schemas live in `sanity/schemas/` and are registered in `sanity/schemas/index.ts
 - **Shared singletons** (`sanity/schemas/documents/shared/`): `siteConfig`, `auditCta`, `newsletterCapture`, `starterGuideCapture`, `pillarSet`, `fourCirclesSet`
 - **Content list documents** (`sanity/schemas/`): `blogPost`, `caseStudy`, `testimonial`, `course`, `courseLesson`, `module`, `lesson`
 - **Object types** (`sanity/schemas/objects/`): inline composition primitives used by the documents above
+
+module schema = curriculum chapter within a course (internal structural taxonomy). standaloneModule schema = purchasable product (Climb $500, Vantage $750). Public copy refers to both as "modules"; the internal schema names diverge to avoid collision.
 
 All data fetching lives in `lib/sanity.ts`. The current naming conventions are:
 

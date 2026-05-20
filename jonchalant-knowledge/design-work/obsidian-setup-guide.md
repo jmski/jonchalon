@@ -43,35 +43,17 @@ jonchalant-knowledge/
 
 Don't create files yet, just the folders.
 
-**Then make `design-work/` and `design-system/` visible in the vault without duplicating files.**
+**Then copy your existing docs in:**
+- Copy `design-work/` folder from your code repo into `jonchalant-knowledge/design-work/`
+- Copy `design-system/` folder from your code repo into `jonchalant-knowledge/design-system/`
 
-Use links so there is one source of truth in the repo root and no copy drift.
+Two ways to handle the design-work/design-system sync:
 
-### Recommended (Windows): directory junctions
+**Option A — Manual copy (simpler).** Periodically (weekly) copy updated docs back from your knowledge folder to your code repo. Or vice versa, depending on which you edited.
 
-1. Delete `jonchalant-knowledge/design-work/` and `jonchalant-knowledge/design-system/` if they are physical copies.
-2. From the repo root in Command Prompt, run:
+**Option B — Symlink (more advanced).** Create symbolic links so the same files appear in both places. Edit in one, change reflects in both. Faster but requires comfort with terminal.
 
-```bat
-mklink /J jonchalant-knowledge\design-work design-work
-mklink /J jonchalant-knowledge\design-system design-system
-```
-
-Now edits in either path update the same files.
-
-**Alternative: symlink (`mklink /D`)** if you prefer symbolic links and your machine policy permits them.
-
-**Fallback: manual copy** only if linking is not possible. If you use manual copy, pick one canonical location and sync on a fixed cadence.
-
-### If you ever decide to move canonical folders into `jonchalant-knowledge/`
-
-Do this only if you are intentionally changing repository conventions. Before deleting root `design-work/` or root `design-system/`, update all references in:
-
-- `CLAUDE.md`
-- `design-work/obsidian-setup-guide.md`
-- any scripts and docs that reference root paths
-
-Then run lint/build to confirm no breakage.
+**Recommend Option A to start.** Get the system working, then optimize sync later if it becomes annoying.
 
 ---
 
@@ -79,7 +61,7 @@ Then run lint/build to confirm no breakage.
 
 In Obsidian's startup screen, click *"Open folder as vault"* and select your `jonchalant-knowledge` folder.
 
-Obsidian will index it. The left sidebar shows all your folders and files. If you used junctions/symlinks, `design-work/` and `design-system/` appear in the vault and still map to the repo root locations.
+Obsidian will index it. The left sidebar shows all your folders and files. Right now they're empty except for `design-work/` and `design-system/` (which have content you just copied in).
 
 ---
 
@@ -418,8 +400,8 @@ The system only works if you use it. The discipline is small:
 
 If $4/mo bothers you, alternatives exist (iCloud Drive, Dropbox), but Obsidian Sync is purpose-built and reliable. Worth it.
 
-1. Open Obsidian on phone → it shows today's daily note (or HOME)
-2. When an idea hits during the day: open Obsidian → today's daily note → type → done
+3. Open Obsidian on phone → it shows today's daily note (or HOME)
+4. When an idea hits during the day: open Obsidian → today's daily note → type → done
 
 **Weekly Sunday review (30 min):**
 1. Open Obsidian on laptop
@@ -462,7 +444,7 @@ A few things to set up so your knowledge isn't fragile:
 
 If you do git, add a `.gitignore` to exclude Obsidian's internal cache:
 
-```gitignore
+```
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .trash/

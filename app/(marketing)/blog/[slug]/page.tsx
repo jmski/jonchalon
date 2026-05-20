@@ -18,7 +18,7 @@ interface BlogPostDocument {
   slug: { current: string };
   excerpt?: string;
   metaDescription?: string;
-  pillar: string;
+  category: string;
   content: PortableTextBlock[];
   readingTime?: number;
   publishedAt?: string;
@@ -43,7 +43,7 @@ async function getBlogPost(slug: string): Promise<BlogPostDocument | null> {
     slug,
     excerpt,
     metaDescription,
-    pillar,
+    category,
     content,
     readingTime,
     publishedAt,
@@ -61,19 +61,22 @@ async function getBlogPost(slug: string): Promise<BlogPostDocument | null> {
   }
 }
 
-async function getRelatedPosts(pillar: string, currentSlug: string): Promise<BlogPostDocument[]> {
-  const query = `*[_type == "blogPost" && pillar == $pillar && slug.current != $currentSlug][0...3] | order(publishedAt desc) {
+async function getRelatedPosts(
+  category: string,
+  currentSlug: string
+): Promise<BlogPostDocument[]> {
+  const query = `*[_type == "blogPost" && category == $category && slug.current != $currentSlug][0...3] | order(publishedAt desc) {
     _id,
     title,
     slug,
     excerpt,
-    pillar,
+    category,
     readingTime,
     publishedAt
   }`;
 
   try {
-    const posts = await client.fetch(query, { pillar, currentSlug });
+    const posts = await client.fetch(query, { category, currentSlug });
     return posts || [];
   } catch (error) {
     console.error('Error fetching related posts:', error);
@@ -115,7 +118,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description,
-    keywords: [post.pillar, 'executive presence', 'leadership coaching', 'introvert leadership', 'confidence'].join(', '),
+    keywords: [post.category, 'executive presence', 'leadership coaching', 'introvert leadership', 'confidence'].join(', '),
     authors: [{ name: 'Jon', url: 'https://jonchalant.com/about' }],
     alternates: {
       canonical: `https://jonchalant.com/blog/${post.slug.current}`,
@@ -155,7 +158,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const relatedPosts = await getRelatedPosts(post.pillar, slug);
+  const relatedPosts = await getRelatedPosts(post.category, slug);
   const headings = extractHeadings(post.content ?? []);
 
   const publishDate = post.publishedAt
@@ -220,7 +223,7 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Article Header */}
           <header className="blog-article-header">
             <div className="blog-meta">
-              <span className="blog-pillar-badge">{post.pillar}</span>
+              <span className="blog-pillar-badge">{post.category}</span>
 
               {post.readingTime && (
                 <span className="blog-meta-text blog-meta-readtime">

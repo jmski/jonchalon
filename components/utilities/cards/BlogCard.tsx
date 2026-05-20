@@ -7,21 +7,25 @@ interface BlogCardProps {
   slug: { current: string } | string;
   excerpt?: string;
   publishedAt?: string;
-  pillar?: string;
+  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys';
   readingTime?: number;
   coverImage?: { asset?: { url?: string }; alt?: string };
   variant?: 'default' | 'featured' | 'list';
   showLink?: boolean;
 }
 
-function getBlogPlaceholderSymbol(pillar?: string): string {
-  switch (pillar) {
-    case 'movement-body':
+function getBlogPlaceholderSymbol(category?: BlogCardProps['category']): string {
+  switch (category) {
+    case 'body':
       return '◇';
-    case 'presence-confidence':
+    case 'presence':
       return '○';
-    case 'leadership-career':
+    case 'work':
       return '◈';
+    case 'lab':
+      return '⊙';
+    case 'iki-guys':
+      return '◎';
     default:
       return '⊙';
   }
@@ -32,7 +36,7 @@ export function BlogCard({
   slug,
   excerpt,
   publishedAt,
-  pillar,
+  category,
   readingTime,
   coverImage,
   variant = 'default',
@@ -40,7 +44,7 @@ export function BlogCard({
 }: BlogCardProps) {
   const slugValue = typeof slug === 'string' ? slug : slug.current;
   const href = `/blog/${slugValue}`;
-  const isLab = pillar === 'the-lab';
+  const isLab = category === 'lab';
 
   if (variant === 'featured') {
     return (
@@ -61,8 +65,8 @@ export function BlogCard({
               <div className="blog-featured-card-cover blog-featured-card-cover-placeholder" aria-hidden="true" />
             )}
             <div className="blog-featured-card-header">
-              {pillar && (
-                <span className="blog-featured-card-pillar">{pillar}</span>
+              {category && (
+                <span className="blog-featured-card-pillar">{category}</span>
               )}
               {readingTime && (
                 <span className="blog-featured-card-readtime">
@@ -92,8 +96,8 @@ export function BlogCard({
         <TextLink href={href} className="blog-list-card-content">
           <div className="blog-list-card-body">
             <div className="blog-list-card-meta">
-              {pillar && (
-                <span className="blog-list-card-pillar">{pillar}</span>
+              {category && (
+                <span className="blog-list-card-pillar">{category}</span>
               )}
               {readingTime && (
                 <span className="blog-list-card-readtime">
@@ -133,7 +137,7 @@ export function BlogCard({
       ) : (
         <div className="blog-card-cover blog-card-cover-placeholder" aria-hidden="true">
           <span className="blog-card-cover-placeholder-symbol">
-            {getBlogPlaceholderSymbol(pillar)}
+            {getBlogPlaceholderSymbol(category)}
           </span>
         </div>
       )}

@@ -84,6 +84,64 @@ export interface ProgramCard {
   badge?: string
 }
 
+export interface Program {
+  _id: string
+  _type: 'program'
+  title?: string
+  stages?: Array<{ _id: string; title: string; slug: SanitySlug }>
+  foundingPrice?: number
+  standardPrice?: number
+  foundingCohortActive?: boolean
+  sessionPoolTotal?: number
+  topUpSessionPrice?: number
+  topUpPackPrice?: number
+  topUpPackSize?: number
+}
+
+export interface StandaloneModule {
+  _id: string
+  _type: 'standaloneModule'
+  title?: string
+  slug?: SanitySlug
+  stage?: { _id: string; title: string; slug: SanitySlug }
+  price?: number
+  description?: string
+  whatsIncluded?: string[]
+  whatsNotIncluded?: string[]
+  prerequisiteCopy?: string
+  ctaText?: string
+  lifetimeAccess?: boolean
+  order?: number
+}
+
+export interface IkiGuy {
+  _id: string
+  _type: 'ikiGuy'
+  name?: string
+  slug?: SanitySlug
+  medium?: string
+  bio?: string
+  portrait?: SanityImage
+  socialLinks?: Array<{ label: string; url: string }>
+  notesFromJon?: string
+}
+
+export interface PodcastEpisode {
+  _id: string
+  _type: 'podcastEpisode'
+  title?: string
+  slug?: SanitySlug
+  episodeNumber?: number
+  guest?: { _id: string; name: string; slug: SanitySlug; portrait?: SanityImage }
+  recordingDate?: string
+  publishDate?: string
+  audioUrl?: string
+  duration?: number
+  description?: PortableTextBlock[]
+  anchorQuestionExcerpt?: string
+  companionBlogPost?: { _id: string; title: string; slug: SanitySlug }
+}
+
 export interface CourseCard {
   eyebrow?: string
   title: string
@@ -349,6 +407,11 @@ export interface PageLessons {
 
 export interface PageIkigai {
   hero: Hero
+  kineticMoment?: {
+    line?: string
+    anchorWord?: string
+    placementNote?: string
+  }
   fourCirclesHeader: SectionHeader
   fourCirclesSet: FourCirclesSet
   quizBridge: { line: string }
@@ -424,7 +487,6 @@ export interface Course {
   philosophy?: string
   targetAudience?: string
   totalEstimatedHours?: number
-  contentPillars?: ContentPillar[]
   lessonStructure?: LessonStructureStep[]
   thumbnail?: SanityImage
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced'
@@ -473,6 +535,9 @@ export interface Lesson {
   title: string
   slug: SanitySlug
   lessonNumber?: string
+  stage?: { _id: string; title: string; slug: SanitySlug }
+  gap?: 'mission' | 'passion' | 'vocation' | 'profession' | 'none'
+  positionInStage?: number
   access: 'free' | 'enrolled'
   description?: string
   format?: string
@@ -494,8 +559,8 @@ export interface BlogPost {
   title: string
   slug: SanitySlug
   publishedAt: string
-  pillar?: string
-  category?: string
+  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys'
+  podcastEpisode?: { _id: string; title: string; slug: SanitySlug; episodeNumber?: number }
   readTime?: number
   excerpt?: string
   coverImage?: SanityImage

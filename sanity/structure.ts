@@ -14,12 +14,13 @@ const singleton = (
   S: StructureBuilder,
   schemaType: string,
   title: string,
+  documentId: string = schemaType,
 ) =>
   S.listItem()
     .id(schemaType)
     .title(title)
     .schemaType(schemaType)
-    .child(S.document().schemaType(schemaType).documentId(schemaType))
+    .child(S.document().schemaType(schemaType).documentId(documentId))
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -60,6 +61,28 @@ export const structure: StructureResolver = (S) =>
             ]),
         ),
 
+      S.listItem()
+        .title('Foundation')
+        .child(
+          S.list()
+            .title('Foundation')
+            .items([
+              singleton(S, 'program', 'Program Config', 'program'),
+              S.documentTypeListItem('standaloneModule').title('Standalone Modules'),
+              S.listItem()
+                .title('Stages')
+                .child(
+                  S.list()
+                    .title('Stages')
+                    .items([
+                      singleton(S, 'stage', 'The Climb', 'climb'),
+                      singleton(S, 'stage', 'The Vantage', 'vantage'),
+                      singleton(S, 'stage', 'The Leap', 'leap'),
+                    ]),
+                ),
+            ]),
+        ),
+
       S.divider(),
 
       // ── Listed types ───────────────────────────────────────────────────────
@@ -87,4 +110,18 @@ export const structure: StructureResolver = (S) =>
 
       S.documentTypeListItem('caseStudy').title('Case studies'),
       S.documentTypeListItem('testimonial').title('Testimonials'),
+
+      S.divider(),
+
+      // ── Podcast ────────────────────────────────────────────────────────────
+      S.listItem()
+        .title('Podcast')
+        .child(
+          S.list()
+            .title('Podcast')
+            .items([
+              S.documentTypeListItem('ikiGuy').title('Iki-Guys'),
+              S.documentTypeListItem('podcastEpisode').title('Episodes'),
+            ]),
+        ),
     ])

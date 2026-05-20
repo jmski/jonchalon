@@ -14,6 +14,15 @@
  *   npm run build:design-system
  */
 
+// WARNING: HISTORICAL — DO NOT RUN
+//
+// This script builds design-system artifacts that still reference pillar-era
+// content, including the pillar grid and related legacy naming. It is retained
+// as a historical record and should not be treated as an active migration or
+// seeding step.
+//
+// Kept in the repo for historical reference only.
+
 import { readFileSync, writeFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'

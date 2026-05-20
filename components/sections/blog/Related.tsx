@@ -5,7 +5,7 @@ interface BlogPost {
   title: string;
   slug: { current: string };
   excerpt?: string;
-  pillar: string;
+  category: string;
   readingTime?: number;
   publishedAt?: string;
 }
@@ -30,7 +30,7 @@ export function Related({ posts }: RelatedProps) {
             className="blog-related-card"
           >
             <span className="blog-related-card-pillar">
-              {post.pillar}
+              {post.category}
             </span>
             <h3 className="blog-related-card-title">
               {post.title}

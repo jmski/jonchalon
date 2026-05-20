@@ -3,6 +3,7 @@ import link from './link'
 import hero from './hero'
 import sectionHeader from './sectionHeader'
 import ctaBlock from './ctaBlock'
+import kineticMoment from './kineticMoment'
 import pillarCard from './pillarCard'
 import programCard from './programCard'
 import courseCard from './courseCard'
@@ -26,6 +27,7 @@ export const objectTypes = [
   hero,
   sectionHeader,
   ctaBlock,
+  kineticMoment,
   pillarCard,
   programCard,
   courseCard,
