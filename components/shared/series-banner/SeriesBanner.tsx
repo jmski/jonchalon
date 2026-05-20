@@ -4,6 +4,13 @@ interface SeriesBannerProps {
   featuredSeries?: FeaturedSeries | null
 }
 
+const SERIES_SLUG_TO_CATEGORY: Record<string, 'body' | 'presence' | 'work' | 'lab' | 'iki-guys'> = {
+  'movement-body': 'body',
+  'presence-confidence': 'presence',
+  'leadership-career': 'work',
+  'the-lab': 'lab',
+}
+
 export function SeriesBanner({ featuredSeries }: SeriesBannerProps) {
   if (!featuredSeries?.seriesBannerEnabled) return null
 
@@ -28,7 +35,7 @@ export function SeriesBanner({ featuredSeries }: SeriesBannerProps) {
           <p className="series-banner-phase">Currently: {seriesCurrentPhase}</p>
         )}
         {seriesCtaLabel && seriesSlug && (
-          <a href={`/blog?pillar=${seriesSlug}`} className="series-banner-cta">
+          <a href={`/blog?category=${SERIES_SLUG_TO_CATEGORY[seriesSlug] ?? seriesSlug}`} className="series-banner-cta">
             {seriesCtaLabel}
           </a>
         )}

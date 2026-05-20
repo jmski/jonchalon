@@ -43,11 +43,18 @@ interface BlogPost {
   slug: { current: string }
   excerpt?: string
   metaDescription?: string
-  pillar?: string
+  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys'
   readingTime?: number
   publishedAt?: string
   featured?: boolean
   coverImage?: { asset?: { url?: string }; alt?: string }
+}
+
+const LEGACY_PILLAR_TO_CATEGORY: Record<string, 'body' | 'presence' | 'work' | 'lab'> = {
+  'movement-body': 'body',
+  'presence-confidence': 'presence',
+  'leadership-career': 'work',
+  'the-lab': 'lab',
 }
 
 async function getBlogPosts(): Promise<BlogPost[]> {
@@ -57,7 +64,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
     slug,
     excerpt,
     metaDescription,
-    pillar,
+    category,
     readingTime,
     publishedAt,
     featured,
@@ -76,14 +83,17 @@ async function getBlogPosts(): Promise<BlogPost[]> {
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ pillar?: string }>
+  searchParams: Promise<{ pillar?: string; category?: string }>
 }) {
-  const [posts, pageBlog, siteConfig, { pillar: initialPillar }] = await Promise.all([
+  const [posts, pageBlog, siteConfig, params] = await Promise.all([
     getBlogPosts(),
     getPageBlog().catch(() => null) as Promise<PageBlog | null>,
     getSiteConfig().catch(() => null) as Promise<SiteConfig | null>,
     searchParams,
   ])
+
+  const legacyCategory = params.pillar ? LEGACY_PILLAR_TO_CATEGORY[params.pillar] : undefined
+  const initialCategory = params.category ?? legacyCategory ?? null
 
   const newsletterSuccess = siteConfig?.successStates?.find((s) => s.key === 'newsletter')?.message
 
@@ -96,7 +106,7 @@ export default async function BlogPage({
           newsletter={pageBlog?.newsletter ?? null}
           newsletterSuccess={newsletterSuccess}
           emptyState={pageBlog?.emptyState ?? null}
-          initialPillar={initialPillar ?? null}
+          initialCategory={initialCategory}
           seriesBanner={<SeriesBanner featuredSeries={pageBlog?.featuredSeries} />}
         />
 

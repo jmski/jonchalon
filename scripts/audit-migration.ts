@@ -12,6 +12,15 @@
  * Usage: npx tsx scripts/audit-migration.ts
  */
 
+// WARNING: HISTORICAL — DO NOT RUN
+//
+// This script audits the canonical migration content against the older
+// pillar-era schema/migration mapping, including pillarSet references.
+// Running it now is only useful as a historical record; it does not match the
+// current schema direction and should not be used as an active migration tool.
+//
+// Kept in the repo for historical reference only.
+
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 

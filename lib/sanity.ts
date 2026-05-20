@@ -307,6 +307,7 @@ export async function getRecentBlogPosts(count = 3) {
     title,
     slug,
     excerpt,
+    category,
     publishedAt,
     coverImage { asset->{ url }, alt }
   }`

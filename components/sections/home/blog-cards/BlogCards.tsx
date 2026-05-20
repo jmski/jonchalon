@@ -6,6 +6,7 @@ interface BlogPost {
   title: string;
   slug?: string;
   excerpt?: string;
+  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys';
   publishedAt?: string;
   coverImage?: { asset?: { url?: string }; alt?: string };
 }
@@ -30,6 +31,7 @@ export function BlogCards({ posts, heading, description }: BlogCardsProps) {
               slug={post.slug}
               excerpt={post.excerpt}
               publishedAt={post.publishedAt}
+              category={post.category}
               coverImage={post.coverImage}
               variant={index === 0 ? 'featured' : 'default'}
             />

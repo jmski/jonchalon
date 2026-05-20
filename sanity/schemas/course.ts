@@ -62,24 +62,6 @@ export default defineType({
       description: 'Approximate total content hours (e.g., 213)',
     }),
     defineField({
-      name: 'contentPillars',
-      title: 'Content Emphasis Pillars',
-      type: 'array',
-      description: 'Core themes woven throughout every module',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({ name: 'name', title: 'Pillar Name', type: 'string' }),
-            defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
-          ],
-          preview: {
-            select: { title: 'name' },
-          },
-        },
-      ],
-    }),
-    defineField({
       name: 'lessonStructure',
       title: 'Standard Lesson Structure',
       type: 'array',

@@ -24,18 +24,30 @@ export default defineType({
       validation: (Rule: SlugRule) => Rule.required(),
     }),
     defineField({
-      name: 'pillar',
-      title: 'Pillar/Keyword',
+      name: 'category',
+      title: 'Category',
       type: 'string',
-      description: 'Primary keyword/pillar this post targets',
+      description:
+        'Blog category. Determines which filter pill the post appears under on The Archives. Iki-Guys is reserved for posts that are companion writing to podcast episodes or otherwise guest-focused.',
       options: {
         list: [
-      { title: 'Movement & Body', value: 'movement-body' },
-      { title: 'Presence & Confidence', value: 'presence-confidence' },
-      { title: 'Leadership & Career', value: 'leadership-career' },
-      { title: 'The Lab', value: 'the-lab' },
+          { title: 'Movement & Body', value: 'body' },
+          { title: 'Presence & Confidence', value: 'presence' },
+          { title: 'Leadership & Career', value: 'work' },
+          { title: 'The Lab', value: 'lab' },
+          { title: 'Iki-Guys', value: 'iki-guys' },
         ],
+        layout: 'radio',
       },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'podcastEpisode',
+      title: 'Companion Podcast Episode',
+      type: 'reference',
+      to: [{ type: 'podcastEpisode' }],
+      description:
+        'Optional. If this post accompanies a podcast episode, reference the episode here. Used to render an episode card or "Listen to the conversation" link on the post page, and to surface the post on the episode page. Most posts will not have this — only those written as companion writing to a specific episode.',
     }),
     defineField({
       name: 'metaDescription',

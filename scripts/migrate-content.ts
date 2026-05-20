@@ -8,6 +8,18 @@
  *   npx tsx scripts/migrate-content.ts --apply [--only=<docType>]
  */
 
+// WARNING: HISTORICAL — DO NOT RUN
+//
+// This script seeds pillar-era content (pillarSet, pillarCard, contentPillars)
+// that has been partially retired and is scheduled for full retirement in a
+// future workstream. Running this script will write stale-shape content and
+// references.
+//
+// If you need to seed new content, write a new script targeting the current
+// schema (program, stage, standaloneModule, ikiGuy, podcastEpisode, etc.).
+//
+// Kept in the repo for historical reference only.
+
 import { createClient, type SanityClient } from '@sanity/client'
 import * as fs from 'node:fs'
 import * as path from 'node:path'

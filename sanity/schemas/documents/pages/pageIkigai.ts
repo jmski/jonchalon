@@ -18,6 +18,15 @@ export default defineType({
     defineField({ name: 'hero', title: 'Hero', type: 'hero', fieldset: 'hero' }),
 
     defineField({
+      name: 'kineticMoment',
+      title: 'Kinetic Moment (§1.5)',
+      type: 'kineticMoment',
+      fieldset: 'hero',
+      description:
+        'Single-line statement between the hero (§1) and the four-circle cards (§2). Use the {{double-braces}} convention to mark the italic anchor word. Current canonical line: "The view from the top is just the {{start}}." with anchor "start".',
+    }),
+
+    defineField({
       name: 'fourCirclesHeader',
       title: 'Section header',
       type: 'sectionHeader',
