@@ -2,8 +2,7 @@
 // lib/types.ts — Central type definitions for the jonchalant codebase
 //
 // Single source of truth for all shared interfaces across pages, components,
-// and utility functions. Page/singleton types match the GROQ projections in
-// lib/sanity.ts.
+// and utility functions.
 //
 // Retirement note (2026-08-19): the coaching business was retired. Types for
 // the program ladder (Program, StandaloneModule, PillarCard/PillarSet,
@@ -16,30 +15,7 @@
 // singleton were removed alongside their schemas and consumers.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// ── Sanity primitives ─────────────────────────────────────────────────────────
-
-export interface SanitySlug { current: string }
-
-export interface SanityImageAsset {
-  _id: string
-  url: string
-  metadata?: {
-    dimensions?: {
-      width: number
-      height: number
-    }
-    lqip?: string
-  }
-}
-
-export interface SanityImage {
-  asset: SanityImageAsset
-  hotspot?: { x: number; y: number; width: number; height: number }
-  crop?: { top: number; bottom: number; left: number; right: number }
-  alt?: string
-}
-
-// ── Shared object types (sanity/schemas/objects/*) ────────────────────────────
+// ── Shared object types ────────────────────────────────────────────────────────
 
 export interface Cta {
   label: string
@@ -122,24 +98,4 @@ export interface SiteConfig {
   privacyLink: Cta
   socialLinks?: SocialLink[]
   successStates: SuccessState[]
-}
-
-// ── Page singletons ───────────────────────────────────────────────────────────
-
-export interface PageBlog {
-  hero: Hero
-  newsletter: NewsletterCapture
-  emptyState: { headline: string; body: string }
-}
-
-// ── Blog ─────────────────────────────────────────────────────────────────────
-
-export interface BlogPost {
-  _id: string
-  title: string
-  slug: SanitySlug
-  publishedAt: string
-  readTime?: number
-  excerpt?: string
-  coverImage?: SanityImage
 }

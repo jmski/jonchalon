@@ -20,7 +20,6 @@
 # production
 /build
 /dist
-/sanity/dist
 
 # perf reports & local tooling
 /perf-reports

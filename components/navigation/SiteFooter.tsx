@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BlogOptIn } from '@/components/forms/BlogOptIn';
-import { FOOTER_NAV, FALLBACK_SOCIAL } from '@/lib/footerData';
+import { FOOTER_NAV, FALLBACK_SOCIAL, CONTACT_EMAIL } from '@/lib/footerData';
 import type { NewsletterCapture, SiteConfig, SocialLink } from '@/lib/types';
 
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {
@@ -43,6 +43,8 @@ export function SiteFooter({ siteConfig, newsletter }: SiteFooterProps) {
 
   const displaySocial = [linkedIn, instagram];
 
+  const contactEmail = siteConfig?.contactEmail ?? CONTACT_EMAIL;
+
   const newsletterSuccess = siteConfig?.successStates?.find((s) => s.key === 'newsletter')?.message;
 
   return (
@@ -75,11 +77,9 @@ export function SiteFooter({ siteConfig, newsletter }: SiteFooterProps) {
                 </a>
               ))}
             </div>
-            {siteConfig?.contactEmail && (
-              <p className="jc-footer-contact">
-                <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
-              </p>
-            )}
+            <p className="jc-footer-contact">
+              <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+            </p>
           </div>
 
           {FOOTER_NAV.map((section) => (

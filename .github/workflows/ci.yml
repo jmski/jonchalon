@@ -28,12 +28,7 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Build
-        env:
-          # Stub values — only the schema's required fields. Optional integrations
-          # (Sentry, GA, Stripe, Resend, Anthropic) intentionally omitted so the
-          # build path that gracefully degrades is exercised.
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ci-stub
-          NEXT_PUBLIC_SANITY_DATASET: production
-          NEXT_PUBLIC_SUPABASE_URL: https://ci-stub.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-stub-key
+        # No env vars required — all upstream integrations (Sentry, GA, Kit)
+        # are optional and the build path that gracefully degrades without
+        # them is what CI exercises.
         run: npm run build

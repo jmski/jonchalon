@@ -1,6 +1,3 @@
-// ─────────────── BLOG SECTIONS ────────────────
-export { Featured as BlogFeatured, Posts as BlogPosts, Related as BlogRelated } from '@/components/sections/blog';
-
 // ─────────────── SHARED SECTIONS (Reusable across pages) ────────────────
 export { KineticMoment } from '@/components/shared/kinetic-moment';
 
@@ -13,5 +10,4 @@ export { Carousel } from '@/components/shared/carousel';
 
 // ─────────────── SHARED UTILITY COMPONENTS ────────────────
 export { Badge } from '@/components/utilities/badges';
-export { BlogCard } from '@/components/utilities/cards';
 export { StatsGrid, CardGrid } from '@/components/utilities/grids';

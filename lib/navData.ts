@@ -20,13 +20,11 @@ export interface MobileNavLink extends NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ]
 
 export const MOBILE_LINKS: MobileNavLink[] = [
-  { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ]

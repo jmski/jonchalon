@@ -33,7 +33,6 @@
    styled. The system files above are the preserved design system and are
    untouched. */
 @import "./css/pages-forms.css" layer(components);
-@import "./css/pages-blog.css" layer(components);
 @import "./css/pages-contact.css" layer(components);
 
 /* Utility Classes & Patterns */

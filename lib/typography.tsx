@@ -3,10 +3,10 @@ import { AnchorWord } from '@/components/typography/AnchorWord';
 
 /**
  * Splits a string and wraps any matching anchor words in <AnchorWord>.
- * This is a presentational-only helper — it does not modify Sanity content,
- * only the rendered output.
+ * This is a presentational-only helper — it does not modify the source
+ * content, only the rendered output.
  *
- * @param text - The source string from Sanity (headline or pull-quote)
+ * @param text - The source string (headline or pull-quote)
  * @param words - Array of words to highlight (case-insensitive match)
  * @returns Array of strings and ReactNodes ready for JSX rendering
  *

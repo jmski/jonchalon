@@ -53,7 +53,6 @@ export default function CTA({
     : [title];
 
   const rightContent = previewItems ? (
-    // TODO: Move previewItems content to Sanity (aboutPage.ctaPreviewItems)
     <div className="cta-preview">
       <span className="cta-preview-label">{previewLabel}</span>
       <ul className="cta-preview-list">

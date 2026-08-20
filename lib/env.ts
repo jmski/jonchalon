@@ -8,10 +8,9 @@
  * allowed to be undefined — features that depend on them must check for
  * presence and degrade gracefully.
  *
- * Retirement note: Supabase, Stripe, Resend, and Anthropic vars were dropped
- * when the coaching portal, checkout, and AI tools were removed. Sanity is the
- * only required upstream now, so a fresh clone needs just the two Sanity vars
- * to build.
+ * Retirement note: Supabase, Stripe, Resend, Anthropic, and Sanity vars were
+ * dropped when the coaching portal, checkout, AI tools, and CMS were removed.
+ * A fresh clone needs no required vars to build.
  */
 import { z } from 'zod'
 
@@ -23,11 +22,6 @@ const optionalUrl = z
   .preprocess((v) => (v === '' ? undefined : v), z.string().url().optional())
 
 const serverSchema = z.object({
-  // Sanity
-  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1, 'NEXT_PUBLIC_SANITY_PROJECT_ID is required'),
-  NEXT_PUBLIC_SANITY_DATASET: z.string().min(1).default('production'),
-  SANITY_API_TOKEN: optionalString,
-
   // Newsletter (Kit / ConvertKit) — /api/subscribe
   KIT_API_KEY: optionalString,
   KIT_FORM_ID: optionalString,
