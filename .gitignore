@@ -60,3 +60,6 @@ next-env.d.ts
 jonchalant-knowledge/.obsidian/workspace.json
 jonchalant-knowledge/.obsidian/workspace-mobile.json
 jonchalant-knowledge/.trash/
+
+# Sanity dataset backup exports (large binaries; keep out of git)
+coaching-archive/sanity/*.tar.gz
