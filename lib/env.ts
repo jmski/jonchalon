@@ -1,12 +1,9 @@
 /**
- * Centralized, zod-validated environment variable schema.
- *
- * Imported at boot from `app/layout.tsx` so a misconfigured deployment fails
- * fast with a readable error instead of a cryptic runtime crash later.
- *
- * Required vars throw immediately. Optional vars (Sentry, GA4) are allowed
- * to be undefined — features that depend on them must check for presence
- * and degrade gracefully.
+ * Zod-validated environment variable schema, imported at boot from
+ * `app/layout.tsx` purely for its validation side effect — a misconfigured
+ * deployment fails fast with a readable error instead of a cryptic runtime
+ * crash later. There are no required vars, so this only fires on a malformed
+ * optional one (e.g. a non-URL SENTRY_DSN).
  *
  * Retirement note: Supabase, Stripe, Resend, Anthropic, Sanity, and Kit vars
  * were dropped when the coaching portal, checkout, AI tools, CMS, and
@@ -36,8 +33,6 @@ const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 })
 
-export type ServerEnv = z.infer<typeof serverSchema>
-
 const parsed = serverSchema.safeParse(process.env)
 
 if (!parsed.success) {
@@ -48,11 +43,3 @@ if (!parsed.success) {
   console.error('\n❌ Invalid environment variables:\n' + issues + '\n')
   throw new Error('Invalid environment variables — see logs above.')
 }
-
-export const env: ServerEnv = parsed.data
-
-/** True when an optional integration is configured. */
-export const flags = {
-  sentry: Boolean(env.SENTRY_DSN || env.NEXT_PUBLIC_SENTRY_DSN),
-  ga4: Boolean(env.NEXT_PUBLIC_GA_ID),
-} as const
