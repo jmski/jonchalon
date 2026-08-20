@@ -10,8 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "sanity:dev": "cd sanity && npm run dev",
-    "sanity:deploy": "cd sanity && npm run deploy",
-    "build:design-system": "npx tsx scripts/build-design-system.ts"
+    "sanity:deploy": "cd sanity && npm run deploy"
   },
   "dependencies": {
     "@sanity/client": "^7.17.0",
