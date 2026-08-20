@@ -55,11 +55,3 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
-
-# Obsidian vault runtime files
-jonchalant-knowledge/.obsidian/workspace.json
-jonchalant-knowledge/.obsidian/workspace-mobile.json
-jonchalant-knowledge/.trash/
-
-# Sanity dataset backup exports (large binaries; keep out of git)
-coaching-archive/sanity/*.tar.gz
