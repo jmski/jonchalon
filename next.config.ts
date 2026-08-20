@@ -3,16 +3,6 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  async redirects() {
-    return [
-      {
-        // Catch malformed URL missing the slash: /portal-thefoundation → /portal/the-foundation
-        source: '/portal-thefoundation',
-        destination: '/portal/the-foundation',
-        permanent: false,
-      },
-    ]
-  },
   turbopack: {
     root: __dirname,
   },
