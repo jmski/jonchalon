@@ -21,7 +21,6 @@ const DEFAULT_SAFE_CONSUMERS = [
   'CTA',
   'SectionHeader',
   'KineticHeading',
-  'BlogOptIn',
 ];
 
 /** @type {import('eslint').Rule.RuleModule} */

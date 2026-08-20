@@ -4,13 +4,14 @@
  * Imported at boot from `app/layout.tsx` so a misconfigured deployment fails
  * fast with a readable error instead of a cryptic runtime crash later.
  *
- * Required vars throw immediately. Optional vars (Sentry, GA4, KIT) are
- * allowed to be undefined — features that depend on them must check for
- * presence and degrade gracefully.
+ * Required vars throw immediately. Optional vars (Sentry, GA4) are allowed
+ * to be undefined — features that depend on them must check for presence
+ * and degrade gracefully.
  *
- * Retirement note: Supabase, Stripe, Resend, Anthropic, and Sanity vars were
- * dropped when the coaching portal, checkout, AI tools, and CMS were removed.
- * A fresh clone needs no required vars to build.
+ * Retirement note: Supabase, Stripe, Resend, Anthropic, Sanity, and Kit vars
+ * were dropped when the coaching portal, checkout, AI tools, CMS, and
+ * newsletter integration were removed. A fresh clone needs no required vars
+ * to build.
  */
 import { z } from 'zod'
 
@@ -22,10 +23,6 @@ const optionalUrl = z
   .preprocess((v) => (v === '' ? undefined : v), z.string().url().optional())
 
 const serverSchema = z.object({
-  // Newsletter (Kit / ConvertKit) — /api/subscribe
-  KIT_API_KEY: optionalString,
-  KIT_FORM_ID: optionalString,
-
   // Observability
   SENTRY_DSN: optionalUrl,
   NEXT_PUBLIC_SENTRY_DSN: optionalUrl,
@@ -58,5 +55,4 @@ export const env: ServerEnv = parsed.data
 export const flags = {
   sentry: Boolean(env.SENTRY_DSN || env.NEXT_PUBLIC_SENTRY_DSN),
   ga4: Boolean(env.NEXT_PUBLIC_GA_ID),
-  kit: Boolean(env.KIT_API_KEY && env.KIT_FORM_ID),
 } as const

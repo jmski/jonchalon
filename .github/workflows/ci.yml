@@ -28,7 +28,7 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Build
-        # No env vars required — all upstream integrations (Sentry, GA, Kit)
-        # are optional and the build path that gracefully degrades without
-        # them is what CI exercises.
+        # No env vars required — all upstream integrations (Sentry, GA) are
+        # optional and the build path that gracefully degrades without them
+        # is what CI exercises.
         run: npm run build

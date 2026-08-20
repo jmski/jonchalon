@@ -60,16 +60,6 @@ export interface FaqItem {
 
 // ── Shared singletons ─────────────────────────────────────────────────────────
 
-export interface NewsletterCapture {
-  eyebrow?: string
-  headline: string
-  subhead: string
-  emailLabel: string
-  emailPlaceholder: string
-  submitLabel: string
-  microcopy: string
-}
-
 export interface SocialLink {
   platform:
     | 'instagram'
@@ -86,16 +76,10 @@ export interface SocialLink {
   label?: string
 }
 
-export interface SuccessState {
-  key: 'general' | 'newsletter' | 'contact'
-  message: string
-}
-
 export interface SiteConfig {
   contactEmail: string
   brandLine: string
   copyright: string
   privacyLink: Cta
   socialLinks?: SocialLink[]
-  successStates: SuccessState[]
 }
