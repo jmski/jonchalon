@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NAV_LINKS, MOBILE_LINKS, MOBILE_CTA } from '@/lib/navData';
+import { NAV_LINKS, MOBILE_LINKS } from '@/lib/navData';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -43,9 +43,6 @@ export default function Navbar() {
       </div>
 
       <div className="jc-nav-actions">
-        <Link href="/login" className="jc-nav-signin">
-          Sign In
-        </Link>
         <button
           type="button"
           className={`jc-nav-hamburger${mobileOpen ? ' is-open' : ''}`}
@@ -73,21 +70,6 @@ export default function Navbar() {
               {link.emphasis ? <em>{link.label}</em> : link.label}
             </Link>
           ))}
-          <div className="jc-nav-mobile-footer">
-            <Link href="/login" className="jc-nav-mobile-link" onClick={() => setMobileOpen(false)}>
-              Sign In
-            </Link>
-          </div>
-        </div>
-
-        <div className="jc-nav-mobile-cta-bar">
-          <Link
-            href={MOBILE_CTA.href}
-            className="jc-btn jc-btn--primary jc-nav-mobile-cta"
-            onClick={() => setMobileOpen(false)}
-          >
-            {MOBILE_CTA.label}
-          </Link>
         </div>
       </div>
     </nav>

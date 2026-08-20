@@ -27,16 +27,14 @@
 @import "./css/cards.css" layer(components);
 @import "./css/sections.css" layer(components);
 
-/* Page-scoped styles (split from pages.css for maintainability) */
+/* Page-scoped styles (split from pages.css for maintainability)
+   Retirement note: pages-portal, pages-portal-tools, pages-audit, pages-ikigai,
+   pages-lessons, and pages-foundation were deleted with the coaching routes they
+   styled. The system files above are the preserved design system and are
+   untouched. */
 @import "./css/pages-forms.css" layer(components);
-@import "./css/pages-portal.css" layer(components);
 @import "./css/pages-blog.css" layer(components);
-@import "./css/pages-audit.css" layer(components);
-@import "./css/pages-ikigai.css" layer(components);
-@import "./css/pages-lessons.css" layer(components);
-@import "./css/pages-portal-tools.css" layer(components);
 @import "./css/pages-contact.css" layer(components);
-@import "./css/pages-foundation.css" layer(components);
 
 /* Utility Classes & Patterns */
 @import "./css/utilities.css" layer(utilities);

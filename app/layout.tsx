@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { PersonSchema, OrganizationSchema, LocalBusinessSchema } from "@/lib/schema";
+import { PersonSchema, OrganizationSchema } from "@/lib/schema";
 import MochaCursor from "@/components/utilities/cursor/MochaCursor";
 import MochaSweep from "@/components/layout/MochaSweep";
 import CookieConsent from "@/components/layout/CookieConsent";
@@ -126,10 +126,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(OrganizationSchema()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(LocalBusinessSchema()) }}
         />
 
         {/* Google Analytics — afterInteractive defers load until the page is interactive.

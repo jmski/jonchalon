@@ -1,32 +1,16 @@
+// Retirement note: the Coaching group (Programs, The Foundation, Ikigai), the
+// Learn group (The Blueprint, The Archives, Presence Audit), and the Account
+// group (Sign In) were removed with the coaching routes and the client area.
+// The Archives survives as /blog and moved into Essentials.
+
 export const FOOTER_NAV = [
   {
     heading: 'Essentials',
     links: [
       { label: 'Home', href: '/' },
+      { label: 'Blog', href: '/blog' },
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
-    ],
-  },
-  {
-    heading: 'Coaching',
-    links: [
-      { label: 'Programs', href: '/programs' },
-      { label: 'The Foundation', href: '/foundation' },
-      { label: 'Ikigai', href: '/ikigai' },
-    ],
-  },
-  {
-    heading: 'Learn',
-    links: [
-      { label: 'The Blueprint', href: '/lessons' },
-      { label: 'The Archives', href: '/blog' },
-      { label: 'Presence Audit', href: '/audit' },
-    ],
-  },
-  {
-    heading: 'Account',
-    links: [
-      { label: 'Sign In', href: '/login' },
     ],
   },
 ];

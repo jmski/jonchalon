@@ -1,10 +1,18 @@
 /**
  * JSON-LD Schema Generators
  * Provides structured data for SEO and search engine crawlers
+ *
+ * Retirement note (2026-08-19): LocalBusinessSchema, CourseSchema, and
+ * AggregateRatingSchema were removed with the coaching business. LocalBusiness
+ * in particular asserted an active coaching service — service types, a price
+ * range, and a placeholder telephone of +1-555-0000 — which would now be false
+ * structured data served on every page. Person and Organization were rewritten
+ * to describe Jon and the site rather than a coaching practice; they will want
+ * another pass once the portfolio redesign settles what the site claims to be.
  */
 
 /**
- * Person Schema - for Jon as the creator/coach
+ * Person Schema — Jon as the site's author
  */
 export function PersonSchema() {
   return {
@@ -13,20 +21,11 @@ export function PersonSchema() {
     name: 'Jon Chal',
     url: 'https://jonchalant.com',
     image: 'https://jonchalant.com/jon-photo.jpg',
-    description: 'Leadership coach and choreographer specializing in executive presence for introverts',
-    jobTitle: 'Leadership Coach & Choreographer',
-    knowsAbout: [
-      'Leadership Coaching',
-      'Executive Presence',
-      'Body-Aware Leadership',
-      'Dance Choreography',
-      'Professional Development',
-      'Introvert Strengths'
-    ],
     sameAs: [
       'https://www.tiktok.com/@jonchalant',
       'https://www.instagram.com/jonchalant',
-      'https://www.youtube.com/@jonchalant'
+      'https://www.youtube.com/@jonchalant',
+      'https://www.linkedin.com/in/jonchalant'
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -37,41 +36,7 @@ export function PersonSchema() {
 }
 
 /**
- * LocalBusiness Schema - for Jon's coaching services
- */
-export function LocalBusinessSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'Jonchalant',
-    image: 'https://jonchalant.com/logo.svg',
-    description: 'Executive presence and quiet command coaching for introverts',
-    telephone: '+1-555-0000', // Replace with actual number if available
-    email: 'hello@jonchalant.com',
-    url: 'https://jonchalant.com',
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'US'
-      // Add city/state if applicable
-    },
-    priceRange: '$$',
-    areaServed: 'US',
-    serviceType: [
-      'Leadership Coaching',
-      'Executive Presence Training',
-      'One-on-One Coaching',
-      'Group Workshops'
-    ],
-    sameAs: [
-      'https://www.tiktok.com/@jonchalant',
-      'https://www.instagram.com/jonchalant',
-      'https://www.youtube.com/@jonchalant'
-    ]
-  };
-}
-
-/**
- * Organization Schema - for Jonchalant as a business
+ * Organization Schema — Jonchalant as the site
  */
 export function OrganizationSchema() {
   return {
@@ -80,7 +45,6 @@ export function OrganizationSchema() {
     name: 'Jonchalant',
     url: 'https://jonchalant.com',
     logo: 'https://jonchalant.com/logo.svg',
-    description: 'Body-led leadership coaching for introverts and shy professionals',
     sameAs: [
       'https://www.tiktok.com/@jonchalant',
       'https://www.instagram.com/jonchalant',
@@ -91,38 +55,6 @@ export function OrganizationSchema() {
       contactType: 'Customer Service',
       email: 'hello@jonchalant.com'
     }
-  };
-}
-
-/**
- * Course Schema - for coaching programs
- */
-export function CourseSchema(courseData: {
-  name: string;
-  description: string;
-  price?: string;
-  duration?: string;
-  level?: string;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Course',
-    name: courseData.name,
-    description: courseData.description,
-    provider: {
-      '@type': 'Organization',
-      name: 'Jonchalant',
-      url: 'https://jonchalant.com'
-    },
-    ...(courseData.price && { 
-      offers: {
-        '@type': 'Offer',
-        currency: 'USD',
-        price: courseData.price
-      }
-    }),
-    ...(courseData.duration && { duration: courseData.duration }),
-    ...(courseData.level && { educationalLevel: courseData.level })
   };
 }
 
@@ -202,28 +134,5 @@ export function BlogPostingSchema(post: {
       '@type': 'WebPage',
       '@id': `https://jonchalant.com/blog/${post.slug}`,
     },
-  };
-}
-
-/**
- * AggregateRating Schema - for testimonials/reviews
- */
-export function AggregateRatingSchema(ratingData: {
-  name: string;
-  ratingValue: number;
-  bestRating?: number;
-  worstRating?: number;
-  ratingCount: number;
-  reviewCount?: number;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'AggregateRating',
-    name: ratingData.name,
-    ratingValue: ratingData.ratingValue,
-    bestRating: ratingData.bestRating || 5,
-    worstRating: ratingData.worstRating || 1,
-    ratingCount: ratingData.ratingCount,
-    ...(ratingData.reviewCount && { reviewCount: ratingData.reviewCount })
   };
 }

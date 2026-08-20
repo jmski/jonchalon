@@ -5,7 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/portal', '/admin', '/api', '/login'],
+      // /portal, /admin, and /login were disallowed here until the coaching
+      // client area was retired. Those routes no longer exist.
+      disallow: ['/api'],
     },
     sitemap: 'https://jonchalant.com/sitemap.xml',
   };

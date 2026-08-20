@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import type { ReactNode } from 'react'
 import { BlogCard } from '@/components/utilities/cards'
 import { BlogOptIn } from '@/components/forms/BlogOptIn'
 import { ScrollStagger, ScrollStaggerItem } from '@/components/animations'
@@ -9,30 +8,22 @@ import { SectionWrapper, SectionContent } from '@/components/layout'
 import { renderHeadline } from '@/lib/render-headline'
 import type { Hero, NewsletterCapture } from '@/lib/types'
 
+// Retirement note: the category filter pills (Movement & Body, Presence &
+// Confidence, Leadership & Career, The Lab, Iki-Guys) were removed with the
+// coaching business, along with the featured-series banner. Search stays — it is
+// content-neutral. The blog content model, including whatever taxonomy replaces
+// categories, is due for rework in the portfolio redesign.
+
 interface BlogPost {
   _id: string
   title: string
   slug: { current: string }
   excerpt?: string
-  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys'
   readingTime?: number
   publishedAt?: string
   featured?: boolean
   coverImage?: { asset?: { url?: string }; alt?: string }
 }
-
-const MAIN_PILLS = [
-  { value: 'body', label: 'Movement & Body' },
-  { value: 'presence', label: 'Presence & Confidence' },
-  { value: 'work', label: 'Leadership & Career' },
-  { value: 'lab', label: 'The Lab' },
-] as const
-
-const IKI_GUYS_PILL = { value: 'iki-guys', label: 'Iki-Guys' } as const
-
-const CATEGORY_PILLS = [...MAIN_PILLS, IKI_GUYS_PILL] as const
-
-type FilterId = 'all' | (typeof CATEGORY_PILLS)[number]['value']
 
 interface BlogClientProps {
   posts: BlogPost[]
@@ -40,8 +31,6 @@ interface BlogClientProps {
   newsletter?: NewsletterCapture | null
   newsletterSuccess?: string
   emptyState?: { headline: string; body: string } | null
-  initialCategory?: string | null
-  seriesBanner?: ReactNode
 }
 
 export function BlogClient({
@@ -50,44 +39,27 @@ export function BlogClient({
   newsletter,
   newsletterSuccess,
   emptyState,
-  initialCategory,
-  seriesBanner,
 }: BlogClientProps) {
   const [search, setSearch] = useState('')
-  const [activeFilter, setActiveFilter] = useState<FilterId>(() => {
-    if (initialCategory && CATEGORY_PILLS.some((f) => f.value === initialCategory)) {
-      return initialCategory as FilterId
-    }
-    return 'all'
-  })
 
-  const isFiltering = search.trim() !== '' || activeFilter !== 'all'
+  const isFiltering = search.trim() !== ''
 
   const filtered = useMemo(() => {
-    let result = posts
-    if (activeFilter !== 'all') {
-      result = result.filter((p) => p.category === activeFilter)
-    }
-    if (search.trim()) {
-      const q = search.trim().toLowerCase()
-      result = result.filter(
-        (p) =>
-          p.title.toLowerCase().includes(q) ||
-          p.excerpt?.toLowerCase().includes(q) ||
-          p.category?.toLowerCase().includes(q),
-      )
-    }
-    return result
-  }, [posts, search, activeFilter])
+    if (!search.trim()) return posts
+    const q = search.trim().toLowerCase()
+    return posts.filter(
+      (p) => p.title.toLowerCase().includes(q) || p.excerpt?.toLowerCase().includes(q),
+    )
+  }, [posts, search])
 
   const featuredPosts = posts.filter((p) => p.featured)
   const regularPosts = posts.filter((p) => !p.featured)
 
   const heroTitle = hero?.headline ?? 'The Archives'
-  const heroSubhead = hero?.subhead ?? 'Practical writing on presence, movement, and what it actually takes to stop disappearing in rooms.'
+  const heroSubhead = hero?.subhead ?? 'Writing, notes, and work in progress.'
 
   const emptyHeadline = emptyState?.headline ?? 'Nothing here yet.'
-  const emptyBody = emptyState?.body ?? 'No articles match those filters.'
+  const emptyBody = emptyState?.body ?? 'No articles match that search.'
 
   return (
     <>
@@ -133,49 +105,11 @@ export function BlogClient({
                 </button>
               )}
             </div>
-
-            <div
-              className="blog-filter-tabs"
-              role="tablist"
-              aria-label="Filter articles by category"
-            >
-              <button
-                role="tab"
-                aria-selected="true"
-                className={`blog-filter-tab${activeFilter === 'all' ? ' active' : ''}`}
-                onClick={() => setActiveFilter('all')}
-              >
-                All
-              </button>
-
-              {MAIN_PILLS.map((f) => (
-                <button
-                  key={f.value}
-                  role="tab"
-                  aria-selected={activeFilter === f.value ? 'true' : undefined}
-                  className={`blog-filter-tab${activeFilter === f.value ? ' active' : ''}`}
-                  onClick={() => setActiveFilter(f.value)}
-                >
-                  {f.label}
-                </button>
-              ))}
-
-              <span className="ml-3">
-                <button
-                  role="tab"
-                  aria-selected={activeFilter === IKI_GUYS_PILL.value ? 'true' : undefined}
-                  className={`blog-filter-tab${activeFilter === IKI_GUYS_PILL.value ? ' active' : ''}`}
-                  onClick={() => setActiveFilter(IKI_GUYS_PILL.value)}
-                >
-                  {IKI_GUYS_PILL.label}
-                </button>
-              </span>
-            </div>
           </div>
         </SectionContent>
       </SectionWrapper>
 
-      {/* Filtered results */}
+      {/* Search results */}
       {isFiltering ? (
         <SectionWrapper variant="primary">
           <SectionContent>
@@ -186,12 +120,9 @@ export function BlogClient({
                 <button
                   type="button"
                   className="blog-no-results-reset"
-                  onClick={() => {
-                    setSearch('')
-                    setActiveFilter('all')
-                  }}
+                  onClick={() => setSearch('')}
                 >
-                  Clear filters
+                  Clear search
                 </button>
               </div>
             ) : (
@@ -199,9 +130,6 @@ export function BlogClient({
                 <div className="blog-posts-section-header">
                   <h2 className="blog-posts-section-title">
                     {filtered.length} {filtered.length === 1 ? 'Article' : 'Articles'}
-                    {activeFilter !== 'all'
-                      ? ` — ${CATEGORY_PILLS.find((f) => f.value === activeFilter)?.label}`
-                      : ''}
                   </h2>
                 </div>
                 <ScrollStagger>
@@ -220,12 +148,6 @@ export function BlogClient({
         </SectionWrapper>
       ) : (
         <>
-          {seriesBanner && (
-            <SectionWrapper variant="secondary">
-              {seriesBanner}
-            </SectionWrapper>
-          )}
-
           {featuredPosts.length > 0 && (
             <SectionWrapper variant="secondary">
               <SectionContent>
