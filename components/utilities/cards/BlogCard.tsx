@@ -2,33 +2,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { TextLink } from '@/components/typography';
 
+// Retirement note: the `category` prop (body / presence / work / lab / iki-guys)
+// was removed with the coaching taxonomy. It drove the pillar badge, the "THE LAB"
+// series label, and a per-category placeholder glyph. The placeholder now uses a
+// single neutral mark. If the redesign introduces a new taxonomy, the badge slots
+// are the natural place to reintroduce it.
+
 interface BlogCardProps {
   title: string;
   slug: { current: string } | string;
   excerpt?: string;
   publishedAt?: string;
-  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys';
   readingTime?: number;
   coverImage?: { asset?: { url?: string }; alt?: string };
   variant?: 'default' | 'featured' | 'list';
   showLink?: boolean;
-}
-
-function getBlogPlaceholderSymbol(category?: BlogCardProps['category']): string {
-  switch (category) {
-    case 'body':
-      return '◇';
-    case 'presence':
-      return '○';
-    case 'work':
-      return '◈';
-    case 'lab':
-      return '⊙';
-    case 'iki-guys':
-      return '◎';
-    default:
-      return '⊙';
-  }
 }
 
 export function BlogCard({
@@ -36,7 +24,6 @@ export function BlogCard({
   slug,
   excerpt,
   publishedAt,
-  category,
   readingTime,
   coverImage,
   variant = 'default',
@@ -44,7 +31,6 @@ export function BlogCard({
 }: BlogCardProps) {
   const slugValue = typeof slug === 'string' ? slug : slug.current;
   const href = `/blog/${slugValue}`;
-  const isLab = category === 'lab';
 
   if (variant === 'featured') {
     return (
@@ -65,18 +51,12 @@ export function BlogCard({
               <div className="blog-featured-card-cover blog-featured-card-cover-placeholder" aria-hidden="true" />
             )}
             <div className="blog-featured-card-header">
-              {category && (
-                <span className="blog-featured-card-pillar">{category}</span>
-              )}
               {readingTime && (
                 <span className="blog-featured-card-readtime">
                   {readingTime} min read
                 </span>
               )}
             </div>
-            {isLab && (
-              <span className="blog-card-series-label">THE LAB</span>
-            )}
             <h3 className="blog-featured-card-title">{title}</h3>
             {excerpt && (
               <p className="blog-featured-card-excerpt">{excerpt}</p>
@@ -96,18 +76,12 @@ export function BlogCard({
         <TextLink href={href} className="blog-list-card-content">
           <div className="blog-list-card-body">
             <div className="blog-list-card-meta">
-              {category && (
-                <span className="blog-list-card-pillar">{category}</span>
-              )}
               {readingTime && (
                 <span className="blog-list-card-readtime">
                   {readingTime} min read
                 </span>
               )}
             </div>
-            {isLab && (
-              <span className="blog-card-series-label">THE LAB</span>
-            )}
             <h3 className="blog-list-card-title">{title}</h3>
             {excerpt && (
               <p className="blog-list-card-excerpt">{excerpt}</p>
@@ -136,15 +110,10 @@ export function BlogCard({
         </div>
       ) : (
         <div className="blog-card-cover blog-card-cover-placeholder" aria-hidden="true">
-          <span className="blog-card-cover-placeholder-symbol">
-            {getBlogPlaceholderSymbol(category)}
-          </span>
+          <span className="blog-card-cover-placeholder-symbol">⊙</span>
         </div>
       )}
       <div className="blog-card-header">
-        {isLab && (
-          <span className="blog-card-series-label">THE LAB</span>
-        )}
         <h3 className="blog-card-title">{title}</h3>
         {publishedAt && (
           <time className="blog-card-date">

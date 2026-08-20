@@ -7,7 +7,6 @@ interface BlogPost {
   title: string;
   slug: { current: string };
   excerpt?: string;
-  category?: 'body' | 'presence' | 'work' | 'lab' | 'iki-guys';
   readingTime?: number;
   publishedAt?: string;
 }

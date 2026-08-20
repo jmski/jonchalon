@@ -18,7 +18,6 @@ interface BlogPostDocument {
   slug: { current: string };
   excerpt?: string;
   metaDescription?: string;
-  category: string;
   content: PortableTextBlock[];
   readingTime?: number;
   publishedAt?: string;
@@ -43,7 +42,6 @@ async function getBlogPost(slug: string): Promise<BlogPostDocument | null> {
     slug,
     excerpt,
     metaDescription,
-    category,
     content,
     readingTime,
     publishedAt,
@@ -61,22 +59,21 @@ async function getBlogPost(slug: string): Promise<BlogPostDocument | null> {
   }
 }
 
-async function getRelatedPosts(
-  category: string,
-  currentSlug: string
-): Promise<BlogPostDocument[]> {
-  const query = `*[_type == "blogPost" && category == $category && slug.current != $currentSlug][0...3] | order(publishedAt desc) {
+// Related posts used to be matched on a shared `category`. That field was removed
+// with the coaching taxonomy and has no replacement yet, so "related" is simply
+// the most recent other posts until the redesign defines a real relation.
+async function getRelatedPosts(currentSlug: string): Promise<BlogPostDocument[]> {
+  const query = `*[_type == "blogPost" && slug.current != $currentSlug][0...3] | order(publishedAt desc) {
     _id,
     title,
     slug,
     excerpt,
-    category,
     readingTime,
     publishedAt
   }`;
 
   try {
-    const posts = await client.fetch(query, { category, currentSlug });
+    const posts = await client.fetch(query, { currentSlug });
     return posts || [];
   } catch (error) {
     console.error('Error fetching related posts:', error);
@@ -118,7 +115,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description,
-    keywords: [post.category, 'executive presence', 'leadership coaching', 'introvert leadership', 'confidence'].join(', '),
     authors: [{ name: 'Jon', url: 'https://jonchalant.com/about' }],
     alternates: {
       canonical: `https://jonchalant.com/blog/${post.slug.current}`,
@@ -158,7 +154,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const relatedPosts = await getRelatedPosts(post.category, slug);
+  const relatedPosts = await getRelatedPosts(slug);
   const headings = extractHeadings(post.content ?? []);
 
   const publishDate = post.publishedAt
@@ -223,8 +219,6 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Article Header */}
           <header className="blog-article-header">
             <div className="blog-meta">
-              <span className="blog-pillar-badge">{post.category}</span>
-
               {post.readingTime && (
                 <span className="blog-meta-text blog-meta-readtime">
                   {/* Clock icon */}
@@ -276,7 +270,7 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           )}
 
-          {/* Related posts from same pillar */}
+          {/* Related posts — most recent, see getRelatedPosts */}
           {relatedPosts.length > 0 && (
             <BlogRelated posts={relatedPosts} />
           )}
