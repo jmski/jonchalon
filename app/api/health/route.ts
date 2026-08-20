@@ -5,32 +5,18 @@
  *   200 → all upstream services responding
  *   503 → at least one upstream is failing (body lists which)
  *
- * Intentionally lightweight: a single SELECT against Supabase and a HEAD
- * request to the Sanity CDN. No auth, no caching.
+ * Intentionally lightweight: a HEAD-ish query against the Sanity CDN.
+ * No auth, no caching.
+ *
+ * The Supabase check was removed when the coaching portal was retired — the
+ * site no longer has a database dependency. Sanity is the only upstream left.
  */
 import { NextResponse } from 'next/server'
-import { createClient } from '@/utils/supabase/server'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
 
 type CheckResult = { ok: boolean; latencyMs: number; error?: string }
-
-async function checkSupabase(): Promise<CheckResult> {
-  const start = Date.now()
-  try {
-    const supabase = await createClient()
-    const { error } = await supabase.from('profiles').select('id', { head: true, count: 'exact' }).limit(1)
-    if (error) return { ok: false, latencyMs: Date.now() - start, error: error.message }
-    return { ok: true, latencyMs: Date.now() - start }
-  } catch (err) {
-    return {
-      ok: false,
-      latencyMs: Date.now() - start,
-      error: err instanceof Error ? err.message : 'unknown',
-    }
-  }
-}
 
 async function checkSanity(): Promise<CheckResult> {
   const start = Date.now()
@@ -56,16 +42,14 @@ async function checkSanity(): Promise<CheckResult> {
 }
 
 export async function GET() {
-  const [supabase, sanity] = await Promise.all([checkSupabase(), checkSanity()])
-
-  const allOk = supabase.ok && sanity.ok
+  const sanity = await checkSanity()
 
   return NextResponse.json(
     {
-      status: allOk ? 'ok' : 'degraded',
+      status: sanity.ok ? 'ok' : 'degraded',
       timestamp: new Date().toISOString(),
-      checks: { supabase, sanity },
+      checks: { sanity },
     },
-    { status: allOk ? 200 : 503 },
+    { status: sanity.ok ? 200 : 503 },
   )
 }
