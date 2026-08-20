@@ -5,10 +5,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 
 /**
- * Marketing route group error boundary.
- * Catches render + data-fetch errors in any (marketing) page.
+ * Root error boundary. Catches render + data-fetch errors in any page.
  */
-export default function MarketingError({
+export default function RouteError({
   error,
   reset,
 }: {
@@ -16,7 +15,7 @@ export default function MarketingError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('[marketing-error]', error);
+    console.error('[route-error]', error);
   }, [error]);
 
   return (

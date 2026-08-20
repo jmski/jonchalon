@@ -3,6 +3,7 @@ import Script from "next/script";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { PersonSchema, OrganizationSchema } from "@/lib/schema";
+import { Navbar, SiteFooter } from "@/components/navigation";
 import MochaCursor from "@/components/utilities/cursor/MochaCursor";
 import MochaSweep from "@/components/layout/MochaSweep";
 import CookieConsent from "@/components/layout/CookieConsent";
@@ -97,7 +98,11 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <MochaCursor />
         <MochaSweep />
-        {children}
+        <Navbar />
+        <main className="main-content" id="main-content">
+          {children}
+        </main>
+        <SiteFooter />
 
         {/* JSON-LD Structured Data — placed at end of body (valid per Google) to avoid
             hydration mismatches from browser extensions that inject scripts into <head> */}

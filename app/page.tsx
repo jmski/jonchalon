@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { PageTransition, SectionWrapper, SectionContent } from '@/components/layout';
 import { renderHeadline } from '@/lib/render-headline';
 
@@ -46,9 +45,6 @@ export default function Home() {
             </p>
             <p className="home-placeholder-body">
               Jonchalant is being rebuilt as a personal creative portfolio. Back soon.
-            </p>
-            <p className="home-placeholder-links">
-              In the meantime, the <Link href="/blog">writing</Link> is still here.
             </p>
           </div>
         </SectionContent>

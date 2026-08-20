@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { PageTransition, SectionWrapper, SectionContent } from '@/components/layout';
 
 // Placeholder. The previous /about was entirely coaching content — the story
 // scroll, the "who this is for" columns, and a coaching CTA, all sourced from the
-// deleted pageAbout singleton. The route is kept (it is linked from nav, footer,
-// and the BlogPosting JSON-LD author field) but its content waits for the
-// portfolio redesign.
+// deleted pageAbout singleton. The route is kept (it is linked from nav and
+// footer) but its content waits for the portfolio redesign.
 
 export const metadata: Metadata = {
   title: 'About',
@@ -25,9 +23,6 @@ export default function About() {
             <h1 className="page-placeholder-title">About</h1>
             <p className="page-placeholder-body">
               This page is being rewritten. Back soon.
-            </p>
-            <p className="page-placeholder-links">
-              <Link href="/blog">Read the writing</Link>
             </p>
           </div>
         </SectionContent>
