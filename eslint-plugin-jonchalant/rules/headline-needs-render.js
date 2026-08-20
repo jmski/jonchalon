@@ -8,6 +8,12 @@
 
 'use strict';
 
+// Components that call renderHeadline() internally, so passing a raw .headline
+// string to one of them is safe.
+//
+// Pruned 2026-08-19 when the coaching business was retired. Removed:
+// StarterGuideForm, EmailCapture, FourPillars, MeetJon, Method, WhoFor,
+// StoryScroll, CurriculumBento, Testimonials, BlogCards — all deleted.
 const DEFAULT_SAFE_CONSUMERS = [
   'Hero',
   'GenericHero',
@@ -16,16 +22,6 @@ const DEFAULT_SAFE_CONSUMERS = [
   'SectionHeader',
   'KineticHeading',
   'BlogOptIn',
-  'StarterGuideForm',
-  'EmailCapture',
-  'FourPillars',
-  'MeetJon',
-  'Method',
-  'WhoFor',
-  'StoryScroll',
-  'CurriculumBento',
-  'Testimonials',
-  'BlogCards',
 ];
 
 /** @type {import('eslint').Rule.RuleModule} */

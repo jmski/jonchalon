@@ -1,145 +1,88 @@
-# Sanity Setup Guide
+# Sanity Studio
 
-## Initial Setup Instructions
+The CMS behind jonchalant.com.
 
-This Sanity Studio integration allows Jon to manage all portfolio, services, collaborations, testimonials, and media kit data through a user-friendly CMS interface.
+> **Status (2026-08-19).** The coaching business was retired and most document
+> types went with it. This file previously documented content models — Portfolio
+> Item, Service, Collaboration, Media Kit — and a `npm run migrate:data` script
+> that no longer exist (several hadn't existed for some time). It has been
+> rewritten to describe what is actually here.
 
-### Step 1: Create a Sanity Project
+## Setup
 
-1. Visit https://sanity.io and sign up (or use existing Google account)
-2. Create a new project:
-   - **Project Name**: jonchalant
-   - **Dataset Name**: production
-   - **Plan**: Free tier works fine initially
-3. Note your **Project ID** from the project settings
-
-### Step 2: Configure Environment Variables
-
-1. Copy `.env.local.example` to `.env.local`
-2. Fill in the values:
-
-   ```
-   NEXT_PUBLIC_SANITY_PROJECT_ID=<your-project-id-from-step-1>
-   NEXT_PUBLIC_SANITY_DATASET=production
-   SANITY_API_TOKEN=<generated-below>
-   ```
-
-3. Generate an API token:
-   - Go to https://manage.sanity.io/
-   - Select your project
-   - Go to **Settings → API**
-   - Create a new token with **Editor** role
-   - Copy and paste into `.env.local`
-
-### Step 3: Start Sanity Studio
+### 1. Environment
 
 ```bash
-npm run sanity:dev
+NEXT_PUBLIC_SANITY_PROJECT_ID=<project id>
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=<optional; only needed to read drafts>
 ```
 
-Studio will open at http://localhost:3333
+Find the project ID at [manage.sanity.io](https://manage.sanity.io/). Generate a
+token under **Settings → API → Tokens** — Viewer is enough for reading drafts;
+Editor or higher only if you intend to write.
 
-### Step 4: Migrate Initial Data
-
-Once Sanity Studio is running and configured:
+### 2. Run Studio
 
 ```bash
-npm run migrate:data
+npm run sanity:dev     # http://localhost:3333
+npm run sanity:deploy  # deploy to Sanity Cloud
 ```
 
-This will populate Sanity with the initial portfolio, services, and colaboration data.
+## Content model
 
-### Step 5: Add Real Content
+The full, authoritative list is `schemas/index.ts`. As of the retirement:
 
-1. Visit http://localhost:3333
-2. Click on "Portfolio Item", "Service", "Collaboration", etc.
-3. Upload real images, update video URLs, add testimonials
-4. Changes are published immediately
+| Type | Kind | Notes |
+|---|---|---|
+| `blogPost` | collection | Title, slug, excerpt, cover image, Portable Text body, reading time, published date, featured flag |
+| `pageBlog` | page singleton | Blog index hero, newsletter reference, empty state |
+| `siteConfig` | shared singleton | Brand line, contact email, copyright, social links, form success messages |
+| `newsletterCapture` | shared singleton | Copy for the newsletter opt-in form |
 
-## Development Commands
+Object types used inline: `cta`, `link`, `hero`, `sectionHeader`, `ctaBlock`,
+`kineticMoment`, `faqItem`.
 
-```bash
-# Start Sanity Studio (localhost:3333)
-npm run sanity:dev
+### Known gap
 
-# Start Next.js dev server (localhost:3000)
-npm run dev
+`blogPost.category` was removed with the coaching taxonomy (body / presence /
+work / lab / iki-guys) and has no replacement yet. Existing documents may still
+carry an orphan value; it is ignored and needs no migration. A new taxonomy is
+deferred to the portfolio redesign.
 
-# Deploy Sanity Studio to Sanity Cloud
-npm run sanity:deploy
+## Adding or removing a schema
 
-# Run data migration script
-npm run migrate:data
-```
+Two files must agree, or Studio breaks on load:
 
-## Content Models
+1. `schemas/index.ts` — registers the type
+2. `structure.ts` — places it in the desk
 
-### Portfolio Item
+**Every `listItem` in `structure.ts` must reference a type that still exists in
+`schemas/index.ts`.** A stale reference is exactly what produces a "schema type
+not found" throw when Studio boots. This was the main hazard during the
+retirement and it will recur.
 
-- Title, slug, category (choreography/freestyle/performance)
-- Description, video URL, thumbnail image
-- Duration in minutes, published date
+Singletons additionally use the `singleton()` helper in `structure.ts`, which
+locks the document ID to the schema name.
 
-### Service
+## Retired documents still in the dataset
 
-- Title, description, icon, features list
-- Full description (rich text)
-- isPrimary flag (highlights Leadership Programs)
-- Color and display order
+Deleting a schema stops the type appearing in Studio; it does **not** delete the
+documents already stored. The retired coaching documents may still be present in
+`production`, invisible rather than gone.
 
-### Collaboration
-
-- Title, category, description
-- Price/pricing model
-- Deliverables list, timeline in weeks
-
-### Media Kit Data
-
-- Total followers, engagement rate, monthly views
-- Platform breakdown (TikTok, Instagram, YouTube)
-- Content category distribution
-
-### Testimonial
-
-- Client name, role, company
-- Quote, measurable result
-- Client photo, featured flag
-
-### Case Study
-
-- Client name, industry, challenge, solution
-- Results list, client testimonial
-- Featured image, display order
+`coaching-archive/sanity/` holds a dry-run-by-default cleanup script plus
+instructions — including exporting a dataset backup first, and the reference
+ordering that has to be respected (Sanity refuses to delete a document another
+document still references).
 
 ## Troubleshooting
 
-**"Missing NEXT_PUBLIC_SANITY_PROJECT_ID"**
+**"Missing NEXT_PUBLIC_SANITY_PROJECT_ID"** — check `.env.local` exists with the
+right values, then restart the dev server.
 
-- Check `.env.local` is created and has correct values
-- Restart dev server: `npm run dev`
+**"Schema type not found" on Studio load** — a `structure.ts` entry references a
+deleted type. See *Adding or removing a schema* above.
 
-**"Failed to fetch portfolio from Sanity"**
-
-- Check Sanity Studio is running: `npm run sanity:dev`
-- Verify API token in `.env.local`
-- Check Project ID is correct
-
-**"Can't see images in Sanity Studio"**
-
-- Images upload to Sanity's CDN automatically
-- Make sure images are under 5MB
-- Try a different image format (JPG, PNG)
-
-## Next Steps
-
-After Phase 1 is complete:
-
-- **Phase 2**: Add form backend (Supabase + Resend email)
-- **Phase 3**: SEO optimization (metadata, headings, schema)
-- **Phase 4**: UX redesign (mobile testing, visual hierarchy)
-- **Phase 5**: Conversion optimization (testimonials, FAQ, social proof)
-- **Phase 6**: Performance monitoring (Lighthouse CI/CD, analytics)
-
----
-
-Questions? See [IMPLEMENTATION_STRATEGY.md](../docs/IMPLEMENTATION_STRATEGY.md) for details.
+**Images not appearing** — assets upload to Sanity's CDN automatically. Check the
+file is a reasonable size and a standard format (JPG, PNG, WebP).
