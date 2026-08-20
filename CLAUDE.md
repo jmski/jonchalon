@@ -4,29 +4,38 @@ Rules and conventions for jonchalant.com.
 
 ---
 
-## Status: mid-transition
+## Status: portfolio placeholder
 
-**The coaching business was retired on 2026-08-19.** Everything specific to it —
-the ikigai funnel, The Foundation, the programs ladder, the client portal, the
-podcast, the audit quiz — was removed from active code. Retired planning
-documents and content live in `coaching-archive/`, which is **reference only**
-and must never be imported by application code.
+**The coaching business was retired on 2026-08-19**, and a second pass on
+2026-08-20 finished the pivot: Sanity CMS, the blog, and the Kit newsletter
+integration are gone from the code entirely (the Sanity project itself stays
+live in the cloud, unused, in case its content is ever wanted for reference).
 
-The site is being rebuilt as a **personal creative portfolio**. That redesign has
-not happened yet. `/`, `/about`, and `/contact` are deliberate placeholders.
+The site is now a **personal creative portfolio** with no CMS and no backend
+dependency beyond Sentry. `/`, `/about`, and `/contact` are deliberate
+placeholders; `/privacy` is current and accurate. The redesign hasn't
+happened yet — planned sections include a **graphic novel** and a **house
+dance journey**. `public/models/dance*.glb` are unreferenced today but exist
+for that second section.
 
 **What this means for work in this repo right now:**
 
 - Do not reintroduce coaching concepts — ikigai, the four circles, the four
   pillars (Grounding/Energy/Flow/Command), The Foundation, Iki-Guys, presence
-  coaching, embodiment training. They are retired positioning, not dormant
-  features.
-- The visual identity was deliberately kept and is still authoritative. Build on
-  it rather than around it.
-- Content-neutral primitives were kept even where nothing currently renders
-  them. Unused does not mean dead — they exist for the redesign.
-- Anything that reads as stale coaching positioning is a bug to flag, not a
-  pattern to match.
+  coaching, embodiment training, the blog, or a newsletter opt-in. They are
+  retired positioning and retired infrastructure, not dormant features.
+- The visual identity was deliberately kept and is still authoritative. Build
+  on it rather than around it.
+- Content-neutral component primitives were kept even where nothing currently
+  renders them (`Hero`, `CTA`, `PageHero`, `Carousel`, `FAQ`, `Bento`,
+  `SectionHeader`, `Badge`, `StatsGrid`, `CardGrid`, `KineticMoment`, `TextLink`,
+  etc., all still exported from their barrels). Unused does not mean dead —
+  they exist for the redesign, and their CSS was deliberately preserved
+  alongside them. Don't delete a component or its styles just because no
+  current page mounts it; check whether its own source still references the
+  classes before touching anything CSS-adjacent.
+- Anything that reads as stale coaching positioning, or as Sanity/blog/Kit
+  plumbing, is a bug to flag, not a pattern to match.
 
 ### What was preserved, and why
 
@@ -36,16 +45,19 @@ not happened yet. `/`, `/about`, and `/contact` are deliberate placeholders.
 | Palette tokens — the Mocha Mousse system, cream backgrounds, espresso text, sage accent | Same |
 | BEM-ish kebab-case class naming, the layered `globals.css` cascade | Structural convention, not coaching-specific |
 | Layout primitives — `SectionWrapper`, `SectionContent`, `PageTransition`, nav, footer | The page shell survives the content |
-| The blog — `/blog`, `/blog/[slug]`, the `blogPost` schema | Repurposable as a personal journal |
-| Netlify config, deploy pipeline, domain | Untouched by the retirement |
+| Content-neutral component primitives (`Hero`, `CTA`, `PageHero`, `Carousel`, `FAQ`, `Bento`, `SectionHeader`, `Badge`, `StatsGrid`, `CardGrid`, `KineticMoment`, `TextLink`, `ScrollReveal`/`ScrollFade`/`ScrollStagger`) and their CSS | Kept for the redesign to build with — none are currently mounted by any route |
+| Netlify config, deploy pipeline, domain, Sentry | Untouched by the pivot |
 
 ### What is gone
 
-Routes `/foundation`, `/programs`, `/lessons`, `/ikigai`, `/audit`, `/portal/*`,
-`/login`, `/mfa`, `/admin/*`; the Supabase auth stack; Stripe checkout and
-webhooks; Resend enrollment mail; the AI portal tools; every coaching component;
-and 24 Sanity document types. See `coaching-archive/_README.md` for the full
-inventory and `git log` on the retirement commits for file-level detail.
+Routes `/foundation`, `/programs`, `/lessons`, `/ikigai`, `/audit`,
+`/portal/*`, `/login`, `/mfa`, `/admin/*`, `/blog`, `/blog/[slug]`; the
+Supabase auth stack; Stripe checkout and webhooks; the Sanity CMS and Studio
+(`sanity/`); the Kit newsletter integration and `/api/subscribe`; `lib/types.ts`
+and the object-type schema it mirrored; and every coaching-era component
+(cards, testimonials, case studies, the old About page sections, email
+capture, four pillars, the starter-guide form). See `git log` for
+file-level detail on either pass.
 
 ---
 
@@ -59,13 +71,12 @@ a truth, the truth wins and CLAUDE.md is corrected.
 | Visual tokens (colors, spacing, surface tiers) | `app/css/variables.css` |
 | Typography (font stacks, font tokens) | `design-system/fonts.css`, `design-system/tokens.css` |
 | Visual design system (rendered components, tokens, type scale) | `design-system/design-system.html` / `design-system.png` |
-| Content shape (Sanity schemas, document types, fields) | `sanity/schemas/index.ts` and the schema files it registers |
-| Implementation (what components exist, how they render, what fetchers return) | The actual files in the repo |
+| Implementation (what components exist, how they render) | The actual files in the repo |
 | Conventions and cross-environment context | CLAUDE.md (this file) |
 
-Marketing copy previously had an authoritative source, `design-system/canonical-copy.md`.
-It was coaching copy and now lives in `coaching-archive/design-system/`. **There is
-currently no canonical copy source.** The redesign needs to establish one.
+There is currently no canonical marketing-copy source — the previous one was
+coaching copy and was deleted with `coaching-archive/`. The redesign needs to
+establish one.
 
 Note: `design-system/design-system.html` and `.png` still render coaching-era
 specimens (the pillar grid, coaching voice examples). They remain accurate for
@@ -80,37 +91,23 @@ file.
 
 ## Stack & Build
 
-Next.js 16.1.1 (App Router) | React 19 | TypeScript 5 | Tailwind v4 (utility-only) | Sanity CMS
+Next.js 16.1.1 (App Router) | React 19 | TypeScript 5 | Tailwind v4 (utility-only)
 
 ```bash
 npm run dev           # localhost:3000
-npm run build         # Production build (Turbopack)
-npm run lint          # ESLint
-npm run sanity:dev    # Sanity Studio dev
-npm run sanity:deploy # Deploy Sanity Studio
+npm run build          # Production build (Turbopack)
+npm run lint           # ESLint
 ```
 
 Config: `reactCompiler: true` (no manual useMemo/useCallback), `turbopack` enabled.
 
-**Lint baseline: 0 violations.** `npm run lint` is clean and must stay clean. The
-previous baseline of 7 accepted violations is obsolete — six lived in React
-clients deleted with the portal (`IkigaiClient`, `MfaClient`, `SettingsClient`,
-`TonalityClient`, `PresenceCoach`) and the seventh was a `.migration/` script no
-longer present. Any violation now is new and belongs to whoever introduced it.
+**Lint baseline: 0 violations.** `npm run lint` is clean and must stay clean.
 
-**Environment.** Only two variables are required to build:
-
-```bash
-NEXT_PUBLIC_SANITY_PROJECT_ID=
-NEXT_PUBLIC_SANITY_DATASET=production
-```
-
-Optional: `SANITY_API_TOKEN`, `KIT_API_KEY` + `KIT_FORM_ID` (newsletter),
-`SENTRY_*`, `NEXT_PUBLIC_GA_ID`. Server env goes through the zod-validated `env`
-export in `lib/env.ts` — never `process.env` directly.
-
-The Supabase, Stripe, Resend, and Anthropic variables are gone along with the
-services that used them.
+**Environment.** No environment variables are required to build — see
+`.env.example`. Optional: `SENTRY_*` (error monitoring), `NEXT_PUBLIC_GA_ID`
+(analytics, consent-gated). Server env goes through the zod-validated schema
+in `lib/env.ts` — imported once for its validate-on-boot side effect, not for
+its (nonexistent) named exports.
 
 ---
 
@@ -119,8 +116,8 @@ services that used them.
 ### CSS
 
 **Architecture and cascade**
-- **No new CSS files.** 12 files exist (9 system + 3 page-scoped: `pages-blog`,
-  `pages-contact`, `pages-forms`). Add styles to the relevant one.
+- **No new CSS files.** 9 system files + 2 page-scoped files
+  (`pages-contact`, `pages-forms`) exist. Add styles to the relevant one.
 - **BEM-inspired kebab-case naming**: `.section-name`, `.section-name-header`,
   `.section-name-title`.
 - **Standard breakpoints only**: 640px (sm), 768px (md), 1024px (lg) — no 480px,
@@ -154,6 +151,16 @@ is no error to trace. `overflow: clip` clips visual overflow without establishin
 a scroll context. Treat any `overflow: hidden` on those primitives as a bug to fix
 on sight unless the element is genuinely a scroll container.
 
+**Dead-code judgment call.** A class or custom property counts as "in use" if
+a component's own source still references it — even if that component isn't
+currently mounted by any route (see "What was preserved" above). Before
+deleting anything CSS-adjacent, check whether it's a false negative: dynamic
+class construction (`` `badge-${variant}` ``, `` `section-wrapper-${variant}` ``)
+won't show up in a plain string search, and short/generic class names collide
+with unrelated substrings (`flex` inside "flexibility", `sidebar` inside
+"sidebar-overlay"). Grep for the literal string, then check the component
+source directly before concluding something is dead.
+
 ### Components
 - **No "Section" suffix** on component names (`Hero` not `HeroSection`)
 - **Server components by default** — only `'use client'` for interactive state
@@ -166,46 +173,41 @@ on sight unless the element is genuinely a scroll container.
   depend on context or route state. Pages compose them; they do not reach upward.
 
 ### Data
-- **Sanity fallback pattern**: `try { fetch } catch { use fallback }`
-- **Shared TypeScript types** live in `lib/types.ts` — import from there
+- **Shared TypeScript types** live inline in the files that use them, or in a
+  page-local module. There is no central `lib/types.ts` — it was deleted when
+  nothing imported it (its object types mirrored deleted Sanity schemas).
 - **Server env vars go through `lib/env.ts`**
 
-#### Content source: typed lib modules vs Sanity
+#### Content source: typed lib modules
 
-Editable-but-stable content lives in typed `lib/` modules, not Sanity, and not
-hardcoded in JSX. Sanity is reserved for content with active CMS-editing benefit —
-content that changes frequently or is part of an editorial workflow (blog posts,
-page hero copy). Stable cross-page content — navigation links, footer structure,
-microcopy, fallback strings — lives in typed `lib/` modules (`lib/navData.ts`,
-`lib/footerData.ts`) and is imported directly by consumers. The default when
-adding new content is the typed module; promoting content to Sanity requires a
-real editing-workflow justification.
+Editable-but-stable content lives in typed `lib/` modules, not hardcoded in
+JSX: navigation links (`lib/navData.ts`), footer structure and contact email
+(`lib/footerData.ts`). There is no CMS in this project currently — if the
+redesign wants one, that's a fresh decision, not a restoration of Sanity.
 
-**Italic-anchor markup in `lib/{page}Copy.ts`:** page-stable copy strings that
-contain an italic anchor word use `{{double-braces}}` around the anchor.
-`renderHeadline()` interprets the markup and renders the anchor as `<em>` with the
-correct surface-aware color token. No such file currently exists — `lib/foundationCopy.ts`
-and `lib/programsCopy.ts` were retired with their pages — but the convention holds
-for the redesign.
+**Italic-anchor markup:** page-stable copy strings that contain an italic
+anchor word use `{{double-braces}}` around the anchor, interpreted by
+`renderHeadline()` (see below). The convention holds for the redesign even
+though no `lib/{page}Copy.ts` file exists yet.
 
 ---
 
 ## Headline rendering convention
 
-Headlines from Sanity contain `{{double-brace}}` markers around italic anchor
+Copy strings can contain `{{double-brace}}` markers around italic anchor
 words (e.g., `Find the work you were {{meant}} for.`). These markers must be
 stripped and the anchor word wrapped in `<em>` (or `<AnchorWord>` for kinetic
 headings) before rendering.
 
-**The rule:** any time a `.headline` field is interpolated into JSX, route it
-through `renderHeadline()`:
+**The rule:** any time a string containing this markup is interpolated into
+JSX, route it through `renderHeadline()`:
 
 ```tsx
 // wrong - renders literal braces
-<h2 className="...">{content.section.headline}</h2>
+<h2 className="...">{content.headline}</h2>
 
 // right
-<h2 className="...">{renderHeadline(content.section.headline)}</h2>
+<h2 className="...">{renderHeadline(content.headline)}</h2>
 ```
 
 For sections built using `<SectionHeader>` or `<KineticHeading>`, the wrapping
@@ -214,15 +216,15 @@ input. For raw `<h1>`/`<h2>` interpolations in page routes or shared components,
 the wrap must be explicit.
 
 **Safe-consumer pattern:** components that call `renderHeadline` internally are on
-an allowlist; passing `.headline` to one of them as any prop is fine. The current
-allowlist, pruned during the retirement:
+an allowlist; passing a headline string to one of them as any prop is fine. The
+current allowlist:
 
 ```text
-Hero, GenericHero, PageHero, CTA, SectionHeader, KineticHeading, BlogOptIn
+Hero, GenericHero, PageHero, CTA, SectionHeader, KineticHeading
 ```
 
-The `jonchalant/headline-needs-render` ESLint rule flags any `.headline` member
-expression used directly in JSX that is not wrapped in `renderHeadline()` and not
+The `jonchalant/headline-needs-render` ESLint rule flags any raw headline-like
+string used directly in JSX that is not wrapped in `renderHeadline()` and not
 passed to a safe-consumer component. It does **not** flag boolean guards
 (`{x?.headline && <jsx>}`) or values inside `JSON.stringify()`.
 
@@ -233,10 +235,6 @@ When you add a component that accepts a headline string and calls
 
 1. `DEFAULT_SAFE_CONSUMERS` in `eslint-plugin-jonchalant/rules/headline-needs-render.js`
 2. The `safeConsumers` list in `eslint.config.mjs` (if overridden there)
-
-The allowlist still contains names of deleted components. That is harmless — an
-allowlist entry for a nonexistent element never matches — but prune them when
-next editing the rule.
 
 ---
 
@@ -256,10 +254,6 @@ hierarchy on pages with multiple darker sections:
 When introducing a new dark or warm-tinted section, choose the tier that preserves
 the page's existing rhythm. If the page has a `--mocha-deep` climax already, new
 dark-tinted content uses `--mocha-mid`.
-
-The legacy `--bg-dark` (`#0a0a0a`) token exists in `variables.css` but is not used
-by any current section and should not be introduced without an explicit design
-decision.
 
 ### SectionWrapper Variants
 
@@ -297,6 +291,7 @@ NOT interchangeable.
 - Used for the *one dramatically scaled type moment per page* — the held-breath
   moment where stillness is the point
 - No motion of its own
+- Currently used on `app/page.tsx`, the only live page with a kinetic moment
 
 ### `KineticHeading` Component — Animated Section Title
 
@@ -350,59 +345,30 @@ section weight is the design flatness the system explicitly fights against.
 
 ---
 
-## Route Groups
+## Routes
 
 ```text
 app/
-├── (marketing)/    ← Navbar + Footer layout (public pages)
-│   ├── layout.tsx
-│   ├── page.tsx      (PLACEHOLDER — "Under redesign")
-│   ├── about/        (PLACEHOLDER)
-│   ├── contact/      (PLACEHOLDER — mailto, no form)
-│   ├── privacy/
-│   └── blog/, blog/[slug]/
-├── api/            ← 3 routes: health, subscribe, sentry-example-api
-├── layout.tsx, not-found.tsx, global-error.tsx, robots.ts, sitemap.ts
-└── sentry-example-page/
+├── layout.tsx           (Navbar + SiteFooter wrap all pages — no route groups)
+├── page.tsx              (PLACEHOLDER — landing)
+├── about/page.tsx         (PLACEHOLDER)
+├── contact/page.tsx       (mailto, no form)
+├── privacy/page.tsx       (current — two honest paragraphs)
+├── api/
+│   ├── health/            (liveness probe — no upstream to check anymore)
+│   └── sentry-example-api/ (Sentry's own verification route)
+├── sentry-example-page/    (Sentry's own verification page)
+├── error.tsx, global-error.tsx, not-found.tsx
+├── robots.ts, sitemap.ts
+└── globals.css, css/       (9 system files + 2 page-scoped)
 ```
 
-There is no `(portal)` route group, no `admin/`, and no `middleware.ts` — all
-retired with the client area.
+There was previously a `(marketing)` route group; it existed to separate
+marketing pages from a `(portal)` group. Once the portal was deleted, the
+group was the only one left and was flattened into the app root.
 
----
-
-## CSS System
-
-### Layer Order
-
-Defined in `globals.css`:
-
-```text
-@layer reset → variables → base → components → utilities → interactive
-```
-
-### 9 System CSS Files
-
-| File | Purpose |
-|------|---------|
-| `variables.css` | Design tokens: colors, spacing, fonts, gradients |
-| `base.css` | HTML/body resets |
-| `components.css` | Buttons, badges, FAQ, section-header utils |
-| `typography.css` | Text hierarchy |
-| `layout.css` | Grid systems, flexbox, sidebar |
-| `cards.css` | All card types |
-| `sections.css` | Hero, carousel, CTA sections |
-| `utilities.css` | Spacing, responsive breakpoints, placeholder-page styles |
-| `interactions.css` | Hover states, transitions, animations |
-
-### 3 Page-Scoped CSS Files
-
-`pages-blog.css` | `pages-contact.css` | `pages-forms.css`
-
-The system files still contain rules for deleted coaching sections. That dead CSS
-was left in place deliberately — surgically unpicking it risks breaking preserved
-primitives for no runtime benefit, and the redesign will rewrite these files
-anyway. Do not treat an unused selector here as a live pattern.
+There is no `sanity/` directory, no `/blog`, no `admin/`, and no
+`middleware.ts`.
 
 ---
 
@@ -423,10 +389,10 @@ anyway. Do not treat an unused selector here as a live pattern.
 Semantic aliases: `--accent-primary` → `var(--mocha-mousse)`; `--accent-hover` →
 `var(--mocha-deep)`; `--accent-tertiary` → `var(--sage-whisper)`.
 
-`variables.css` still defines `--quadrant-*` (ikigai) and `--fc-tier-*` (Four
-Circles) token blocks. Nothing consumes them. They were left rather than pruned
-because they are pure aliases onto preserved palette tokens and carry no risk;
-prune them when next editing the file.
+The `--quadrant-*` (ikigai), `--fc-tier-*` (Four Circles), and `--admin-status-*`
+token blocks that used to live here — kept through the first retirement pass as
+harmless aliases — were deleted in the second-pass CSS audit. If you need
+something like them again, that's a fresh design decision, not a restoration.
 
 ---
 
@@ -435,9 +401,13 @@ prune them when next editing the file.
 ### Placement Rules
 - **Shared primitives** → `components/ui/` (Button, FormField, FormMessage,
   SectionHeader, SectionIntro, FeatureList)
-- **Cross-page composite sections** → `components/shared/{name}/`
-- **Page-specific sections** → `components/sections/{page}/`
-- **Utility components** → `components/utilities/{category}/`
+- **Cross-page composite sections** → `components/shared/{name}/` (CTA, FAQ,
+  Hero, PageHero, Carousel, KineticMoment, Bento, CopyButton)
+- **Page-specific sections** → `components/sections/{page}/` (currently empty —
+  no page has bespoke sections; everything renders through shared primitives
+  or is a placeholder)
+- **Utility components** → `components/utilities/{category}/` (badges, cursor,
+  grids)
 - Each component gets its own folder with `ComponentName.tsx` + `index.ts`
 
 ### Standard Primitives
@@ -451,6 +421,8 @@ prune them when next editing the file.
 
 `CookieConsent`, `MochaSweep`, and `MochaCursor` are mounted in the root
 `app/layout.tsx` as global UI; they are not composed by individual pages.
+`Navbar` and `SiteFooter` are also mounted directly in the root layout — there
+is no separate marketing layout anymore.
 
 ### Page Wrapper Pattern
 ```tsx
@@ -480,56 +452,24 @@ New card → `cards.css` | New section → `sections.css` | Page-specific →
 | `SKILL.md` | Design rules for future work in this system |
 | `README.md` | Design system overview |
 
-`canonical-copy.md` moved to `coaching-archive/design-system/`.
-
 ---
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `lib/sanity.ts` | Sanity client + the remaining `get*()` fetchers |
-| `lib/types.ts` | Shared TypeScript interfaces |
-| `lib/schema.ts` | JSON-LD structured data |
-| `lib/env.ts` | Zod-validated typed access to server environment variables |
+| `lib/design-tokens.ts` | Design token values shared with a couple of components |
+| `lib/schema.ts` | JSON-LD structured data (Person, Organization, FAQ) |
+| `lib/env.ts` | Zod-validated environment schema, validate-on-boot side effect only |
 | `lib/navData.ts` | `NAV_LINKS`, `MOBILE_LINKS` — consumed by `Navbar.tsx` |
-| `lib/footerData.ts` | `FOOTER_NAV`, `FALLBACK_SOCIAL` — consumed by `SiteFooter.tsx` |
+| `lib/footerData.ts` | `FOOTER_NAV`, `FALLBACK_SOCIAL`, `CONTACT_EMAIL` — consumed by `SiteFooter.tsx` |
 | `lib/render-headline.tsx` | `renderHeadline()` — `{{anchor}}` → `<em>` |
-| `lib/typography.tsx` | `withAnchorWords()` presentational helper |
-| `lib/hooks/` | 9 custom hooks |
-| `components/sections/index.ts` | Central export hub for sections |
+| `lib/hooks/` | `useScrollAnimation`, `useScrollTrigger` — imported by subpath (`@/lib/hooks/useX`), never through a barrel; there is no `lib/hooks/index.ts` |
+| `components/sections/index.ts` | Central export hub for shared sections |
 
-There is no database. `lib/portal-progress.ts`, `lib/ikigai-results.ts`,
-`lib/auth-context.tsx`, and `utils/supabase/` were removed with the portal.
-
----
-
-## Sanity CMS
-
-Schemas live in `sanity/schemas/`, registered in `sanity/schemas/index.ts`:
-
-- **Page singletons** (`documents/pages/`): `pageBlog`
-- **Shared singletons** (`documents/shared/`): `siteConfig`, `newsletterCapture`
-- **Content list documents**: `blogPost`
-- **Object types** (`objects/`): `cta`, `link`, `hero`, `sectionHeader`,
-  `ctaBlock`, `kineticMoment`, `faqItem`
-
-Fetchers live in `lib/sanity.ts`: `getPageBlog()`, `getSiteConfig()`,
-`getNewsletterCapture()`, `getRecentBlogPosts()`.
-
-**Studio-loader rule:** every `listItem` in `sanity/structure.ts` must reference a
-type that still exists in `schemas/index.ts`. A stale reference there is what makes
-Studio throw "schema type not found" on load. This bit during the retirement and
-will bite again.
-
-**Dataset state:** the schemas are deleted but the *documents* may still be in the
-production dataset — invisible in Studio, but present. `coaching-archive/sanity/`
-holds a dry-run-by-default script and instructions to remove them. Check whether
-it has been run before assuming the dataset is clean.
-
-The blog content model is unfinished. `blogPost.category` was dropped without a
-replacement taxonomy; existing documents carry orphan values that are ignored.
-This is deferred to the redesign, not an oversight.
+There is no database and no CMS. `lib/types.ts`, `lib/typography.tsx`,
+`lib/imageConfig.ts`, `lib/rate-limit.ts`, and 7 of the 9 original hooks were
+deleted in the second-pass `lib/` audit — each had zero real importers.
 
 ---
 
