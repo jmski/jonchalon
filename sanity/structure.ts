@@ -1,7 +1,14 @@
 // Document model:
 //   - Page singletons (page*): one per route, listed in "Pages" group
 //   - Reusable singletons: referenced from multiple pages, listed in "Shared content"
-//   - Listed types: collections (posts, courses, case studies, testimonials)
+//   - Listed types: collections (posts)
+//
+// Retirement note (2026-08-19): the coaching business was retired. The Pages
+// group is down to Blog, the Foundation / Curriculum / Podcast groups are gone,
+// and the case-study, testimonial, course, lesson, and module listings went with
+// their schemas. Every listItem below must reference a type that still exists in
+// schemas/index.ts — a stale reference here is exactly what makes Studio throw
+// "schema type not found" on load.
 
 import type { StructureResolver, StructureBuilder } from 'sanity/structure'
 
@@ -26,22 +33,14 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
     .items([
-      // ── Pages (IA order, not alphabetical) ─────────────────────────────────
+      // ── Pages ──────────────────────────────────────────────────────────────
       S.listItem()
         .title('Pages')
         .child(
           S.list()
             .title('Pages')
             .items([
-              singleton(S, 'pageHome', 'Home'),
-              singleton(S, 'pageAbout', 'About'),
-              singleton(S, 'pageIkigai', 'Ikigai'),
-              singleton(S, 'pageFoundation', 'Foundation'),
-              singleton(S, 'pagePrograms', 'Programs'),
-              singleton(S, 'pageLessons', 'Lessons'),
               singleton(S, 'pageBlog', 'Blog'),
-              singleton(S, 'pageContact', 'Contact'),
-              singleton(S, 'pageAudit', 'Audit'),
             ]),
         ),
 
@@ -52,34 +51,8 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Shared content')
             .items([
-              singleton(S, 'starterGuideCapture', 'Foundation Starter Guide capture'),
-              singleton(S, 'newsletterCapture', 'Newsletter capture (Tuesdays)'),
-              singleton(S, 'auditCta', 'Audit CTA'),
-              singleton(S, 'pillarSet', 'Pillar definitions'),
-              singleton(S, 'fourCirclesSet', 'Four Circles definitions'),
+              singleton(S, 'newsletterCapture', 'Newsletter capture'),
               singleton(S, 'siteConfig', 'Site configuration (nav, footer, microcopy)'),
-            ]),
-        ),
-
-      S.listItem()
-        .title('Foundation')
-        .child(
-          S.list()
-            .title('Foundation')
-            .items([
-              singleton(S, 'program', 'Program Config', 'program'),
-              S.documentTypeListItem('standaloneModule').title('Standalone Modules'),
-              S.listItem()
-                .title('Stages')
-                .child(
-                  S.list()
-                    .title('Stages')
-                    .items([
-                      singleton(S, 'stage', 'The Climb', 'climb'),
-                      singleton(S, 'stage', 'The Vantage', 'vantage'),
-                      singleton(S, 'stage', 'The Leap', 'leap'),
-                    ]),
-                ),
             ]),
         ),
 
@@ -92,36 +65,5 @@ export const structure: StructureResolver = (S) =>
           S.documentTypeList('blogPost')
             .title('Posts')
             .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }]),
-        ),
-      S.documentTypeListItem('course').title('Courses'),
-
-      // ── Curriculum content (supports course detail pages) ──────────────────
-      S.listItem()
-        .title('Curriculum content')
-        .child(
-          S.list()
-            .title('Curriculum content')
-            .items([
-              S.documentTypeListItem('module').title('Modules'),
-              S.documentTypeListItem('courseLesson').title('Course lessons'),
-              S.documentTypeListItem('lesson').title('Lessons (legacy listing)'),
-            ]),
-        ),
-
-      S.documentTypeListItem('caseStudy').title('Case studies'),
-      S.documentTypeListItem('testimonial').title('Testimonials'),
-
-      S.divider(),
-
-      // ── Podcast ────────────────────────────────────────────────────────────
-      S.listItem()
-        .title('Podcast')
-        .child(
-          S.list()
-            .title('Podcast')
-            .items([
-              S.documentTypeListItem('ikiGuy').title('Iki-Guys'),
-              S.documentTypeListItem('podcastEpisode').title('Episodes'),
-            ]),
         ),
     ])

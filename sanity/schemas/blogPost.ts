@@ -23,32 +23,12 @@ export default defineType({
       },
       validation: (Rule: SlugRule) => Rule.required(),
     }),
-    defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
-      description:
-        'Blog category. Determines which filter pill the post appears under on The Archives. Iki-Guys is reserved for posts that are companion writing to podcast episodes or otherwise guest-focused.',
-      options: {
-        list: [
-          { title: 'Movement & Body', value: 'body' },
-          { title: 'Presence & Confidence', value: 'presence' },
-          { title: 'Leadership & Career', value: 'work' },
-          { title: 'The Lab', value: 'lab' },
-          { title: 'Iki-Guys', value: 'iki-guys' },
-        ],
-        layout: 'radio',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'podcastEpisode',
-      title: 'Companion Podcast Episode',
-      type: 'reference',
-      to: [{ type: 'podcastEpisode' }],
-      description:
-        'Optional. If this post accompanies a podcast episode, reference the episode here. Used to render an episode card or "Listen to the conversation" link on the post page, and to surface the post on the episode page. Most posts will not have this — only those written as companion writing to a specific episode.',
-    }),
+    // NOTE: the `category` enum (body / presence / work / lab / iki-guys) and the
+    // `podcastEpisode` reference were removed when the coaching business was
+    // retired. Existing documents may still carry an orphan `category` value —
+    // it is simply ignored, and no migration is required. The blog content model
+    // is due for a rework as part of the portfolio redesign; new taxonomy belongs
+    // in that pass, not here.
     defineField({
       name: 'metaDescription',
       title: 'Meta Description',

@@ -121,7 +121,7 @@ export default defineType({
       type: 'array',
       fieldset: 'formMicrocopy',
       description:
-        'Canonical success messages keyed by form: general, newsletter, starterGuide, contact.',
+        'Canonical success messages keyed by form: general, newsletter, contact.',
       of: [
         defineArrayMember({
           type: 'object',
@@ -136,7 +136,6 @@ export default defineType({
                 list: [
                   { title: 'General', value: 'general' },
                   { title: 'Newsletter', value: 'newsletter' },
-                  { title: 'Starter Guide', value: 'starterGuide' },
                   { title: 'Contact', value: 'contact' },
                 ],
               },
@@ -152,7 +151,11 @@ export default defineType({
           preview: { select: { title: 'key', subtitle: 'message' } },
         }),
       ],
-      validation: (Rule) => Rule.required().length(4),
+      // Was .length(4) when a starterGuide key existed. Relaxed to .min(1) rather
+      // than pinned to .length(3): the live document still carries the retired
+      // starterGuide entry, and a hard length rule would flag it as invalid in
+      // Studio before anyone has had a chance to edit it.
+      validation: (Rule) => Rule.required().min(1),
     }),
   ],
   preview: {

@@ -4,9 +4,6 @@ import hero from './hero'
 import sectionHeader from './sectionHeader'
 import ctaBlock from './ctaBlock'
 import kineticMoment from './kineticMoment'
-import pillarCard from './pillarCard'
-import programCard from './programCard'
-import courseCard from './courseCard'
 import faqItem from './faqItem'
 
 export {
@@ -15,9 +12,7 @@ export {
   hero,
   sectionHeader,
   ctaBlock,
-  pillarCard,
-  programCard,
-  courseCard,
+  kineticMoment,
   faqItem,
 }
 
@@ -28,8 +23,5 @@ export const objectTypes = [
   sectionHeader,
   ctaBlock,
   kineticMoment,
-  pillarCard,
-  programCard,
-  courseCard,
   faqItem,
 ]
