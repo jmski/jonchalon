@@ -1,1 +1,0 @@
-export { WhyWorkTogether } from './WhyWorkTogether';

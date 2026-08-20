@@ -1,1 +1,0 @@
-export { Introvert } from './Introvert';
