@@ -157,3 +157,53 @@ main {
   html { background: white; color: black; }
   a    { color: #000080; text-decoration: underline; }
 }
+
+/* ============================================================================
+   PLACEHOLDER PAGES
+   Temporary, minimal layout for routes awaiting the portfolio redesign:
+   / (landing), /about, /contact. Delete these rules once those pages are built.
+   ============================================================================ */
+
+.home-placeholder,
+.page-placeholder {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding-block: var(--spacing-2xl);
+  text-align: center;
+}
+
+.page-placeholder-title {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.home-placeholder-body,
+.page-placeholder-body {
+  font-size: 1.0625rem;
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-md);
+}
+
+.home-placeholder-links,
+.page-placeholder-links {
+  font-size: 0.9375rem;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.home-placeholder-links a,
+.page-placeholder-links a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color var(--transition-base);
+}
+
+.home-placeholder-links a:hover,
+.page-placeholder-links a:hover {
+  color: var(--accent-hover);
+}
