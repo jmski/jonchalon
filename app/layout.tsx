@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { PersonSchema, OrganizationSchema, LocalBusinessSchema } from "@/lib/schema";
+import { PersonSchema, OrganizationSchema } from "@/lib/schema";
+import { Navbar, SiteFooter } from "@/components/navigation";
 import MochaCursor from "@/components/utilities/cursor/MochaCursor";
 import MochaSweep from "@/components/layout/MochaSweep";
 import CookieConsent from "@/components/layout/CookieConsent";
@@ -25,28 +26,20 @@ export const metadata: Metadata = {
 
   // title.template appends "| Jonchalant" to every page title automatically.
   // Individual pages should omit the "| Jonchalant" suffix from their own title strings.
-  // title.default is used by pages with no metadata export (e.g. portal, login).
+  // title.default is used by pages with no metadata export.
   title: {
-    default: "Jonchalant | Find the Work You Were Meant For",
+    default: "Jonchalant",
     template: "%s | Jonchalant",
   },
 
-  description:
-    "Ikigai assessment and embodiment practice for professionals who are competent, in-demand, and quietly misaligned. Find the work you were meant for — then learn to inhabit it.",
-  keywords: [
-    "ikigai assessment",
-    "find your purpose",
-    "embodiment practice",
-    "corporate professionals",
-    "ikigai framework",
-    "four circles ikigai",
-    "purpose-driven work",
-  ],
+  // Site-level copy is deliberately minimal while the portfolio redesign is
+  // pending. The coaching positioning ("Find the Work You Were Meant For", the
+  // ikigai keyword set) was removed with the business it described.
+  description: "The personal site of Jon. Currently being rebuilt.",
   authors: [{ name: "Jon", url: "https://jonchalant.com/about" }],
   creator: "Jon",
   publisher: "Jonchalant",
 
-  // Default robots directives — auth-gated routes override these with noindex
   robots: {
     index: true,
     follow: true,
@@ -59,33 +52,23 @@ export const metadata: Metadata = {
     },
   },
 
-  // Fallback OG block — individual pages override title/description/url/images
+  // Fallback OG block — individual pages override title/description/url
   openGraph: {
     type: "website",
     siteName: "Jonchalant",
     locale: "en_US",
-    title: "Jonchalant | Find the Work You Were Meant For",
-    description:
-      "Ikigai assessment and embodiment practice for professionals who are competent, in-demand, and quietly misaligned.",
+    title: "Jonchalant",
+    description: "The personal site of Jon. Currently being rebuilt.",
     url: "https://jonchalant.com",
-    images: {
-      url: "/social/og-home-1200x630.png",
-      width: 1200,
-      height: 630,
-      alt: "Jonchalant — Executive Presence Coaching for Introverts",
-      type: "image/png",
-    },
   },
 
-  // Fallback Twitter card — individual pages override title/description/images
+  // Fallback Twitter card — individual pages override title/description
   twitter: {
     card: "summary_large_image",
     site: "@jonchalant",
     creator: "@jonchalant",
-    title: "Jonchalant | Find the Work You Were Meant For",
-    description:
-      "Ikigai assessment and embodiment practice. Find the work you were meant for — then learn to inhabit it.",
-    images: ["/social/og-home-1200x630.png"],
+    title: "Jonchalant",
+    description: "The personal site of Jon. Currently being rebuilt.",
   },
 };
 
@@ -115,7 +98,11 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <MochaCursor />
         <MochaSweep />
-        {children}
+        <Navbar />
+        <main className="main-content" id="main-content">
+          {children}
+        </main>
+        <SiteFooter />
 
         {/* JSON-LD Structured Data — placed at end of body (valid per Google) to avoid
             hydration mismatches from browser extensions that inject scripts into <head> */}
@@ -126,10 +113,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(OrganizationSchema()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(LocalBusinessSchema()) }}
         />
 
         {/* Google Analytics — afterInteractive defers load until the page is interactive.

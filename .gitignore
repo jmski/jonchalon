@@ -20,7 +20,6 @@
 # production
 /build
 /dist
-/sanity/dist
 
 # perf reports & local tooling
 /perf-reports
@@ -38,6 +37,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -55,8 +55,3 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
-
-# Obsidian vault runtime files
-jonchalant-knowledge/.obsidian/workspace.json
-jonchalant-knowledge/.obsidian/workspace-mobile.json
-jonchalant-knowledge/.trash/

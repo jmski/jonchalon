@@ -1,1 +1,0 @@
-export { FourPillars } from './FourPillars';

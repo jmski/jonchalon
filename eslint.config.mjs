@@ -16,8 +16,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Sanity Studio build output — large bundled files, not source
-    "sanity/dist/**",
     // Local ESLint plugin — CJS tooling, not part of the app bundle
     "eslint-plugin-jonchalant/**",
   ]),

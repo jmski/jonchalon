@@ -19,12 +19,6 @@ export default function NotFound() {
       </p>
       <div className="error-state-actions">
         <Button as="link" href="/">Home</Button>
-        <Button as="link" href="/ikigai" variant="secondary">
-          Take the ikigai assessment
-        </Button>
-        <Button as="link" href="/blog" variant="tertiary">
-          Read the blog
-        </Button>
       </div>
       <p className="error-state-detail">
         Looking for something specific?{' '}

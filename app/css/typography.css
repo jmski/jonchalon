@@ -101,23 +101,6 @@ p.lead {
 }
 
 /* ============================================================================
-   TEXT SIZE UTILITIES
-   ============================================================================ */
-
-.text-sm {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--text-tertiary);
-}
-
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1.5;
-  letter-spacing: 0.05em;
-  color: var(--text-tertiary);
-}
-
-/* ============================================================================
    TEXT EMPHASIS
    ============================================================================ */
 
@@ -255,21 +238,6 @@ hr {
 }
 
 /* ============================================================================
-   FONT WEIGHT UTILITIES
-   ============================================================================ */
-
-.font-medium   { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold     { font-weight: 700; }
-
-/* ============================================================================
-   TEXT TRANSFORMATION & ALIGNMENT
-   ============================================================================ */
-
-.uppercase   { text-transform: uppercase; }
-.text-center { text-align: center; }
-
-/* ============================================================================
    Editorial headline system
    .headline-display → hero claims (opsz 144)
    .eyebrow          → small uppercase label above either
@@ -403,16 +371,8 @@ hr {
   color: var(--anchor-on-dark);
 }
 
-.jc-kinetic-frame {
-  padding: var(--spacing-2xl) 2rem;
-}
-
 @media (max-width: 767px) {
   .jc-kinetic {
     font-size: var(--kinetic-size-mobile);
-  }
-
-  .jc-kinetic-frame {
-    padding: 4rem 1.25rem;
   }
 }

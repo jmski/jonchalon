@@ -2,64 +2,9 @@
    UTILITIES.CSS - Color, layout, and responsive helpers
    ============================================================================ */
 
-/* ── COLOR UTILITIES ───────────────────────────────────────────────────────── */
-.bg-primary   { background-color: var(--bg-primary); }
-.bg-secondary { background-color: var(--bg-secondary); }
-.bg-tertiary  { background-color: var(--bg-tertiary); }
-.text-primary  { color: var(--text-primary); }
-.text-tertiary { color: var(--text-tertiary); }
-.text-white    { color: #ffffff; }
-
-/* Group hover variants */
-.group:hover .group-hover\:text-secondary  { color: var(--accent-secondary); }
-.group:hover .group-hover\:text-tertiary   { color: var(--accent-tertiary); }
-.group:hover .group-hover\:border-secondary { border-color: var(--accent-secondary); }
-
-/* ── DISPLAY HEADLINE ──────────────────────────────────────────────────────── */
-.display-lg {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 800;
-  line-height: 1;
-  color: var(--text-primary);
-}
-
-/* ── STAT NUMBERS ──────────────────────────────────────────────────────────── */
-.stat-number {
-  font-family: var(--font-headline);
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 900;
-  line-height: 1;
-  color: var(--accent-primary);
-}
-.stat-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--text-primary);
-  margin-top: 0.5rem;
-}
-
-/* ── SECTION DECORATORS ────────────────────────────────────────────────────── */
-.section-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-primary);
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--accent-primary);
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-/* ── CONTAINER & OVERFLOW ──────────────────────────────────────────────────── */
-.container {
-  max-width: 100%;
-  overflow-x: clip;
-  box-sizing: border-box;
-}
-
+/* ── OVERFLOW ───────────────────────────────────────────────────────────────── */
+/* overflow-x: clip (not hidden) on layout-establishing elements — hidden
+   silently breaks descendant position: sticky. */
 section,
 article,
 main {
@@ -68,36 +13,11 @@ main {
 }
 
 /* ── RESPONSIVE BREAKPOINTS ────────────────────────────────────────────────── */
-@media (min-width: 768px) {
-  .sidebar {
-    flex: 0 0 250px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 0;
-    height: 100%;
-    max-height: 100vh;
-    transform: translateX(0);
-    width: auto;
-    right: auto;
-    left: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-}
-
-@media (max-width: 1023px) {
-  .multi-column { column-count: 2; }
-}
-
 @media (max-width: 767px) {
-  .container    { padding: 0 1rem; }
-  .multi-column { column-count: 1; }
-  .card,
-  .section      { padding: 1.5rem; }
+  .card { padding: 1.5rem; }
 
   button,
   a[role="button"],
-  .nav-link,
   input[type="button"],
   input[type="submit"],
   input[type="reset"] {
@@ -113,47 +33,68 @@ main {
     font-size: 16px; /* Prevents zoom on iOS */
   }
 
-  .sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: auto;
-    width: 250px;
-    height: 100vh;
-    padding: 2rem;
-    box-sizing: border-box;
-    z-index: 51;
-    background-color: var(--bg-secondary);
-    border-left: 1px solid var(--border-color);
-    transform: translateX(100%);
-    transition: transform var(--transition-base);
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-  .sidebar.mobile-open { transform: translateX(0); }
-
   .main-content { padding: 3rem 1.5rem; padding-top: 2.5rem; }
 }
 
 @media (max-width: 639px) {
   .main-content { padding: 1.5rem 1rem; padding-top: 3.5rem; }
-  .sidebar      { width: 100%; right: -100%; }
-  .sidebar.mobile-open { right: 0; }
 }
 
 /* ── PRINT STYLES ──────────────────────────────────────────────────────────── */
 @media print {
   body { background-color: #ffffff; color: #000000; }
-  .no-print,
-  .sidebar,
-  .sidebar-overlay { display: none; }
   .main-content { padding: 0; }
-  .multi-column { column-count: 2; orphans: 2; widows: 2; }
   .main-content h1:not([class*="text-"]) {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
   }
   html { background: white; color: black; }
   a    { color: #000080; text-decoration: underline; }
+}
+
+/* ============================================================================
+   PLACEHOLDER PAGES
+   Temporary, minimal layout for routes awaiting the portfolio redesign:
+   / (landing), /about, /contact. Delete these rules once those pages are built.
+   ============================================================================ */
+
+.home-placeholder,
+.page-placeholder {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding-block: var(--spacing-2xl);
+  text-align: center;
+}
+
+.page-placeholder-title {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.home-placeholder-body,
+.page-placeholder-body {
+  font-size: 1.0625rem;
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-md);
+}
+
+.page-placeholder-links {
+  font-size: 0.9375rem;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.page-placeholder-links a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color var(--transition-base);
+}
+
+.page-placeholder-links a:hover {
+  color: var(--accent-hover);
 }
