@@ -35,11 +35,9 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-subtle: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Line Heights - Editorial */
   --leading-tight: 1.3;
-  --leading-normal: 1.5;
   --leading-relaxed: 1.8;
   --leading-editorial: 1.9;
 }
@@ -50,7 +48,6 @@
   --bg-primary:   #F4EBE0;
   --bg-secondary: #EFE4D6;
   --bg-tertiary:  #E8D9C7;
-  --bg-warm:      #EFE4D6;
   --bg-light:     #FFFFFF;
 
   /* Text — Espresso family */
@@ -88,51 +85,13 @@
   /* Shadow & overlay */
   --shadow-md:       0 4px 12px rgba(0, 0, 0, 0.06);
   --shadow-lg:       0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-hover:    0 4px 16px rgba(164, 120, 100, 0.25);
   --shadow-soft:     0 4px 16px rgba(164, 120, 100, 0.10);
-  --shadow-program-hover: 0 8px 28px rgba(164, 120, 100, 0.12);
-  --focus-ring:      0 0 0 3px rgba(164, 120, 100, 0.24);
-  --focus-ring-soft: 0 0 0 3px rgba(164, 120, 100, 0.12);
   --overlay-light:   rgba(164, 120, 100, 0.05);
   --tracking-widest: 0.15em;
 
   /* Kinetic + editorial headline sizing (Fraunces opsz 144) */
   --kinetic-size:        clamp(2.6rem, 6.2vw, 5.25rem);
   --kinetic-size-mobile: clamp(1.8rem, 7vw, 2.4rem);
-  --hero-headline-size:  clamp(2.4rem, 6.2vw, 5rem);
-  --hero-headline-long:  clamp(2rem, 4.5vw, 3.6rem);
-
-  /* Dark section (used on select inset sections) */
-  --bg-dark:                #0a0a0a;
-}
-
-/* ========== IKIGAI QUADRANT TOKENS ========== */
-:root {
-  --quadrant-passion:    var(--mocha-deep);      /* #6B4F3F */
-  --quadrant-mission:    var(--mocha-mousse);    /* #A47864 */
-  --quadrant-vocation:   var(--accent-secondary); /* #B89A5F */
-  --quadrant-profession: var(--sage-whisper);    /* #8A9A85 */
-}
-
-/* ========== FOUR CIRCLES TIER BADGE TOKENS ========== */
-:root {
-  --fc-tier-basic-bg:        #E8F5E2;
-  --fc-tier-basic-text:      #3D6B3A;
-  --fc-tier-challenging-bg:  #F5EDDE;
-  --fc-tier-challenging-text:#7A5B20;
-  --fc-tier-hardest-bg:      #EDE8F5;
-  --fc-tier-hardest-text:    var(--mocha-deep);
-}
-
-/* ========== ADMIN DASHBOARD STATUS TOKENS ========== */
-:root {
-  --admin-status-new:        #3B82F6; /* blue */
-  --admin-status-contacted:  #F59E0B; /* amber */
-  --admin-status-interested: #10B981; /* emerald */
-  --admin-status-closed:     #8B5CF6; /* violet */
-  --admin-status-response:   #06B6D4; /* cyan */
-  --admin-danger:            #DC2626;
-  --admin-danger-border:     #FECACA;
 }
 
 /* ========== GRADIENT TOKENS ========== */
